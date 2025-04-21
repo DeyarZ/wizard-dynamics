@@ -29,27 +29,33 @@ export function useReducedMotion(): boolean {
  * Hook to check if an element is in the viewport
  */
 export function useInView(options?: IntersectionObserverInit) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [isInView, setIsInView] = useState<boolean>(false);
+  const ref = useRef<Element | null>(null);
+  const [isInView, setIsInView] = useState(false);
   
   useEffect(() => {
     if (!ref.current) return;
     
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsInView(entry.isIntersecting);
-    }, {
+    // Store reference to the DOM element
+    const currentElement = ref.current;
+    
+    const callback: IntersectionObserverCallback = (entries) => {
+      entries.forEach(entry => {
+        setIsInView(entry.isIntersecting);
+      });
+    };
+    
+    const observer = new IntersectionObserver(callback, {
       root: null,
       rootMargin: '0px',
       threshold: 0,
       ...options
     });
     
-    observer.observe(ref.current);
+    observer.observe(currentElement);
     
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      // Use the captured reference for cleanup
+      observer.unobserve(currentElement);
     };
   }, [options]);
   

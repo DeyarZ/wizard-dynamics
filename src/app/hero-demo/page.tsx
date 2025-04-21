@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import Link from 'next/link';
 import { DefaultHero, ProductHero, EventHero, MinimalHero } from '../components/sections/HeroSection/variants';
 
 export default function HeroDemo() {
@@ -43,7 +46,7 @@ export default function HeroDemo() {
         <div className="container mx-auto">
           <p>© {new Date().getFullYear()} Wizard Dynamics – Modular Hero Section Demo</p>
           <p className="mt-2">
-            <a href="/" className="text-blue-300 hover:text-blue-100">Back to Home</a>
+            <Link href="/" className="text-blue-300 hover:text-blue-100">Back to Home</Link>
           </p>
         </div>
       </footer>

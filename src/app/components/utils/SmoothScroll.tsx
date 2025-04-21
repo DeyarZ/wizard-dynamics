@@ -92,13 +92,14 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     if (!lenis) return;
     
     // Stop scrolling during heavy animations or in specific sections
-    const handleAnimationStart = () => {
-      lenis.stop();
-    };
+    // Commented out because currently not used
+    // const handleAnimationStart = () => {
+    //   lenis.stop();
+    // };
     
-    const handleAnimationComplete = () => {
-      lenis.start();
-    };
+    // const handleAnimationComplete = () => {
+    //   lenis.start();
+    // };
     
     // Listen for animation events from GSAP
     gsap.ticker.add(() => {

@@ -19,10 +19,13 @@ const Footer = () => {
   useEffect(() => {
     if (!footerRef.current) return;
     
+    // Store a reference to the current element for cleanup
+    const footerElement = footerRef.current;
+    
     // Add glowing effect to the footer background
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: footerRef.current,
+        trigger: footerElement,
         start: "top 80%",
         end: "center center",
         scrub: 1,
@@ -56,12 +59,11 @@ const Footer = () => {
     }
     
     return () => {
-      if (footerRef.current) {
-        const triggers = ScrollTrigger.getAll().filter(
-          trigger => trigger.vars.trigger === footerRef.current
-        );
-        triggers.forEach(trigger => trigger.kill());
-      }
+      // Using the stored reference in cleanup
+      const triggers = ScrollTrigger.getAll().filter(
+        trigger => trigger.vars.trigger === footerElement
+      );
+      triggers.forEach(trigger => trigger.kill());
     };
   }, []);
   

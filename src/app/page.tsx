@@ -566,14 +566,14 @@ export default function Home() {
                   <pre className="text-muted-foreground">
                     <span className="text-blue-400">const</span> <span className="text-green-400">wizards</span> = [<br/>
                     <span className="ml-4">{'{'}</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">name</span>: <span className="text-amber-400">"Max Mustermann"</span>,</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">role</span>: <span className="text-amber-400">"Full-Stack Engineer"</span>,</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">superpower</span>: <span className="text-amber-400">"Schreibt Code in Lichtgeschwindigkeit"</span></span><br/>
+                    <span className="ml-8"><span className="text-blue-400">name</span>: <span className="text-amber-400">&quot;Max Mustermann&quot;</span>,</span><br/>
+                    <span className="ml-8"><span className="text-blue-400">role</span>: <span className="text-amber-400">&quot;Full-Stack Engineer&quot;</span>,</span><br/>
+                    <span className="ml-8"><span className="text-blue-400">superpower</span>: <span className="text-amber-400">&quot;Schreibt Code in Lichtgeschwindigkeit&quot;</span></span><br/>
                     <span className="ml-4">{'}'}</span>,<br/>
                     <span className="ml-4">{'{'}</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">name</span>: <span className="text-amber-400">"Anna Schmidt"</span>,</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">role</span>: <span className="text-amber-400">"UX/Frontend Expertin"</span>,</span><br/>
-                    <span className="ml-8"><span className="text-blue-400">superpower</span>: <span className="text-amber-400">"Macht Benutzer sprachlos"</span></span><br/>
+                    <span className="ml-8"><span className="text-blue-400">name</span>: <span className="text-amber-400">&quot;Anna Schmidt&quot;</span>,</span><br/>
+                    <span className="ml-8"><span className="text-blue-400">role</span>: <span className="text-amber-400">&quot;UX/Frontend Expertin&quot;</span>,</span><br/>
+                    <span className="ml-8"><span className="text-blue-400">superpower</span>: <span className="text-amber-400">&quot;Macht Benutzer sprachlos&quot;</span></span><br/>
                     <span className="ml-4">{'}'}</span><br/>
                     ];
                   </pre>

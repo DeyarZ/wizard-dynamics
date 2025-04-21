@@ -2,10 +2,10 @@
 
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Text, Environment, Float, PerspectiveCamera, OrbitControls, useCursor, MeshDistortMaterial } from '@react-three/drei';
+import { Text, Float, MeshDistortMaterial } from '@react-three/drei';
 import { EffectComposer, Bloom, ChromaticAberration, Noise } from '@react-three/postprocessing';
-import { BlendFunction, Resizer, KernelSize } from 'postprocessing';
-import { Vector3, MathUtils, Euler, Group, Mesh, Object3D, ShaderMaterial } from 'three';
+import { BlendFunction, KernelSize } from 'postprocessing';
+import { Vector3, Group, Mesh, Object3D, ShaderMaterial } from 'three';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import * as THREE from 'three';
@@ -820,7 +820,6 @@ const MagicCursor = () => {
 };
 
 export const ThreeJSHero = () => {
-  const [hasInteracted, setHasInteracted] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -835,7 +834,7 @@ export const ThreeJSHero = () => {
   }, []);
   
   const handleInteraction = () => {
-    setHasInteracted(true);
+    // Handle interaction if needed
   };
   
   return (
