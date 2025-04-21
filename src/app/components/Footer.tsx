@@ -99,7 +99,7 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              Ready to transform your digital presence? Send us a message and we'll connect our magical circuits to yours.
+              Ready to transform your digital presence? Send us a message and we&apos;ll connect our magical circuits to yours.
             </motion.p>
             
             <form 

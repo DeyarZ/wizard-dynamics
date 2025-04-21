@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ThreeJSHero from './components/sections/HeroSection/ThreeJSHero';
 

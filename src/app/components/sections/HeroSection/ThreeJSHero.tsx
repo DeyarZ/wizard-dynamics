@@ -18,22 +18,22 @@ const Terminal = ({ position = [0, 0, 0] as [number, number, number], rotation =
   const [blinkCursor, setBlinkCursor] = useState(true);
   const [isReacting, setIsReacting] = useState(false);
   
-  const terminalLines = [
+  const terminalLines = useMemo(() => [
     "$ wizard --init new-product",
     "Initializing product development environment...",
     "Building innovation framework...",
     "Compiling technical expertise...",
     "Optimizing for maximum efficiency...",
     "Wizard product ready for deployment."
-  ];
+  ], []);
   
-  const reactionLines = [
+  const reactionLines = useMemo(() => [
     "$ detected --user-proximity",
     "Hello there, human!",
     "I'm the Wizard Terminal.",
     "I build the impossible.",
     "Want to see some magic?"
-  ];
+  ], []);
 
   useEffect(() => {
     const handleTerminalHover = () => {
@@ -567,13 +567,23 @@ const MagicCursor = () => {
   const [isActive, setIsActive] = useState(false);
   const [cursorText, setCursorText] = useState("");
   const previousPos = useRef({ x: 0, y: 0 });
-  const particles: React.RefObject<HTMLDivElement | null>[] = [];
+  const [particles, setParticles] = useState<Array<{id: number, color: string}>>([]);
   
-  for (let i = 0; i < 15; i++) {
-    particles.push(useRef<HTMLDivElement>(null));
-  }
+  // Initialize particles once
+  useEffect(() => {
+    const newParticles = [];
+    for (let i = 0; i < 15; i++) {
+      newParticles.push({
+        id: i,
+        color: i % 2 === 0 ? 'bg-[#5bfcff]' : 'bg-[#ff5bfc]'
+      });
+    }
+    setParticles(newParticles);
+  }, []);
   
   useEffect(() => {
+    const particleElements: HTMLDivElement[] = [];
+    
     const handleMouseMove = (e: MouseEvent) => {
       if (cursorRef.current && cursorGlowRef.current) {
         // Calculate movement speed for effects
@@ -601,16 +611,24 @@ const MagicCursor = () => {
           scale: 1 + Math.min(speed / 100, 0.5)
         });
         
+        // Collect particle elements
+        if (particleElements.length === 0 && particlesRef.current) {
+          const elements = particlesRef.current.querySelectorAll('.cursor-particle');
+          elements.forEach(el => {
+            particleElements.push(el as HTMLDivElement);
+          });
+        }
+        
         // Update particles
-        particles.forEach((particle, i) => {
-          if (particle.current) {
+        particleElements.forEach((particle) => {
+          if (particle) {
             // Calculate random offset for each particle
             const offset = {
               x: (Math.random() - 0.5) * 40 * (isHovering ? 1.5 : 1),
               y: (Math.random() - 0.5) * 40 * (isHovering ? 1.5 : 1)
             };
             
-            gsap.to(particle.current, {
+            gsap.to(particle, {
               x: e.clientX + offset.x,
               y: e.clientY + offset.y,
               duration: 0.5 + Math.random() * 0.5,
@@ -639,20 +657,20 @@ const MagicCursor = () => {
       }
       
       // Scatter particles on click
-      particles.forEach(particle => {
-        if (particle.current) {
+      particleElements.forEach(particle => {
+        if (particle) {
           const angle = Math.random() * Math.PI * 2;
           const distance = 50 + Math.random() * 50;
           
-          gsap.to(particle.current, {
+          gsap.to(particle, {
             x: `+=${Math.cos(angle) * distance}`,
             y: `+=${Math.sin(angle) * distance}`,
             opacity: 0,
             duration: 0.5,
             ease: "power2.out",
             onComplete: () => {
-              if (particle.current) {
-                gsap.set(particle.current, { opacity: 0.3 });
+              if (particle) {
+                gsap.set(particle, { opacity: 0.3 });
               }
             }
           });
@@ -741,7 +759,7 @@ const MagicCursor = () => {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [isHovering]);
+  }, [isHovering, particles]);
   
   return (
     <>
@@ -771,13 +789,10 @@ const MagicCursor = () => {
       
       {/* Cursor particles */}
       <div ref={particlesRef} className="pointer-events-none">
-        {particles.map((particle, i) => (
+        {particles.map((particle) => (
           <div 
-            key={i}
-            ref={particle}
-            className={`fixed top-0 left-0 rounded-full z-[9997] pointer-events-none ${
-              i % 2 === 0 ? 'bg-[#5bfcff]' : 'bg-[#ff5bfc]'
-            }`}
+            key={particle.id}
+            className={`cursor-particle fixed top-0 left-0 rounded-full z-[9997] pointer-events-none ${particle.color}`}
             style={{
               width: 2 + Math.random() * 4,
               height: 2 + Math.random() * 4,
