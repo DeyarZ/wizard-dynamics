@@ -1,0 +1,620 @@
+[
+  {
+    "id": "6751618855",
+    "name": "Font Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/00/ba/09/00ba0978-6b0e-b8cc-3792-92d4a31301cc/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6746742418",
+    "name": "Rock Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/28/5f/05/285f05ae-1c88-0e72-e970-999790fa47ea/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749045660",
+    "name": "BFF Test: Real Ones",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ae/f6/a7/aef6a723-112e-7aa0-58ca-ec80bce3a02d/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Lifestyle"
+  },
+  {
+    "id": "6746963502",
+    "name": "WiFi Analyzer: Speed Test",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0d/ab/9e/0dab9ed4-031f-84c8-b5a9-f2bcb22e47c6/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6746742605",
+    "name": "Level Tool: Quick Measure",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/b4/e8/47b4e80b-7231-d383-0a9c-a7b67da5baed/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6747304534",
+    "name": "Cartoon Yourself: Photo to Art",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/94/60/5f/94605f36-686f-9e3e-ce3d-f61ae57a3fa0/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Photo & Video"
+  },
+  {
+    "id": "6748035003",
+    "name": "Image Converter: Photo to JPG",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d3/0d/ce/d30dce75-5af3-48a1-535e-63bc0535b6d0/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6747769665",
+    "name": "Invitation Maker: Easy Create",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/12/62/42/12624203-142c-93f9-e027-8cbe625518f4/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Graphics & Design"
+  },
+  {
+    "id": "6748231778",
+    "name": "Itinerary Planner: Trip Guide",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/df/4c/15/df4c15ed-0711-ec85-c70d-13a643dd1d62/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Travel"
+  },
+  {
+    "id": "6747607858",
+    "name": "Push-up Counter: Daily Reps",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f3/6b/c9/f36bc948-73b5-fc82-6069-76a6211908ed/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6747009409",
+    "name": "Solitaire: Card Classic Game",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/e2/8a/9fe28a81-16bf-c300-245e-687ad5dc0cd2/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Games"
+  },
+  {
+    "id": "6758148553",
+    "name": "Prayer Lock: Noor",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/aa/64/2f/aa642f4d-55bc-7d91-75fe-6431c78cd668/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6747241404",
+    "name": "Bug Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5a/03/eb/5a03eb57-0b21-3c91-50be-abcff6af8f0e/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6751844124",
+    "name": "Poison Ivy Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/38/14/f5/3814f59f-20a9-58e9-e523-d41ccc72f17c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747942709",
+    "name": "Bone Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/55/1b/c5/551bc5ac-412e-60b2-541c-c1c8558c3114/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747877409",
+    "name": "Stamp Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/80/c5/4f/80c54f10-c43e-50ea-cd7d-cbe2388e1f86/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6751461299",
+    "name": "Fossil Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b9/43/f2/b943f241-22be-8044-629d-4f26e5a720bb/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747173344",
+    "name": "Dog Breed Identifier \u2013 AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/99/9b/ac/999bac04-de4b-190a-bd15-d201b78c2f0e/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6746693532",
+    "name": "Fish Identifier \u2013 AI Scanner",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/40/dd/ee/40ddeeb7-dfd6-ba50-111e-3b65d5cb6d3a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749574129",
+    "name": "Chicken Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f9/cb/91/f9cb910b-f6fb-73d8-a497-636d8eda0ea7/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749589344",
+    "name": "Animal Scat Identifier: Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/13/6b/84/136b84a2-b35d-2708-fa7e-befe2becf285/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6748943694",
+    "name": "Sea Shell Identifier \u2013 AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/da/a0/8b/daa08b8d-5295-3ad5-6c74-b97ecfa826f9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752930790",
+    "name": "Cannabis Scan: THC & Kush",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/d1/4f/7dd14f9d-fc80-c935-63c3-ec950cfcf08b/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752799520",
+    "name": "Card Value Scanner: YugiDex",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fb/07/08/fb070839-6217-bb1f-769c-4a3e80a66cdb/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747241101",
+    "name": "Coin Identifier: AI Value Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/32/36/b8/3236b8c1-6f77-2bd7-4b9c-b464bafab9ff/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752597394",
+    "name": "Calendar: Chronos",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4c/7e/b1/4c7eb140-626b-3b22-3ef6-50655df700d7/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6752931056",
+    "name": "Artwork & Paintings Identifier",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4c/14/40/4c1440a3-e519-fe04-1f52-f05ccf51c7cf/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747937127",
+    "name": "Jewelry Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/66/c6/36/66c63645-ddd4-a30e-a81f-a296bce75f90/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6756602556",
+    "name": "No Contact: HealDays",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0f/69/88/0f698825-7ac2-3ab3-c438-5638ea1d4ec6/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6749549375",
+    "name": "Mold Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/73/87/fa/7387fa46-a9d4-74ef-ab5c-17047799e844/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6753721577",
+    "name": "Wedding Planner: BridePlan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6c/b5/e5/6cb5e52d-4546-8450-de15-3bed8d8ea09c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6747941962",
+    "name": "Wood Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/a8/f1/84a8f118-4338-f721-9593-6d367af44a3d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752937354",
+    "name": "MTG Card Scanner: ManaScan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/61/63/b7/6163b753-3386-31a0-a91e-9d8f9042dee6/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6751894660",
+    "name": "Feather Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/90/08/f3/9008f38f-3110-939b-e3fd-91ddc8deb43c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6748983700",
+    "name": "Color Identifier: Smart Picker",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d3/6b/6c/d36b6c1a-1cba-5de7-6947-29e5daca1419/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Graphics & Design"
+  },
+  {
+    "id": "6756181306",
+    "name": "AI Boyfriend: Roleplay Chat",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/23/6d/62/236d6255-ce3f-2a34-73b4-db00b238c6fd/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Entertainment"
+  },
+  {
+    "id": "6746667687",
+    "name": "Pomodoro Timer: Focus & Study",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3e/9e/70/3e9e70a1-cf4b-1905-d262-845737be8829/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6746695443",
+    "name": "Bird Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/85/b9/ae/85b9aebd-04e1-f2a4-df21-41a36a572c45/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6748553668",
+    "name": "Grass Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ef/f7/0a/eff70aef-bd50-3e59-83fa-494726aa297d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749509895",
+    "name": "Butterfly Identifier: Photo ID",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/61/dd/ec/61ddecda-202f-9564-4578-e63282e5e36e/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749888428",
+    "name": "Card Value Scanner: PokeValue",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/df/37/32/df373282-6ae0-37b7-e028-803305d0369b/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6751347343",
+    "name": "Shark Tooth Identifier: Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/db/8f/ae/db8faed0-8a80-f7a1-7a9a-7192658df894/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6758008242",
+    "name": "Calisthenics: CaliFit",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/11/fb/a1/11fba1be-1000-4783-f8f3-8ae37f87c5b2/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6752514733",
+    "name": "Photo Delete Swipe: Cleaner",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/46/a2/be/46a2be59-c61b-dfb6-b542-cea53c6848e9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6747254239",
+    "name": "Tree Identifier: AI Scanner",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/79/12/f9/7912f912-53f6-dc9a-673a-6e14c0d6519a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6748275672",
+    "name": "Mind Map: Flow",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8d/72/d0/8d72d0dd-1568-9b53-30ac-7be0aa37e8de/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6758017636",
+    "name": "Mood Tracker: Moodly",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/99/3f/36/993f36aa-b9d3-eeb5-e774-d855405e98ee/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6748743385",
+    "name": "AI Calorie Tracker: CalorAI",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/cb/ab/cd/cbabcdcd-7daa-e7b8-8380-efd30776300d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6751179886",
+    "name": "Tanning App: SunGlow",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/db/01/ab/db01ab9d-6c06-ab10-01b0-714b0e4f7ceb/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Lifestyle"
+  },
+  {
+    "id": "6757664834",
+    "name": "Games for Cats: Kitty",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1b/86/72/1b8672a1-abea-4852-d8ce-c22aa26d5230/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Games"
+  },
+  {
+    "id": "6757981051",
+    "name": "Migraine Tracker: Relief",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b9/cd/72/b9cd7232-54c7-101a-553f-bccc35463f6c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6757925362",
+    "name": "Bible Chat: Prayer & Scripture",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/29/f8/f2/29f8f2eb-2a91-c01c-592a-603654721e9d/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6757974274",
+    "name": "Invoice Maker: Ledgr",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/56/24/89/562489b7-7b83-f29d-bbab-59d3dff0244c/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6757947952",
+    "name": "Cloud Identifier - AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8a/4e/e5/8a4ee565-ae2c-ea38-8602-cf082a67db60/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6747607672",
+    "name": "Spider Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7b/6a/9b/7b6a9b60-066c-d9ef-65f4-a06963f3c8aa/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6747877767",
+    "name": "Plant Disease Identifier: Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c2/93/de/c293dee6-fa32-9a1c-f136-e0e033339293/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6746026352",
+    "name": "Stoic Wisdom Daily",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/4c/a2/0b4ca291-086d-9503-e805-2f2da43f2549/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6747877947",
+    "name": "Grocery List: Smart Cart",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/77/ba/71/77ba7148-8082-b836-d6eb-e8898fab049a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Shopping"
+  },
+  {
+    "id": "6748003766",
+    "name": "Gratitude Journal: Calm Mind",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d4/09/0c/d4090c2a-1474-d458-ac2c-66e445d4096b/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6752575834",
+    "name": "Octoberfest Guide",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7e/34/06/7e340646-18db-b674-9225-ec1c382f12d4/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Travel"
+  },
+  {
+    "id": "6752331224",
+    "name": "Budget App: Cashly",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ff/b3/58/ffb358ca-eaae-7dcc-b19a-0c08e17f90b5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Finance"
+  },
+  {
+    "id": "6747572184",
+    "name": "Daily Bible Verse: Prayers",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/17/b1/4b/17b14b9e-3ab8-8d88-d1ac-c9f795c2d9ae/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6746069701",
+    "name": "Trip Planner AI: LocaLens",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a4/c3/33/a4c33392-59f2-41b5-2c1f-a8ce22a539f5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Travel"
+  },
+  {
+    "id": "6746098574",
+    "name": "Genesis: The Bible Journal App",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7e/5c/67/7e5c67f4-5358-4f69-eed8-bb4a55799629/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Book"
+  },
+  {
+    "id": "6748387231",
+    "name": "Quit Smoking: Now",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/11/15/83/11158356-411c-8142-3d92-caba3faca68a/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6754224806",
+    "name": "Thanksgiving: Gobblo",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/31/a4/a9/31a4a9c4-d67f-6afc-3307-13cefc828c1c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Lifestyle"
+  },
+  {
+    "id": "6740612619",
+    "name": "Fokus & Disziplin: Daimonion",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3b/a4/7b/3ba47b76-6491-57c8-b14b-c18745c1e9cc/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6748540688",
+    "name": "Crystal Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a9/d8/3a/a9d83a57-cda6-f436-5b2c-64f1ac2caf49/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752571044",
+    "name": "Wine Scan: Tracker & Rating",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8d/2a/ff/8d2afffb-40c6-cc33-10c3-f021c6598abe/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Lifestyle"
+  },
+  {
+    "id": "6751416816",
+    "name": "Banknote Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/69/93/4a/69934af2-d631-69bb-a15b-6cf8b94cc443/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6753066373",
+    "name": "Identify Anything: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8f/f6/0d/8ff60d64-8ac0-9f4d-7721-e2a3d7db8896/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6746098437",
+    "name": "Movie Picker AI: StreamVibe",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/69/7b/be/697bbe5d-a394-7ddf-8b38-6742a20378a7/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Entertainment"
+  },
+  {
+    "id": "6749434506",
+    "name": "Nature Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2c/08/11/2c081185-62b8-b9eb-920b-f49294aae7dc/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6752561542",
+    "name": "Eye Color Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7c/11/4e/7c114e60-6257-5cf1-68c4-3bee2311c124/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Photo & Video"
+  },
+  {
+    "id": "6747173490",
+    "name": "Cat Breed Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c3/69/49/c3694980-1159-4193-e247-5eccc1aa06f0/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749066821",
+    "name": "Relationship Tracker: Us Time",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/db/c1/d3/dbc1d3c9-6784-a885-2774-d194ff0a9436/AppIcon-0-0-1x_U007emarketing-0-11-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Lifestyle"
+  },
+  {
+    "id": "6751564028",
+    "name": "Tattoo AI: InkVision",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/64/f6/a4/64f6a400-b764-648a-cc79-b052eec2678a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Graphics & Design"
+  },
+  {
+    "id": "6757227536",
+    "name": "Chemistry Solver: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/fc/14/45fc141f-9c47-f708-4ad8-59539b4dabc7/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6757380377",
+    "name": "Book Tracker: ReadLog",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2e/e8/ab/2ee8ab40-6329-c5dd-5e6d-b0a7124ee9c9/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "genre": "Book"
+  },
+  {
+    "id": "6757467552",
+    "name": "Weight Tracker: Weighy",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9b/3e/c0/9b3ec005-ae6a-72e1-096f-d7adce96709b/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6757249720",
+    "name": "Physics AI - Homework Solver",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7b/28/80/7b2880e9-0faf-090f-449d-ecedfb5662a7/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6749162156",
+    "name": "Antique Identifier: ID Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/67/7f/47677f38-8287-6fc1-b651-80556d595fe1/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6755877301",
+    "name": "AI Girlfriend: Roleplay Chat",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/71/ca/3b/71ca3b04-e27f-c86b-9435-0659a40a0cda/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Entertainment"
+  },
+  {
+    "id": "6748526259",
+    "name": "Bird Egg Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/37/2c/64/372c6483-4a87-ffe8-8875-ff5ce18c427b/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6757227665",
+    "name": "Homework Solver: AI Math",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/52/41/3d/52413d72-6c00-435d-90ba-9bb013e5b769/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6757264662",
+    "name": "Biology AI - Homework Solver",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d9/d1/10/d9d110aa-4fa9-2a57-ba62-6454939bfab9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Education"
+  },
+  {
+    "id": "6746695510",
+    "name": "Snake Identifier: AI Scanner",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0c/b0/fb/0cb0fb05-d5bb-1e9a-563c-020700355c6a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6748526181",
+    "name": "Seed Identifier: AI Scan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/eb/17/ba/eb17ba72-b70f-d77d-cdb1-ac86b97acfa9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6757422332",
+    "name": "e Sign: PDF Signature",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4c/cd/f6/4ccdf627-b042-1d00-79dd-074f726199e2/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6751435550",
+    "name": "Boxing Timer: Fight Intervals",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b8/e4/de/b8e4ded1-dce0-8ef2-2c93-5e4bdc3ed84c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Sports"
+  },
+  {
+    "id": "6748846913",
+    "name": "Alarm Clock: Snap-to-Stop",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/01/a7/78/01a77880-1c83-1460-ae77-1c79e47e6203/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6749819099",
+    "name": "Image Converter Quick",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d5/26/96/d5269648-29fc-7312-5931-816f9e5990f1/AppIcon-0-0-85-220-0-1-0-2x.png/512x512bb.png",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6751803077",
+    "name": "AI Story Generator: StoryForge",
+    "icon": "",
+    "genre": "Other"
+  },
+  {
+    "id": "6752328288",
+    "name": "Password Manager: SafeKey",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c9/bc/b7/c9bcb709-6f94-70e3-63ef-e84d2fbbf7cc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6747641386",
+    "name": "Inventory Tracker: Smart Stock",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0c/09/1f/0c091fd0-d179-37a9-f3c0-d2bf635b4f40/AppIcon-0-0-1x_U007emarketing-0-11-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6752509759",
+    "name": "Background Remover: Cutouty",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/25/e4/43/25e443a9-d5fc-120f-4e2c-3b02686f4c55/AppIcon-0-0-1x_U007emarketing-0-11-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Photo & Video"
+  },
+  {
+    "id": "6751972703",
+    "name": "Metal Detector Scanner: MSense",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5a/63/64/5a636410-5919-015e-52e6-1ed9836fa575/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6749179087",
+    "name": "Intermittent Fasting: Plan",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9b/18/48/9b1848de-9f48-e203-3eb9-3462c5151ff4/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Health & Fitness"
+  },
+  {
+    "id": "6749456244",
+    "name": "Image to PDF: Converter",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ac/ee/7e/acee7e85-7815-73b4-06f4-5242c271242e/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Reference"
+  },
+  {
+    "id": "6749477275",
+    "name": "Clipboard Manager: ClipMaster",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8e/b4/2d/8eb42d54-ae90-35ca-54c5-cab70102ea49/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6749324775",
+    "name": "To Do List: Structured",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3c/60/55/3c6055e7-3166-41c1-e16d-fbf00a323890/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png",
+    "genre": "Productivity"
+  },
+  {
+    "id": "6747579555",
+    "name": "Currency Converter: Live Rate",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/35/7e/47357ecb-2dc1-3794-5ac9-1537add58549/AppIcon-0-0-1x_U007emarketing-0-11-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  },
+  {
+    "id": "6746688109",
+    "name": "Tip Calculator: Fair Share",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d6/80/74/d68074d8-1ff0-7dab-ab08-844a6f138d02/AppIcon-0-0-1x_U007emarketing-0-11-0-0-85-220.png/512x512bb.jpg",
+    "genre": "Utilities"
+  }
+]
