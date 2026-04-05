@@ -3,6 +3,7 @@ import Image from "next/image";
 import ParticleCanvas from "./components/ParticleCanvas";
 import ScrollReveal from "./components/ScrollReveal";
 import AnimatedCounter from "./components/AnimatedCounter";
+import HeroSection from "./components/HeroSection";
 
 const stats = [
   { value: "100+", label: "Apps Built" },
@@ -40,50 +41,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-16">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="space-y-8">
-            <ScrollReveal delay={0.1}>
-              <p className="font-mono text-xs tracking-[0.3em] text-[#b4a896]/80 uppercase">
-                Munich-based product studio
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2}>
-              <h1 className="font-mono text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95]">
-                <span className="text-[#e8e6e3]">We build things</span>
-                <br />
-                <span className="bg-gradient-to-r from-[#c9b99a] via-[#e8d5b5] to-[#b4a896] bg-clip-text text-transparent">
-                  that make money.
-                </span>
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.4}>
-              <p className="font-sans text-lg sm:text-xl text-[#e8e6e3]/40 max-w-xl leading-relaxed">
-                Apps. SaaS. Content. Whatever needs building.
-                We ship fast, optimize obsessively, and let the
-                numbers do the talking.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.5}>
-              <div className="flex gap-4 pt-4">
-                <Link
-                  href="https://apps.wizarddynamics.com"
-                  className="font-mono text-sm tracking-wider px-8 py-4 bg-[#e8e6e3] text-[#0c0c0f] hover:bg-[#e8e6e3]/90 transition-colors"
-                >
-                  SEE WHAT WE BUILT →
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-          <div className="w-px h-16 bg-gradient-to-b from-transparent via-[#e8e6e3]/15 to-transparent animate-pulse" />
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Stats */}
       <section className="border-y border-[#e8e6e3]/5">
