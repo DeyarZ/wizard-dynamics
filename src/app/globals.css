@@ -2,7 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: #ffffff;
-  color: #111827;
+  background: #0c0c0f;
+  color: #e8e6e3;
+}
+
+::selection {
+  background: rgba(139, 129, 112, 0.4);
+  color: #fff;
+}
+
+/* Glow effect for stats */
+.stat-glow {
+  text-shadow: 0 0 40px rgba(180, 170, 150, 0.15);
+}
+
+/* Subtle grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
 }

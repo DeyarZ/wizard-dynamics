@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
-  title: "Wizard Dynamics — App Studio",
-  description: "We build apps people love. 100+ iOS apps, millions of downloads.",
+  title: "Wizard Dynamics",
+  description:
+    "100+ apps built. $210K+ ARR. Two founders, one AI, zero meetings. Munich.",
   openGraph: {
-    title: "Wizard Dynamics — App Studio",
-    description: "We build apps people love. 100+ iOS apps, millions of downloads.",
+    title: "Wizard Dynamics",
+    description:
+      "100+ apps built. $210K+ ARR. Two founders, one AI, zero meetings. Munich.",
     type: "website",
   },
 };
@@ -20,8 +30,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+    <html lang="en" className="dark">
+      <body
+        className={`${jetbrains.variable} ${inter.variable} antialiased bg-[#0c0c0f] text-[#e8e6e3]`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
