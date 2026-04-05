@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   title: "Wizard Dynamics",
   description:
     "100+ apps built. $210K+ ARR. Two founders, one AI, zero meetings. Munich.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Wizard Dynamics",
     description:

@@ -20,9 +20,18 @@ export default function Home() {
       {/* Nav */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-[#0c0c0f]/80 border-b border-[#e8e6e3]/5">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-mono text-sm tracking-wider text-[#e8e6e3]/90">
-            WIZARD DYNAMICS
-          </span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/logo-wd.png"
+              alt="WD"
+              width={32}
+              height={28}
+              className="brightness-110"
+            />
+            <span className="font-mono text-sm tracking-wider text-[#e8e6e3]/90">
+              WIZARD DYNAMICS
+            </span>
+          </Link>
           <div className="flex gap-8 text-xs font-mono tracking-wider text-[#e8e6e3]/30">
             <a href="#work" className="hover:text-[#e8e6e3] transition-colors">
               WORK
