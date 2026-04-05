@@ -21,8 +21,8 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-[#0c0c0f]/80 border-b border-[#e8e6e3]/5">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/logo-wd.png"
+            <img
+              src="/logo-wd.svg"
               alt="WD"
               width={32}
               height={28}
