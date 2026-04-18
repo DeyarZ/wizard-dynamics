@@ -9,7 +9,7 @@ export default function WhatWeDo() {
     {
       num: "02 / Grow",
       title: "Grow.",
-      desc: "Paid acquisition, organic, content, ASO. 15K followers and 1M+ views didn't happen by accident.",
+      desc: "Paid acquisition, organic, content, ASO. 20K followers and 1.5M+ views didn’t happen by accident.",
       tags: ["Performance", "ASO", "Content", "Analytics"],
     },
     {

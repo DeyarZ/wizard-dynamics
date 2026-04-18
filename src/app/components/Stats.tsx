@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-function Counter({ target, suffix }: { target: number; suffix: string }) {
+function Counter({ target, suffix, decimals = 0 }: { target: number; suffix: string; decimals?: number }) {
   const [v, setV] = useState(0);
   const started = useRef(false);
   const ref = useRef<HTMLSpanElement>(null);
@@ -32,7 +32,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
     return () => obs.disconnect();
   }, [target]);
 
-  const display = target < 10 ? v.toFixed(0) : Math.round(v).toString();
+  const display = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString();
   return <span ref={ref}>{display}{suffix}</span>;
 }
 
@@ -50,15 +50,15 @@ export default function Stats() {
           <div className="stat-label">Apps built</div>
         </div>
         <div className="stat">
-          <div className="stat-num">$<Counter target={210} suffix="K+" /></div>
+          <div className="stat-num">$<Counter target={240} suffix="K+" /></div>
           <div className="stat-label">ARR</div>
         </div>
         <div className="stat">
-          <div className="stat-num"><Counter target={1} suffix="M+" /></div>
+          <div className="stat-num"><Counter target={1.5} suffix="M+" decimals={1} /></div>
           <div className="stat-label">Views</div>
         </div>
         <div className="stat">
-          <div className="stat-num"><Counter target={15} suffix="K+" /></div>
+          <div className="stat-num"><Counter target={20} suffix="K+" /></div>
           <div className="stat-label">Followers</div>
         </div>
       </div>

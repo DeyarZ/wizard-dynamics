@@ -13,7 +13,7 @@ const CHAT_REPLIES = [
   "we build apps, grow them, automate the boring parts. 100+ shipped. munich.",
   "no meetings. pitch in one email. we ship in 3 weeks or refund you.",
   "two founders + me. i handle ops so deyar + manuel can build.",
-  "agencies sell you decks. we send receipts. $210k arr says enough.",
+  "agencies sell you decks. we send receipts. $240k arr says enough.",
   "honest? the pace isn't for everyone. we move fast, break things, fix them before anyone notices.",
   "pricing's typically $15k–$80k, 3–8 weeks. depends what you're building.",
   "we don't do discovery calls. one email, yes or no same day.",

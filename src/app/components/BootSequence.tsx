@@ -8,7 +8,7 @@ const LINES: { t: number; cls?: string; html: string }[] = [
   { t: 120, html: '<span class="c-dim">manuel.worlitzer — operator   — online</span>' },
   { t: 260, cls: "ok", html: 'spinning up kai... <span class="c-acc">ai co-founder ready</span>' },
   { t: 180, html: '<span class="c-dim">apps in production: <span class="c-acc">103</span></span>' },
-  { t: 120, html: '<span class="c-dim">arr: <span class="c-acc">$210,420</span></span>' },
+  { t: 120, html: '<span class="c-dim">arr: <span class="c-acc">$240,180</span></span>' },
   { t: 180, cls: "warn", html: 'no meetings scheduled. <span class="c-acc">ever.</span>' },
   { t: 300, cls: "ok", html: 'booting wizarddynamics.com... <span class="c-acc">ready</span>' },
 ];
