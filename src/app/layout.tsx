@@ -1,34 +1,31 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Inter } from "next/font/google";
+import { Instrument_Serif, JetBrains_Mono, Archivo } from "next/font/google";
 import "./globals.css";
 
-const jetbrains = JetBrains_Mono({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-mono",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
 });
-
-const inter = Inter({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-mono",
+  display: "swap",
+});
+const body = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Wizard Dynamics",
+  title: "Wizard Dynamics — Munich Product Studio",
   description:
-    "100+ apps built. $210K+ ARR. Two founders, one AI, zero meetings. Munich.",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
-  openGraph: {
-    title: "Wizard Dynamics",
-    description:
-      "100+ apps built. $210K+ ARR. Two founders, one AI, zero meetings. Munich.",
-    type: "website",
-  },
+    "Munich-based product studio. Two founders, one AI, zero meetings — shipping faster than studios five times our size.",
 };
 
 export default function RootLayout({
@@ -37,12 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${jetbrains.variable} ${inter.variable} antialiased bg-[#0c0c0f] text-[#e8e6e3]`}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${serif.variable} ${mono.variable} ${body.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
