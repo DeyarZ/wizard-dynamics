@@ -1,3 +1,7 @@
 .DS_Store
 .vercel
 *.log
+.playwright-mcp/
+*.png
+!apple-touch-icon.png
+!icon-192.png

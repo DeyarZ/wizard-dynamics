@@ -108,6 +108,7 @@ body { position: relative; }
   letter-spacing: 0.15em;
   color: #f0ede6;
   text-decoration: none;
+  white-space: nowrap;
 }
 .site-logo .slash { color: var(--accent-hot); }
 
@@ -465,7 +466,11 @@ body { position: relative; }
   text-transform: uppercase;
   color: var(--accent);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    padding-left 0.3s ease,
+    border-color 0.3s ease;
 }
 .cta-stack .cta-button { margin-top: 0; }
 .cta-button:hover {
@@ -494,11 +499,14 @@ body { position: relative; }
 
   .site-header { padding: 16px 20px; }
   .site-nav { gap: 16px; }
-  .site-nav a { font-size: 10px; }
+  /* Hide secondary nav links on mobile — only keep email CTA + logo + scroll-section CTAs */
+  .site-nav a:not(.nav-cta) { display: none; }
+  .nav-cta { font-size: 10px; }
 
   .hero-standalone { padding: 0 6vw; }
+  .hero-meta { gap: 16px; flex-wrap: wrap; }
   .hero-heading { font-size: clamp(2.8rem, 14vw, 4.5rem); }
-  .hero-tagline { font-size: 0.95rem; margin-bottom: 40px; }
+  .hero-tagline { font-size: 0.95rem; margin-bottom: 40px; max-width: 100%; }
   .hero-scroll { bottom: 24px; }
 
   .align-left,
@@ -527,6 +535,17 @@ body { position: relative; }
     border-radius: 2px;
   }
   .stat-prefix, .stat-number, .stat-suffix { font-size: 2.4rem; }
+
+  /* App list: stack meta below name so long product names + meta don't wrap awkwardly */
+  .app-list li {
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: 1.3rem;
+  }
+  .app-meta { margin-left: 0; padding-left: 48px; flex-basis: 100%; }
+
+  /* CTA buttons: tighten letter-spacing so consulting URL fits */
+  .cta-button { font-size: 11px; letter-spacing: 0.08em; padding: 16px 16px 16px 0; }
 
   .marquee-text { font-size: 22vw; }
 }
