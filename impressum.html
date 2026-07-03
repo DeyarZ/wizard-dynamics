@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum /// Wizard Dynamics</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <meta name="theme-color" content="#0a0907" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/landing.css?v=1" />
+</head>
+<body>
+
+  <header class="nav-wrap scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">WIZARD DYNAMICS <span class="slash">///</span></a>
+      <nav class="nav-links" id="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#consulting">Consulting</a>
+        <a href="construction.html">Construction</a>
+        <a href="/#about">About</a>
+        <a href="mailto:hi@wizarddynamics.com" class="nav-cta">hi@wizarddynamics.com <span class="arrow">→</span></a>
+      </nav>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="section legal-page">
+    <div class="container legal-inner">
+      <div class="eyebrow-dot"><span class="dot"></span>Rechtliches</div>
+      <h1 class="section-title">Impressum</h1>
+
+      <h2 class="legal-h">Angaben gemäß § 5 DDG</h2>
+      <p class="legal-body">
+        Wizard Dynamics eGbR<br />
+        Wieselweg 6<br />
+        85540 Haar
+      </p>
+
+      <h2 class="legal-h">Vertreten durch</h2>
+      <p class="legal-body">
+        Deyar Zakir<br />
+        Manuel Worlitzer
+      </p>
+
+      <h2 class="legal-h">Kontakt</h2>
+      <p class="legal-body">
+        E-Mail: <a href="mailto:hi@wizarddynamics.com">hi@wizarddynamics.com</a>
+      </p>
+
+      <h2 class="legal-h">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p class="legal-body">
+        Deyar Zakir, Manuel Worlitzer<br />
+        Wieselweg 6, 85540 Haar
+      </p>
+
+      <h2 class="legal-h">EU-Streitschlichtung</h2>
+      <p class="legal-body">
+        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>.<br />
+        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+        Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">WIZARD DYNAMICS <span class="slash">///</span></span>
+      <span class="footer-note">© 2026 · Munich · <a href="/">zurück zur Startseite</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var burger = document.getElementById("nav-burger");
+      var links = document.getElementById("nav-links");
+      burger.addEventListener("click", function () {
+        var open = links.classList.toggle("open");
+        burger.classList.toggle("open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    })();
+  </script>
+</body>
+</html>
