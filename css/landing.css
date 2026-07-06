@@ -625,3 +625,70 @@ a { color: inherit; }
   .hero-stat-rule { display: none; }
   .hero-stat { min-width: 40%; }
 }
+
+/* ---------- Contact form ---------- */
+.hero-col-form { display: flex; align-items: center; }
+.contact-card {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 34px;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--glow-gold);
+}
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.form-row { display: flex; flex-direction: column; gap: 7px; }
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.form-input {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 13px 15px;
+  color: var(--text-on-dark);
+  font-family: var(--font-body);
+  font-size: 15px;
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+.form-input::placeholder { color: var(--text-dim); }
+.form-input:focus {
+  outline: none;
+  border-color: var(--border-accent-strong);
+  box-shadow: 0 0 0 3px rgba(212, 162, 74, 0.12);
+}
+.form-textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23857e6f' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+}
+.form-submit { justify-content: center; width: 100%; margin-top: 4px; border: none; cursor: pointer; }
+.form-status { font-family: var(--font-mono); font-size: 13px; margin: 0; min-height: 18px; }
+.form-status.ok { color: var(--accent-hot); }
+.form-status.err { color: #e0906a; }
+.contact-direct {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 20px 0 0;
+  text-align: center;
+}
+.contact-direct a { color: var(--accent); text-decoration: none; }
+.contact-direct a:hover { color: var(--accent-hot); }
+.contact-cells { margin-top: 30px; }
+.info-cell-value-sm { font-size: 1.15rem; }
+@media (max-width: 900px) {
+  .hero-col-form { margin-top: 8px; }
+  .contact-card { padding: 26px; }
+}

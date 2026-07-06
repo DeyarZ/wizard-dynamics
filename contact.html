@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact /// Wizard Dynamics — let's build something</title>
+  <meta name="description" content="Talk to Wizard Dynamics — a Munich AI venture studio building apps, consulting, and construction tech. Consulting, partner builds, or press: start a conversation." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:title" content="Wizard Dynamics · Contact" />
+  <meta property="og:description" content="Consulting, partner builds, or press — start a conversation with the Munich AI venture studio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wizarddynamics.com/contact" />
+  <meta name="theme-color" content="#0a0907" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/landing.css?v=1" />
+</head>
+<body>
+
+  <!-- Fixed nav -->
+  <header class="nav-wrap scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">WIZARD DYNAMICS <span class="slash">///</span></a>
+      <nav class="nav-links" id="nav-links">
+        <a href="/#apps">Apps</a>
+        <a href="/#consulting">Consulting</a>
+        <a href="construction.html">Construction</a>
+        <a href="/#about">About</a>
+        <a href="/contact" class="nav-cta">Contact us <span class="arrow">→</span></a>
+      </nav>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero + form -->
+  <section id="top" class="hero" aria-label="Contact">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="container hero-grid">
+
+      <div class="hero-col hero-col-text">
+        <div class="hero-eyebrow reveal"><span class="dot"></span>WIZARD DYNAMICS · CONTACT</div>
+        <h1 class="hero-headline">
+          <span class="hero-line reveal">Let's build</span>
+          <span class="hero-line hero-line-accent reveal"><i>something.</i></span>
+        </h1>
+        <p class="hero-sub reveal">
+          Consulting on AI automation, a partner build, or press — tell us what
+          you need and we'll come back within a day. No forms into the void.
+        </p>
+
+        <div class="hero-col-cells contact-cells">
+          <div class="info-cell reveal">
+            <div class="info-cell-label">Email</div>
+            <div class="info-cell-value info-cell-value-sm">hello@</div>
+            <div class="info-cell-sub">wizarddynamics.com</div>
+          </div>
+          <div class="info-cell reveal">
+            <div class="info-cell-label">Base</div>
+            <div class="info-cell-value">Munich</div>
+            <div class="info-cell-sub">europe · remote-friendly</div>
+          </div>
+          <div class="info-cell reveal">
+            <div class="info-cell-label">Reply</div>
+            <div class="info-cell-value">~1 day</div>
+            <div class="info-cell-sub">real human, no bot</div>
+          </div>
+          <div class="info-cell reveal">
+            <div class="info-cell-label">For</div>
+            <div class="info-cell-value">Builders</div>
+            <div class="info-cell-sub">clients · partners · press</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-col hero-col-form reveal">
+        <div class="contact-card">
+          <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <!-- Web3Forms: paste the access key you get emailed after entering hello@wizarddynamics.com at web3forms.com -->
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <input type="hidden" name="subject" value="New enquiry from wizarddynamics.com" />
+            <input type="hidden" name="from_name" value="wizarddynamics.com" />
+            <!-- honeypot -->
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+
+            <div class="form-row">
+              <label class="form-label" for="cf-name">Name</label>
+              <input class="form-input" id="cf-name" type="text" name="name" required autocomplete="name" placeholder="Your name" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="cf-email">Email</label>
+              <input class="form-input" id="cf-email" type="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="cf-topic">What's this about?</label>
+              <select class="form-input" id="cf-topic" name="topic">
+                <option>Consulting — AI automation</option>
+                <option>Partner build / construction</option>
+                <option>Apps</option>
+                <option>Press / other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="cf-message">Message</label>
+              <textarea class="form-input form-textarea" id="cf-message" name="message" rows="5" required placeholder="A line or two about what you need."></textarea>
+            </div>
+
+            <button class="btn btn-primary form-submit" type="submit">
+              <span>Send message</span> <span class="arrow">→</span>
+            </button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <p class="contact-direct">
+            Prefer email? <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">WIZARD DYNAMICS <span class="slash">///</span></span>
+      <span class="footer-note">© 2026 · Munich · <a href="impressum.html">Imprint</a> · <a href="/">home</a></span>
+    </div>
+  </footer>
+
+  <script src="js/landing.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById("contact-form");
+      var status = document.getElementById("form-status");
+      if (!form) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var keyField = form.querySelector("[name=access_key]");
+        if (!keyField.value || keyField.value.indexOf("YOUR_WEB3FORMS") === 0) {
+          status.className = "form-status err";
+          status.textContent = "Not wired up yet — email hello@wizarddynamics.com";
+          return;
+        }
+        var btn = form.querySelector(".form-submit");
+        btn.disabled = true;
+        status.className = "form-status";
+        status.textContent = "Sending…";
+        var data = Object.fromEntries(new FormData(form).entries());
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (j.success) {
+              form.reset();
+              status.className = "form-status ok";
+              status.textContent = "Got it — we'll get back to you within a day.";
+            } else {
+              status.className = "form-status err";
+              status.textContent = (j.message || "Something went wrong") + " — or email hello@wizarddynamics.com";
+            }
+            btn.disabled = false;
+          })
+          .catch(function () {
+            status.className = "form-status err";
+            status.textContent = "Network error — email hello@wizarddynamics.com";
+            btn.disabled = false;
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
