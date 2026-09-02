@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ChatGPT-Ads Web2App funnel. Paid traffic only — never indexed, never linked from the site. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pflanzen per Foto bestimmen</title>
+  <meta name="description" content="Fotografiere eine Pflanze und erfahre sofort, was es ist und wie du sie pflegst." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#f0fdf4" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #ffffff;
+    }
+    .funnel {
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .funnel-inner { max-width: 28rem; width: 100%; }
+    .mark { font-size: 3rem; line-height: 1; margin-bottom: 1.5rem; }
+    h1 {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      font-weight: 700;
+      color: #111827;
+      margin: 0 0 1rem;
+    }
+    .lede {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      color: #4b5563;
+      margin: 0 0 2rem;
+    }
+    ul.benefits {
+      list-style: none;
+      margin: 0 0 2rem;
+      padding: 0;
+      text-align: left;
+      color: #374151;
+      line-height: 1.5rem;
+    }
+    ul.benefits li + li { margin-top: 0.75rem; }
+    .cta {
+      display: block;
+      width: 100%;
+      background: #16a34a;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      font-family: inherit;
+      border: 0;
+      border-radius: 1rem;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: background-color 150ms ease;
+    }
+    .cta:hover { background: #15803d; }
+    .fineprint {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: #9ca3af;
+      margin: 1rem 0 0;
+    }
+    #consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      padding: 1rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+    #consent-banner[hidden] { display: none; }
+    .consent-inner { max-width: 28rem; margin: 0 auto; text-align: left; }
+    .consent-inner p {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: #4b5563;
+      margin: 0 0 0.75rem;
+    }
+    .consent-actions { display: flex; gap: 0.75rem; }
+    .consent-actions button {
+      flex: 1 1 0%;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      font-weight: 500;
+      font-family: inherit;
+      border: 0;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .consent-accept { background: #16a34a; color: #ffffff; }
+    .consent-deny { background: #f3f4f6; color: #374151; }
+  </style>
+</head>
+<body>
+
+  <main class="funnel">
+    <div class="funnel-inner">
+      <div class="mark">🌿</div>
+      <h1>Fotografieren. Erkennen. Richtig pflegen.</h1>
+      <p class="lede">
+        Die App erkennt deine Pflanze am Foto und sagt dir sofort, was sie
+        braucht — Gießen, Licht, Dünger und was bei braunen Stellen zu tun ist.
+      </p>
+      <ul class="benefits">
+        <li>📸 Foto machen — Pflanze oder Rasen in Sekunden erkannt</li>
+        <li>🪴 Persönlicher Pflegeplan für jede erkannte Pflanze</li>
+        <li>🔍 Rasenprobleme diagnostizieren, bevor sie sich ausbreiten</li>
+      </ul>
+      <button type="button" class="cta" id="cta">Kostenlos im App Store laden</button>
+      <p class="fineprint">Gratis testen · Jederzeit kündbar</p>
+    </div>
+  </main>
+
+  <div id="consent-banner" hidden>
+    <div class="consent-inner">
+      <p>
+        Wir nutzen ein Messpixel von OpenAI, um zu verstehen, ob unsere
+        Anzeigen funktionieren. Keine Weitergabe an Dritte darüber hinaus.
+      </p>
+      <div class="consent-actions">
+        <button type="button" class="consent-accept" id="consent-accept">Einverstanden</button>
+        <button type="button" class="consent-deny" id="consent-deny">Ablehnen</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    // ChatGPT-Ads funnel: oppref capture + OpenAI measurement pixel + App Store handoff.
+    // Wire spec: Studios/chatgpt-ads/references/tracking-wire-spec.md
+    // Click-id pattern ported from APPS/noor-web/onboarding/funnel.js (_fbc equivalent).
+    // Static port of grass-identifier-landingpage /go (Next.js). This repo has no build
+    // step, so the pixel ID is a literal here instead of NEXT_PUBLIC_OAIQ_PIXEL_ID.
+
+    var APP_STORE_URL =
+      "https://apps.apple.com/de/app/grass-identifier-ai-scan/id6748553668";
+    // Fill in once the Ads Manager issues a pixel ID. Empty = pixel stays off,
+    // the page still works as a plain redirect landing.
+    var OAIQ_PIXEL_ID = "";
+    // Namespaced on purpose: the OpenAI SDK claims plain "oaiq_consent" in localStorage
+    // and overwrites it with "true", which would make our === "granted" check fall
+    // through on return visits (no pixel, no banner — silent attribution loss).
+    var CONSENT_KEY = "wd_oaiq_consent";
+    var OPPREF_MAX_AGE = 60 * 60 * 24 * 30; // 30d — __oppref cookie lifetime is undocumented, so we persist ourselves
+
+    function readCookie(name) {
+      var match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+      return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    // URL wins over stored values so a fresh click always re-attributes.
+    function getOppref() {
+      var fromUrl = new URLSearchParams(window.location.search).get("oppref");
+      if (fromUrl) return fromUrl;
+      try {
+        return readCookie("_oppref") || localStorage.getItem("oppref");
+      } catch (e) {
+        return readCookie("_oppref");
+      }
+    }
+
+    // GDPR: persisting the click-id is tracking, so it only happens after consent.
+    function persistOppref(oppref) {
+      document.cookie =
+        "_oppref=" + encodeURIComponent(oppref) +
+        "; max-age=" + OPPREF_MAX_AGE + "; path=/; SameSite=Lax; Secure";
+      try {
+        localStorage.setItem("oppref", oppref);
+      } catch (e) {
+        /* storage blocked — cookie already set */
+      }
+    }
+
+    function loadPixel(consented) {
+      if (!OAIQ_PIXEL_ID || window.oaiq) return;
+      var q = function () {
+        q.q.push(arguments);
+      };
+      q.q = [];
+      window.oaiq = q;
+      var js = document.createElement("script");
+      js.async = true;
+      js.src = "https://bzrcdn.openai.com/sdk/oaiq.min.js";
+      document.head.appendChild(js);
+      window.oaiq("consent", consented);
+      window.oaiq("init", { pixelId: OAIQ_PIXEL_ID });
+    }
+
+    function track(event) {
+      if (window.oaiq) window.oaiq("measure", event, { type: "contents" });
+    }
+
+    function activate() {
+      var oppref = getOppref();
+      if (oppref) persistOppref(oppref);
+      loadPixel(true);
+      track("page_viewed");
+    }
+
+    var banner = document.getElementById("consent-banner");
+
+    function decide(granted) {
+      var value = granted ? "granted" : "denied";
+      try {
+        localStorage.setItem(CONSENT_KEY, value);
+      } catch (e) {
+        /* private mode */
+      }
+      banner.hidden = true;
+      if (granted) activate();
+    }
+
+    document.getElementById("consent-accept").addEventListener("click", function () {
+      decide(true);
+    });
+    document.getElementById("consent-deny").addEventListener("click", function () {
+      decide(false);
+    });
+
+    document.getElementById("cta").addEventListener("click", function () {
+      track("checkout_started");
+      // Give the queued event a beat to flush before leaving the page.
+      setTimeout(function () {
+        window.location.href = APP_STORE_URL;
+      }, 250);
+    });
+
+    var stored = null;
+    try {
+      stored = localStorage.getItem(CONSENT_KEY);
+    } catch (e) {
+      /* private mode */
+    }
+    if (stored === "granted") {
+      activate();
+    } else if (stored === null) {
+      banner.hidden = false;
+    }
+  })();
+  </script>
+
+</body>
+</html>
