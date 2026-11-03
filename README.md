@@ -26,7 +26,7 @@ The hero chart card shows Grass Identifier's real monthly revenue from RevenueCa
 
 Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). `CONFIG.bookingUrl` (Cal.com) in `js/site.js` makes "Book my free project call" open a calendar; it's set to the consulting site's 30-minute Discovery Call.
 
-**To switch on the visitor's email copy:** add these four records for wizarddynamics.com at IONOS (DNS), then verify the domain in Resend (Domains → wizarddynamics.com → Verify). Nothing else changes; the lead mails then also come from leads@wizarddynamics.com.
+**Sending domain:** wizarddynamics.com is verified in Resend (3 Nov 2026) through these four records at IONOS (DNS). They power the visitor's email copy and the lead mails from leads@wizarddynamics.com; the IONOS mailbox records (MX/SPF/DKIM on `@`) are separate and untouched.
 
 | Type | Host | Value |
 |---|---|---|

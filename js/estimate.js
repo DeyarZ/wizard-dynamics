@@ -263,7 +263,7 @@
   function renderGate(fromHistory) {
     root.innerHTML = head(true, "Last step", 100) +
       '<form class="form est-gate" novalidate>' +
-      '<div><p class="est-q" tabindex="-1">Your estimate is ready.</p><p class="est-hint">Where can we reach you about it?</p></div>' +
+      '<div><p class="est-q" tabindex="-1">Your estimate is ready.</p><p class="est-hint">You see it on the next screen, and we email you a copy.</p></div>' +
       '<div class="form-row"><div class="field"><label for="e-name">Name</label><input id="e-name" type="text" autocomplete="name" maxlength="80" required value="' + esc(lead ? lead.name : "") + '" /></div>' +
       '<div class="field"><label for="e-email">Email</label><input id="e-email" type="email" autocomplete="email" maxlength="160" required value="' + esc(lead ? lead.email : "") + '" /></div></div>' +
       '<input type="checkbox" id="e-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />' +
