@@ -15,7 +15,7 @@
     { "source": "/scroll", "destination": "/", "permanent": false }
   ],
   "rewrites": [
-    { "source": "/estimate/:view", "destination": "/estimate.html" }
+    { "source": "/estimate/:view", "destination": "/estimate" }
   ],
   "headers": [
     {
