@@ -90,6 +90,14 @@
     });
   });
 
+  /* Links like "Already live? Get a free paywall teardown" preselect the stage in the form */
+  $$("a[data-stage]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var radio = $('#lead-form input[name="stage"][value="' + a.getAttribute("data-stage") + '"]');
+      if (radio) radio.checked = true;
+    });
+  });
+
   /* ------------------------------------------------------------------
      VSL
      ------------------------------------------------------------------ */
@@ -193,7 +201,13 @@
   var status = $("#form-status");
   var success = $("#form-success");
   var submitBtn = $("#form-submit");
-  if (CONFIG.bookingUrl && submitBtn) submitBtn.textContent = "Next: pick a time";
+  if (CONFIG.bookingUrl && submitBtn) {
+    submitBtn.textContent = "Next: pick a time";
+    var lead = $("#book-lead");
+    if (lead) lead.textContent = "Answer four quick questions, then pick a time for a 30-minute call. You'll know whether your app can make money, and what it would take.";
+    var foot = $(".form-foot");
+    if (foot) foot.textContent = "Next screen: pick a 30-minute slot. No newsletter, no sales sequence.";
+  }
 
   function showCalendar(data) {
     var cal = $("#calendar");

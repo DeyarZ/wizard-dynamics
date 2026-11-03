@@ -20,7 +20,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/site.css?v=4" />
+  <link rel="stylesheet" href="css/site.css?v=5" />
 </head>
 <body>
 
@@ -29,15 +29,14 @@
   <symbol id="i-close" viewBox="0 0 16 16"><path d="m4 4 8 8m0-8-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-muted" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="m16 9.5 5 5m0-5-5 5"/></g></symbol>
   <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.2 8.4 3 3 6.6-6.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-cross" viewBox="0 0 16 16"><path d="m4.5 4.5 7 7m0-7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
   <symbol id="wd" viewBox="0 0 69 27.5"><path class="wd-w" d="M0 0H7.2L16 17.6 20.3 9 23.9 16.2 18.25 27.5H13.75ZM19 0H26.2L32.75 13.1 39.3 0H46.5L32.75 27.5Z"/><path class="wd-d" d="M49.7 0H58A11 11 0 0 1 69 11V16.5A11 11 0 0 1 58 27.5H35.95L38.7 22H57.5A5.5 5.5 0 0 0 63 16.5V11A5.5 5.5 0 0 0 57.5 5.5H46.95Z"/></symbol>
 </svg>
 
 <!-- Offer bar -->
-<div class="topbar" id="offer-banner" role="region" aria-label="Current availability">
+<div class="topbar" id="offer-banner" role="region" aria-label="Current offer">
   <div class="container topbar-inner">
-    <p data-ph="offer"><strong>Two build slots left for Q1 2027.</strong><span class="hide-sm"> Book a call before 15&nbsp;December and we'll audit your live app's revenue for free.</span></p>
-    <a href="#book" data-cta="topbar">Book a call</a>
+    <p data-ph="offer"><strong>Founding terms for our first three client apps.</strong><span class="hide-sm"> All three spots are open.</span></p>
+    <a href="#founding" data-cta="topbar">See the terms</a>
     <button class="topbar-close" id="offer-close" type="button" aria-label="Dismiss"><svg width="14" height="14"><use href="#i-close"/></svg></button>
   </div>
 </div>
@@ -67,135 +66,116 @@
   <a href="#process">Process</a>
   <a href="#pricing">Pricing</a>
   <a href="#faq">FAQ</a>
-  <a class="btn btn-lg" href="#book" data-cta="mobile-menu">Book my free strategy call</a>
+  <a class="btn btn-lg" href="#book" data-cta="mobile-menu">Get my free revenue plan</a>
 </div>
 
 <main>
 
-<!-- Hero -->
+<!-- Hero: headline + offer on top, the intro video inside a wall of our apps below -->
 <section class="hero" id="top">
-  <div class="container hero-grid">
-    <p class="hero-for">For founders with an app idea or a live app.</p>
+  <div class="hero-grid">
+    <div class="hero-head">
+      <p class="hero-for">For founders with an app idea or a live app.</p>
+      <h1 class="hero-title">We build apps people pay&nbsp;for.</h1>
+    </div>
 
-    <h1 class="hero-title">We build apps people pay&nbsp;for.</h1>
-
-    <p class="hero-sub">
-      We run 18 subscription apps of our own, and together they earn
-      <span data-ph="verify">€16k a month</span>. Your app gets the same team and the same playbook,
-      from the first screen to the first paid ad.
-    </p>
-
-    <figure class="hero-vsl vsl">
-      <div class="vsl-frame" id="vsl-frame" data-ph="vsl-video">
-        <button class="vsl-poster" id="vsl-play" type="button" aria-label="Play the intro video">
-          <span class="vsl-text">
-            <span class="vsl-kicker">Intro, 4 minutes</span>
-            <span class="vsl-title">How we take an app from zero to €10k a&nbsp;month</span>
-            <span class="vsl-play-row">
-              <span class="vsl-play"><svg width="24" height="24"><use href="#i-play"/></svg></span>
-              <span class="vsl-play-label">Watch the intro<small>Captions on</small></span>
-            </span>
-          </span>
-          <span class="vsl-home" aria-hidden="true">
-            <span class="home-app"><img src="img/apps/grass-icon.jpg" alt="" width="120" height="120" /><span>Grass</span></span>
-            <span class="home-app"><img src="img/apps/rock-icon.jpg" alt="" width="120" height="120" /><span>Rock</span></span>
-            <span class="home-app"><img src="img/apps/noor-stories-icon.jpg" alt="" width="120" height="120" /><span>Noor</span></span>
-            <span class="home-app"><img src="img/apps/everlens-icon.jpg" alt="" width="120" height="120" /><span>Everlens</span></span>
-            <span class="home-app"><img src="img/apps/wedding-planner-icon.jpg" alt="" width="120" height="120" /><span>BridePlan</span></span>
-            <span class="home-app"><img src="img/apps/prayer-lock-icon.jpg" alt="" width="120" height="120" /><span>Prayer Lock</span></span>
-            <span class="home-app"><img src="img/apps/quran-widgets-icon.jpg" alt="" width="120" height="120" /><span>Quran</span></span>
-            <span class="home-app"><img src="img/apps/ledgr-icon.jpg" alt="" width="120" height="120" /><span>Ledgr</span></span>
-            <span class="home-app home-yours"><span class="home-slot"></span><span>Your app</span></span>
-          </span>
-        </button>
+    <div class="hero-side">
+      <p class="hero-sub">We run 18 subscription apps of our own, and together they earn <span data-ph="verify">€16k a month</span>. Your app gets the same team and the same playbook, from the first screen to the first paid&nbsp;ad.</p>
+      <div class="hero-action">
+        <a class="btn btn-lg" href="#book" data-cta="hero">Get my free revenue plan</a>
+        <p class="hero-micro">30 minutes with Deyar, co-founder. You keep the plan either&nbsp;way.</p>
+        <p class="hero-trust" data-ph="verify"><span class="stars" style="--rating:4.5" aria-hidden="true"></span><span><b>4,261</b> paying subscribers, <b>4.5</b> from 536 ratings</span></p>
       </div>
-      <figcaption>With Deyar Zakir and Manuel Worlitzer, founders of Wizard Dynamics</figcaption>
-    </figure>
+    </div>
 
-    <div class="hero-action">
-      <a class="btn btn-lg" href="#book" data-cta="hero">Book my free strategy call</a>
-      <p class="hero-micro">30 minutes with Deyar, co-founder. You leave with a revenue plan for your app, whether we work together or not.</p>
-      <ul class="hero-proof">
-        <li data-ph="verify">
-          <span class="mini-icons" aria-hidden="true">
-            <img src="img/apps/grass-icon.jpg" alt="" width="24" height="24" />
-            <img src="img/apps/rock-icon.jpg" alt="" width="24" height="24" />
-            <img src="img/apps/noor-stories-icon.jpg" alt="" width="24" height="24" />
-          </span>
-          <span><b>€16k a month</b> from our own apps, after Apple's fee</span>
-        </li>
-        <li data-ph="verify">
-          <span class="stars" style="--rating:4.5" aria-hidden="true"></span>
-          <span><b>4,261</b> paying subscribers, <b>4.5</b> from 536 ratings</span>
-        </li>
+    <div class="stage">
+      <div class="stage-row">
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577" target="_blank" rel="noopener"><img src="img/apps/ui/bride-home.jpg" alt="BridePlan home screen: 117 days to go" width="660" height="1434" loading="lazy" /></a>
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/ui/everlens-camera.jpg" alt="Everlens guest camera at a wedding" width="660" height="1430" loading="lazy" /></a>
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/ui/grass-result.jpg" alt="Grass Identifier result: Perennial Ryegrass" width="660" height="1431" loading="lazy" /></a>
+
+        <figure class="stage-vsl vsl">
+          <div class="vsl-frame" id="vsl-frame" data-ph="vsl-video">
+            <button class="vsl-poster" id="vsl-play" type="button" aria-label="Play the intro video">
+              <span class="vsl-text">
+                <span class="vsl-kicker">Intro, 4 minutes</span>
+                <span class="vsl-title">How we took Grass Identifier from zero to €7.5k a&nbsp;month</span>
+                <span class="vsl-play-row">
+                  <span class="vsl-play"><svg width="24" height="24"><use href="#i-play"/></svg></span>
+                  <span class="vsl-play-label">Watch the intro<small>With Deyar and Manuel</small></span>
+                </span>
+              </span>
+              <span class="vsl-home" aria-hidden="true">
+                <span class="home-app"><img src="img/apps/grass-icon.jpg" alt="" width="120" height="120" /><span>Grass</span></span>
+                <span class="home-app"><img src="img/apps/rock-icon.jpg" alt="" width="120" height="120" /><span>Rock</span></span>
+                <span class="home-app"><img src="img/apps/noor-stories-icon.jpg" alt="" width="120" height="120" /><span>Noor</span></span>
+                <span class="home-app"><img src="img/apps/everlens-icon.jpg" alt="" width="120" height="120" /><span>Everlens</span></span>
+                <span class="home-app"><img src="img/apps/wedding-planner-icon.jpg" alt="" width="120" height="120" /><span>BridePlan</span></span>
+                <span class="home-app"><img src="img/apps/prayer-lock-icon.jpg" alt="" width="120" height="120" /><span>Prayer Lock</span></span>
+                <span class="home-app"><img src="img/apps/quran-widgets-icon.jpg" alt="" width="120" height="120" /><span>Quran</span></span>
+                <span class="home-app"><img src="img/apps/ledgr-icon.jpg" alt="" width="120" height="120" /><span>Ledgr</span></span>
+                <span class="home-app home-yours"><span class="home-slot"></span><span>Your app</span></span>
+              </span>
+            </button>
+          </div>
+        </figure>
+
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/ui/everlens-gallery.jpg" alt="Everlens host gallery with hidden photos" width="660" height="1430" loading="lazy" /></a>
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/ui/noor-today.jpg" alt="Noor Stories today screen" width="660" height="1434" loading="lazy" /></a>
+        <a class="stage-tile phone" href="https://apps.apple.com/us/app/quran-widgets-by-noor/id6775821781" target="_blank" rel="noopener"><img src="img/apps/ui/quran-lock1.jpg" alt="Quran Widgets on the lock screen" width="660" height="1434" loading="lazy" /></a>
+      </div>
+    </div>
+
+    <!-- Mobile only: the wall as a swipe row -->
+    <div class="wall" aria-hidden="true">
+      <div class="wall-track">
+        <span class="phone"><img src="img/apps/ui/grass-result.jpg" alt="" width="660" height="1431" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/everlens-gallery.jpg" alt="" width="660" height="1430" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/noor-today.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/bride-home.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/everlens-camera.jpg" alt="" width="660" height="1430" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/quran-lock1.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
+        <span class="phone"><img src="img/apps/ui/noor-player.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
+      </div>
+    </div>
+
+    <div class="shelf">
+      <p class="shelf-title">Apps we designed, built and run ourselves. <span>6 of 18, each one links to the App&nbsp;Store.</span></p>
+      <ul class="shelf-list">
+        <li><a href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/grass-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">Grass Identifier</span><span class="shelf-meta">AI plant ID</span></a></li>
+        <li><a href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener"><img src="img/apps/rock-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">Rock Scanner</span><span class="shelf-meta">AI rock ID</span></a></li>
+        <li><a href="https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577" target="_blank" rel="noopener"><img src="img/apps/wedding-planner-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">BridePlan</span><span class="shelf-meta">Wedding planner</span></a></li>
+        <li><a href="https://apps.apple.com/us/app/prayer-lock-noor/id6758148553" target="_blank" rel="noopener"><img src="img/apps/prayer-lock-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">Prayer Lock</span><span class="shelf-meta">Prayer habit</span></a></li>
+        <li><a href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/everlens-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">Everlens</span><span class="shelf-meta">Party camera</span></a></li>
+        <li><a href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/noor-stories-icon.jpg" alt="" width="40" height="40" /><span class="shelf-name">Noor Stories</span><span class="shelf-meta">Sleep stories</span></a></li>
       </ul>
     </div>
-  </div>
-</section>
-
-<!-- Screenshot wall: our apps as they look in the App Store -->
-<section class="wall" aria-labelledby="wall-title">
-  <div class="wall-scroll">
-  <div class="wall-track">
-    <a href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/noor-stories-shot1.jpg" alt="Noor Stories in the App Store" width="600" height="1304" /></a>
-    <a href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/everlens-shot1.jpg" alt="Everlens in the App Store" width="600" height="1299" /></a>
-    <a href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/grass-shot1.jpg" alt="Grass Identifier in the App Store" width="600" height="1304" /></a>
-    <a href="https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577" target="_blank" rel="noopener"><img src="img/apps/wedding-planner-shot1.jpg" alt="BridePlan in the App Store" width="600" height="1299" /></a>
-    <a href="https://apps.apple.com/us/app/quran-widgets-by-noor/id6775821781" target="_blank" rel="noopener"><img src="img/apps/quran-widgets-shot1.jpg" alt="Quran Widgets in the App Store" width="600" height="1298" /></a>
-    <a href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener"><img src="img/apps/rock-shot2.jpg" alt="Rock Scanner in the App Store" width="600" height="1304" /></a>
-    <a href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/everlens-shot2.jpg" alt="Everlens guest camera screen" width="600" height="1299" /></a>
-    <a href="https://apps.apple.com/us/app/prayer-lock-noor/id6758148553" target="_blank" rel="noopener"><img src="img/apps/prayer-lock-shot2.jpg" alt="Prayer Lock in the App Store" width="600" height="1298" /></a>
-    <a href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/noor-stories-shot2.jpg" alt="Noor Stories story screen" width="600" height="1304" /></a>
-    <a href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/grass-shot2.jpg" alt="Grass Identifier result screen" width="600" height="1304" /></a>
-    <a href="https://apps.apple.com/us/app/quran-widgets-by-noor/id6775821781" target="_blank" rel="noopener"><img src="img/apps/quran-widgets-shot2.jpg" alt="Quran Widgets home screen widgets" width="600" height="1298" /></a>
-  </div>
-  </div>
-
-  <div class="container shelf">
-    <div class="shelf-head">
-      <h2 class="shelf-title" id="wall-title">Apps we designed, built and run ourselves</h2>
-      <p class="shelf-more">6 of our 18 live apps. Each one links to its App&nbsp;Store page.</p>
-    </div>
-    <ul class="shelf-list">
-      <li><a href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/grass-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Grass Identifier</span><span class="shelf-meta">4.4 ★ (221)</span></a></li>
-      <li><a href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener"><img src="img/apps/rock-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Rock Scanner</span><span class="shelf-meta">4.3 ★ (154)</span></a></li>
-      <li><a href="https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577" target="_blank" rel="noopener"><img src="img/apps/wedding-planner-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">BridePlan</span><span class="shelf-meta">4.7 ★ (94)</span></a></li>
-      <li><a href="https://apps.apple.com/us/app/prayer-lock-noor/id6758148553" target="_blank" rel="noopener"><img src="img/apps/prayer-lock-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Prayer Lock</span><span class="shelf-meta">4.8 ★ (29)</span></a></li>
-      <li><a href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/everlens-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Everlens</span><span class="shelf-meta">4.8 ★ (17)</span></a></li>
-      <li><a href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/noor-stories-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Noor Stories</span><span class="shelf-meta">4.5 ★ (6)</span></a></li>
-    </ul>
   </div>
 </section>
 
 <!-- Proof: dark band -->
 <section class="section night" id="proof">
   <div class="container">
-    <div class="section-head split">
+    <div class="section-head">
       <h2 class="h2">Numbers from our own App&nbsp;Store account</h2>
       <p class="lead">Every tactic we'll suggest for your app, we've paid for first with our own ad budget: paywalls, pricing, onboarding, Apple Search Ads, Meta creatives and localization into 30&nbsp;languages.</p>
     </div>
 
-    <dl class="stats" data-ph="verify">
-      <div class="stat stat-lead">
-        <dt>App Store proceeds, last 30&nbsp;days</dt>
-        <dd><span class="stat-num">€16,131</span><span class="stat-note">After Apple's fee, iOS only</span></dd>
+    <div class="stats" data-ph="verify">
+      <div class="stat-lead">
+        <p class="stat-big">€16,131</p>
+        <p class="stat-label">App Store proceeds in the last 30 days</p>
+        <p class="stat-note">After Apple's fee, iOS only. Google Play comes on top.</p>
       </div>
-      <div class="stat">
-        <dt>Paying subscribers</dt>
-        <dd><span class="stat-num">4,261</span><span class="stat-note">Across our subscription apps</span></dd>
-      </div>
-      <div class="stat">
-        <dt>Average App Store rating</dt>
-        <dd><span class="stat-num">4.5</span><span class="stat-note">From 536 ratings</span></dd>
-      </div>
-      <div class="stat">
-        <dt>Live apps</dt>
-        <dd><span class="stat-num">18</span><span class="stat-note">Shipped in up to 30 languages</span></dd>
-      </div>
-    </dl>
+      <dl class="stat-list">
+        <div><dt>Paying subscribers</dt><dd>4,261</dd></div>
+        <div><dt>Average App Store rating<small>From 536 ratings</small></dt><dd>4.5</dd></div>
+        <div><dt>Live apps<small>Shipped in up to 30 languages</small></dt><dd>18</dd></div>
+      </dl>
+    </div>
 
     <div class="proof-foot">
-      <p class="source">Wizard Dynamics portfolio on 1&nbsp;November 2026. Source: App Store Connect and RevenueCat. Google Play revenue is not included.</p>
+      <p class="source">Wizard Dynamics portfolio on 1&nbsp;November 2026. Source: App Store Connect and RevenueCat.</p>
       <a class="link link-light" href="#book" data-cta="proof">Get the same playbook for your app</a>
     </div>
 
@@ -215,28 +195,28 @@
 
     <div class="cases">
       <article class="case">
-        <a class="case-media" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener" style="--media-bg:#e3eedd" tabindex="-1" aria-hidden="true">
-          <img src="img/apps/grass-shot1.jpg" alt="" width="600" height="1304" loading="lazy" />
-          <img src="img/apps/grass-shot2.jpg" alt="" width="600" height="1304" loading="lazy" />
+        <a class="case-media" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener" style="--media-bg:#dfeadb" tabindex="-1" aria-hidden="true">
+          <span class="phone"><img src="img/apps/ui/grass-result.jpg" alt="" width="660" height="1431" loading="lazy" /></span>
+          <span class="phone"><img src="img/apps/ui/grass-weed.jpg" alt="" width="660" height="1431" loading="lazy" /></span>
         </a>
         <div class="case-body">
           <div class="case-app"><img src="img/apps/grass-icon.jpg" alt="" width="44" height="44" loading="lazy" /><div><b>Grass Identifier</b><span>AI plant scanner, subscription</span></div></div>
           <p class="case-number" data-ph="verify">€7.5k<span>monthly recurring revenue, gross, from 3,133 subscribers</span></p>
           <p class="case-text">Our biggest app, grown with Meta ads and Apple Search Ads. This is where we learned to buy installs that turn into trials, and trials that renew.</p>
-          <a class="case-link" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener">View Grass Identifier in the App Store</a>
+          <a class="badge-link" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/appstore-badge.svg" alt="Grass Identifier on the App Store" width="120" height="40" /></a>
         </div>
       </article>
 
       <article class="case case-flip">
         <a class="case-media" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener" style="--media-bg:#101a33" tabindex="-1" aria-hidden="true">
-          <img src="img/apps/noor-stories-shot1.jpg" alt="" width="600" height="1304" loading="lazy" />
-          <img src="img/apps/noor-stories-shot2.jpg" alt="" width="600" height="1304" loading="lazy" />
+          <span class="phone"><img src="img/apps/ui/noor-today.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
+          <span class="phone"><img src="img/apps/ui/noor-player.jpg" alt="" width="660" height="1434" loading="lazy" /></span>
         </a>
         <div class="case-body">
           <div class="case-app"><img src="img/apps/noor-stories-icon.jpg" alt="" width="44" height="44" loading="lazy" /><div><b>Noor Stories</b><span>Sleep audio, subscription</span></div></div>
           <p class="case-number" data-ph="verify">64%<span>of revenue through our own web checkout</span></p>
           <p class="case-text">Subscriptions sold on the web next to the in-app purchase. Most of the revenue now skips the App Store fee, set up within Apple's rules.</p>
-          <a class="case-link" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener">View Noor Stories in the App Store</a>
+          <a class="badge-link" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/appstore-badge.svg" alt="Noor Stories on the App Store" width="120" height="40" /></a>
         </div>
       </article>
 
@@ -249,14 +229,25 @@
           <div class="case-app"><img src="img/apps/rock-icon.jpg" alt="" width="44" height="44" loading="lazy" /><div><b>Rock Scanner</b><span>AI mineral scanner, subscription</span></div></div>
           <p class="case-number" data-ph="verify">€2.3k<span>monthly recurring revenue, gross, from 880 subscribers</span></p>
           <p class="case-text">The Grass engine in a new niche. Onboarding and paywall were already proven, so it earned money within weeks. Reusing what works is how we keep your budget small.</p>
-          <a class="case-link" href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener">View Rock Scanner in the App Store</a>
+          <a class="badge-link" href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener"><img src="img/appstore-badge.svg" alt="Rock Scanner on the App Store" width="120" height="40" /></a>
         </div>
       </article>
+    </div>
 
-      <div class="case-slot ph-only ph-box" data-ph="client-case">
-        <h3 class="h3">Client case study</h3>
-        <p>Placeholder: client logo, the problem in one sentence, two or three hard numbers (MRR, trial-to-paid, weeks to launch) and a line from the founder. Hidden on the live page until a real one exists.</p>
+    <div class="founding" id="founding" data-ph="offer">
+      <div class="founding-copy">
+        <h3 class="founding-title">You won't find client logos here&nbsp;yet.</h3>
+        <p>Until now we built only our own apps. Client work is new for us, so our first three clients get founding terms: 20% off the build, both founders on your project every week, and a case study with your real numbers that we write together.</p>
       </div>
+      <div class="founding-side">
+        <p class="founding-count"><b>3 of 3</b> founding spots open</p>
+        <a class="btn" href="#book" data-cta="founding">Claim a founding spot</a>
+      </div>
+    </div>
+
+    <div class="case-slot ph-only ph-box" data-ph="client-case">
+      <h3 class="h3">Client case study</h3>
+      <p>Placeholder: client logo, the problem in one sentence, two or three hard numbers (MRR, trial-to-paid, weeks to launch) and a line from the founder. Hidden on the live page until a real one exists.</p>
     </div>
   </div>
 </section>
@@ -285,8 +276,8 @@
 
 <!-- Services -->
 <section class="section section-soft" id="services">
-  <div class="container">
-    <div class="section-head split">
+  <div class="container side-grid">
+    <div class="side-head">
       <h2 class="h2">One team from the idea to the&nbsp;revenue</h2>
       <p class="lead">Strategy, design, development, monetization and growth sit at one table, so nothing gets lost in hand-offs between agencies.</p>
     </div>
@@ -302,7 +293,7 @@
         <p>Native iOS in SwiftUI, or iOS and Android from one Flutter codebase. A clean backend, and AI features where they earn their keep. You get a TestFlight build every Friday.</p>
         <ul class="service-tags"><li>SwiftUI and Flutter</li><li>iOS and Android</li><li>Backend and AI features</li></ul>
       </div>
-      <div class="service service-key">
+      <div class="service">
         <h3 class="h3">Monetization</h3>
         <p>This decides whether an app pays, and most agencies leave it to you. We build onboarding, paywall, trial, prices per country and web checkout, and test them until the numbers move.</p>
         <ul class="service-tags"><li>Onboarding and paywalls</li><li>RevenueCat and pricing tests</li><li>Web checkout</li></ul>
@@ -319,7 +310,7 @@
 <!-- Process -->
 <section class="section" id="process">
   <div class="container">
-    <div class="section-head split">
+    <div class="section-head">
       <h2 class="h2">From first call to launch in about ten&nbsp;weeks</h2>
       <p class="lead">Fixed scope, fixed price, and a build you can install every week. You always know where the project stands and what it costs.</p>
     </div>
@@ -347,7 +338,7 @@
       </li>
     </ol>
 
-    <p class="process-note"><b>Already live?</b> We start at step four: an audit of your paywall, onboarding and acquisition, then we fix the biggest leak first. <a class="link" href="#book" data-cta="process">Book a call</a></p>
+    <p class="process-note"><b>Already live?</b> We start at step four: an audit of your paywall, onboarding and acquisition, then we fix the biggest leak first. <a class="link" href="#book" data-stage="Live app" data-cta="process">Get a free paywall teardown</a></p>
   </div>
 </section>
 
@@ -361,6 +352,7 @@
 
     <div class="plans">
       <div class="plan">
+        <p class="plan-flag">&nbsp;</p>
         <h3 class="plan-name">Launch</h3>
         <p class="plan-for">For founders with a validated idea who need a first version that can earn.</p>
         <p class="plan-price" data-ph="price"><small>from</small>€25k</p>
@@ -388,9 +380,10 @@
           <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>Ad creatives and localization</li>
           <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>Weekly growth report</li>
         </ul>
-        <a class="btn btn-block" href="#book" data-cta="plan-grow">Book my free strategy call</a>
+        <a class="btn btn-block" href="#book" data-cta="plan-grow">Get my free revenue plan</a>
       </div>
       <div class="plan">
+        <p class="plan-flag">&nbsp;</p>
         <h3 class="plan-name">Growth partner</h3>
         <p class="plan-for">For live apps with users that leave revenue on the table.</p>
         <p class="plan-price" data-ph="price"><small>from</small>€4.5k<small class="per">per month</small></p>
@@ -402,7 +395,7 @@
           <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>ASO and localization</li>
           <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>Feature work on demand</li>
         </ul>
-        <a class="btn btn-outline btn-block" href="#book" data-cta="plan-partner">Book a call</a>
+        <a class="btn btn-outline btn-block" href="#book" data-stage="Live app" data-cta="plan-partner">Book a call</a>
       </div>
     </div>
 
@@ -421,17 +414,17 @@
       <div class="fit-col">
         <h3 class="h3">A good fit</h3>
         <ul>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>You have an idea for a subscription app and a budget from €25k.</li>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>You have a live app, and the revenue doesn't match the downloads.</li>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg>You want one team for product, paywall and growth.</li>
+          <li>You have an idea for a subscription app and a budget from €25k.</li>
+          <li>You have a live app, and the revenue doesn't match the downloads.</li>
+          <li>You want one team for product, paywall and growth.</li>
         </ul>
       </div>
-      <div class="fit-col fit-no">
+      <div class="fit-col">
         <h3 class="h3">Not a fit</h3>
         <ul>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-cross"/></svg>You need the cheapest possible build.</li>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-cross"/></svg>The app has no business model, and you don't want one.</li>
-          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-cross"/></svg>You want a team that builds a spec without pushing back.</li>
+          <li>You need the cheapest possible build.</li>
+          <li>The app has no business model, and you don't want one.</li>
+          <li>You want a team that builds a spec without pushing back.</li>
         </ul>
       </div>
     </div>
@@ -449,7 +442,7 @@
       <div class="letter-body">
         <p>We started Wizard Dynamics to build apps of our own, and we still spend most of our days on them. Grass Identifier is where we learned paid acquisition. Rock Scanner showed us how far a proven onboarding and paywall carry into a new niche. Noor Stories got us selling on the web next to the App Store.</p>
         <p>Across eighteen apps, the money has come from the first minutes after install and from the first thousand users far more than from the feature list. That's the part most agencies hand back to the founder after launch, and it's the part we stay for.</p>
-        <p>We take on a few client projects per quarter, so each gets the attention our own apps get. If we don't think your app can make money, we'll say so on the first call.</p>
+        <p>We're taking on our first client projects now, only a few per quarter, so each gets the attention our own apps get. If we don't think your app can make money, we'll say so on the first call.</p>
       </div>
       <div class="signoff">
         <svg class="signoff-mark" viewBox="0 0 69 27.5" aria-hidden="true"><use href="#wd"/></svg>
@@ -461,17 +454,21 @@
 
 <!-- FAQ -->
 <section class="section section-soft" id="faq">
-  <div class="container faq-grid">
-    <div class="faq-side">
+  <div class="container side-grid">
+    <div class="side-head">
       <h2 class="h2">Questions founders ask&nbsp;us</h2>
       <p class="lead">Anything else, ask on the call. It's free and you don't need a pitch deck.</p>
-      <a class="btn faq-cta" href="#book" data-cta="faq">Book my free strategy call</a>
+      <a class="btn side-cta" href="#book" data-cta="faq">Get my free revenue plan</a>
     </div>
 
     <div class="faq-list">
       <details>
         <summary>How much does an app cost?</summary>
         <div class="faq-answer"><p>Most first versions that are built to earn land between <span data-ph="price">€25k and €60k</span>, depending on platforms, backend and AI features. You get a fixed quote after the blueprint week, with no hourly billing.</p></div>
+      </details>
+      <details>
+        <summary>Have you built apps for clients before?</summary>
+        <div class="faq-answer"><p>Client work is new for us. Our track record is our own 18 apps, and every number on this page comes from our own App Store Connect and RevenueCat accounts. That's why our first three clients get <a class="link" href="#founding">founding terms</a>.</p></div>
       </details>
       <details>
         <summary>How fast can you launch?</summary>
@@ -509,14 +506,14 @@
 <section class="book night" id="book">
   <div class="container book-grid">
     <div class="book-copy">
-      <h2 class="book-title">Book your free strategy&nbsp;call</h2>
-      <p class="book-lead">Answer four quick questions, then pick a time. In 30 minutes you'll know whether your app can make money, and what it would take.</p>
+      <h2 class="book-title">Get your free revenue plan</h2>
+      <p class="book-lead" id="book-lead">Answer four quick questions and we'll reply within 24 hours with times for a 30-minute call. You'll know whether your app can make money, and what it would take.</p>
       <ul class="book-gets">
-        <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg><span><b>A revenue model for your idea:</b> pricing, trial and paywall.</span></li>
-        <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg><span><b>A realistic budget and timeline,</b> without hourly guesswork.</span></li>
-        <li><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg><span><b>For live apps:</b> a teardown of your paywall and onboarding on the call.</span></li>
+        <li><b>For an idea:</b> real App Store demand, a price, a trial and paywall setup, and a first-year revenue estimate.</li>
+        <li><b>For a live app:</b> we open your paywall, onboarding and App Store page with you and rank the three biggest revenue leaks.</li>
+        <li><b>Either way:</b> a realistic budget and timeline, without hourly guesswork. The plan is yours to keep.</li>
       </ul>
-      <p class="book-slots" data-ph="slots">We start four new builds per quarter. Two of the Q1&nbsp;2027 slots are still open.</p>
+      <p class="book-slots" data-ph="offer">Our first three client apps get founding terms. All three spots are open.</p>
       <p class="book-alt">Prefer email? Write to <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></p>
     </div>
 
@@ -565,7 +562,7 @@
 
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
 
-        <button class="btn btn-lg btn-block" type="submit" id="form-submit">Request my strategy call</button>
+        <button class="btn btn-lg btn-block" type="submit" id="form-submit">Get my free revenue plan</button>
         <p class="form-foot">We reply within 24 hours with times for the call. No newsletter, no sales sequence.</p>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
@@ -592,7 +589,7 @@
         <h4>Studio</h4>
         <ul><li><a href="#work">Our apps</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li></ul>
       </div>
-      <div>
+      <div class="footer-contact">
         <h4>Contact</h4>
         <ul><li><a href="#book">Book a call</a></li><li><a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></li><li>Munich, Germany</li></ul>
       </div>
@@ -603,14 +600,13 @@
     </div>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> Wizard Dynamics eGbR</span>
-      <span>Built by us, like our apps.</span>
     </div>
   </div>
 </footer>
 
 <div class="mobile-cta" id="mobile-cta">
   <span>30 minutes, free</span>
-  <a class="btn" href="#book" data-cta="mobile-sticky">Book my strategy call</a>
+  <a class="btn" href="#book" data-cta="mobile-sticky">Get my revenue plan</a>
 </div>
 
 <div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
@@ -618,10 +614,10 @@
     <button class="modal-close" id="modal-close" type="button" aria-label="Close"><svg width="16" height="16"><use href="#i-close"/></svg></button>
     <h3 class="h3" id="modal-title">The intro video is being recorded.</h3>
     <p>Until it's live, the fastest way to see how we'd approach your app is a free 30-minute call.</p>
-    <a class="btn" href="#book" id="modal-cta" data-cta="modal">Book my free strategy call</a>
+    <a class="btn" href="#book" id="modal-cta" data-cta="modal">Get my free revenue plan</a>
   </div>
 </div>
 
-<script src="js/site.js?v=4" defer></script>
+<script src="js/site.js?v=5" defer></script>
 </body>
 </html>
