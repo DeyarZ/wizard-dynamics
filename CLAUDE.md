@@ -25,7 +25,7 @@ js/site.js          Interactions + CONFIG block (VSL source, Web3Forms key, book
 impressum.html      Legal (German) — keep
 datenschutz.html    Legal (German) — PLACEHOLDER text, must be completed before go-live
 fonts/              Self-hosted Schibsted Grotesk (+ italic) and Literata, OFL (no Google Fonts → GDPR)
-img/wd-mark.svg     Logo mark as <symbol id="m">, uses currentColor
+favicon.svg, favicon.ico, icon-192.png, apple-touch-icon.png, og-image.png   Rendered from the logo geometry
 img/apps/           Icons + App Store screenshots of our own apps (+ apps.json with store URLs/ratings)
 vercel.json         Static deploy config + redirects (see below)
 ```
@@ -41,9 +41,9 @@ vercel.json         Static deploy config + redirects (see below)
 
 ## Page structure (top → bottom)
 
-Offer bar → nav → hero (copy + CTA + two verifiable trust lines left, VSL right; on mobile the VSL follows the headline) → app shelf (7 real apps with ratings) → proof ledger (portfolio numbers as a table + dashboard screenshot) → our apps (4 cases, outcome number as the visual) + client case slot → testimonials + client logos → services (rows) → process (4 steps) → pricing rows + guarantee + fit/not a fit → founders letter (Literata) → FAQ → booking (gold block, form) → footer. Mobile only: sticky CTA bar after the hero CTA scrolls away, hidden at `#book`.
+Offer bar → nav → hero (copy + CTA + two verifiable trust lines left, VSL poster with our app icons right; on mobile the VSL follows the headline) → screenshot wall (our App Store screenshots, full bleed) + app shelf with ratings → proof band (dark, 4 portfolio numbers) → our apps (3 big case panels) → [testimonials, hidden until real] → services (2×2) → process (timeline) → pricing (3 columns, middle one dark) + two promises + fit/not a fit → founders letter (Literata) → FAQ → booking (dark, form) → footer (dark). Mobile only: sticky CTA bar after the hero CTA scrolls away, hidden at `#book`.
 
-All sections are white, except `.section-panel` (light grey) for rhythm and the gold `#book`. Section header: `.section-head` (or `.section-head.split` with a `.lead` on the right) + `.h2`. No scroll animations.
+Brand = the logo: near-black `#09080d`, white, blue `#1e54f0` (only for actions and the logo's D). Sections are white or `.section-soft` (cool grey); `.night` bands for proof, booking and footer. Logo = inline SVG symbol `#wd` (never an image). Section header: `.section-head` (or `.section-head.split` with a `.lead` on the right) + `.h2`. No scroll animations. Empty proof slots carry `.ph-only` (hidden live, visible with `?ph`).
 
 ## Config (js/site.js → CONFIG)
 
