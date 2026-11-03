@@ -17,7 +17,7 @@ const LEAD_FROM = [
   "wizarddynamics.com <leads@wizarddynamics.com>",
   "wizarddynamics.com <leads@bynoor.app>"   // verified fallback until wizarddynamics.com is verified in Resend
 ];
-const ORIGINS = /^(https:\/\/((www\.)?wizarddynamics\.com|wizard-dynamics-site[a-z0-9-]*\.vercel\.app)|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/;
+const ORIGINS = /^(https:\/\/((www\.)?wizarddynamics\.com|wizard-dynamics[a-z0-9-]*\.vercel\.app)|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/;
 const REVENUE = ["Pre-revenue", "Under $1k", "$1k to $10k", "Over $10k"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

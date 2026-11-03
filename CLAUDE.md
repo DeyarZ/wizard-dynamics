@@ -64,3 +64,5 @@ Brand = the logo: near-black `#09080d`, white, blue `#1e54f0` (only for actions 
 ## Deployment
 
 Push to `main` = live on wizarddynamics.com. Other branches get Vercel preview URLs — use a branch for anything with unfilled placeholders.
+
+Two Vercel projects build this repo: **`wizard-dynamics`** (prj_EWKJFUObOKDOWEwjWdzrOOgK5S10) owns wizarddynamics.com + www and is production; `wizard-dynamics-site` (prj_27gy…, what the local `.vercel/` links to and `vercel dev` uses) only makes duplicate previews. Env vars (`RESEND_API_KEY`, `LEAD_TO`) must be set on `wizard-dynamics`, and Web Analytics enabled there. After a deploy, verify on www.wizarddynamics.com, not on the -site preview.
