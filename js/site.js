@@ -17,8 +17,9 @@
     // Leads (estimates, call requests, Revenue Audit requests) go to /api/lead, which emails them via Resend
     // (api/lead.js, key in the Vercel env). leadEmail is only the mailto fallback if that request fails.
     // Cal.com / Calendly booking link. When set, the calendar opens inline after "Book my free project call"
-    // and after the audit form (name + email prefilled), so the call really gets booked. Needs a datenschutz update.
-    bookingUrl: "",
+    // and after the audit form (name + email + notes prefilled), so the call really gets booked. Covered in datenschutz.html.
+    // Shared with the consulting site (cal.com account wizard-dynamics-consulting). Keep BOOKING in api/lead.js the same.
+    bookingUrl: "https://cal.com/wizard-dynamics-consulting/30min",
     leadEmail: "hello@wizarddynamics.com",
     // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking, estimate result.
     // spotsLeft: null -> "Only 5 founder calls a week" (always true while you cap at 5).
@@ -214,15 +215,38 @@
   /* ------------------------------------------------------------------
      The estimate page (js/estimate.js) reads these
      ------------------------------------------------------------------ */
-  function bookingSrc(name, email, notes) {
-    return CONFIG.bookingUrl +
-      (CONFIG.bookingUrl.indexOf("?") > -1 ? "&" : "?") +
-      "name=" + encodeURIComponent(name) +
-      "&email=" + encodeURIComponent(email) +
-      "&notes=" + encodeURIComponent(notes) +
-      "&embed=true";
+  /* Cal.com inline booking. embed.js loads only on the visitor's click (datenschutz: Terminbuchung), sizes the
+     calendar to its content (no scroll inside a scroll on phones) and hides the event header (the Cal.com
+     account is named after the consulting site). onBooked runs after a booking, for the funnel. */
+  function openBooking(el, name, email, notes, onBooked) {
+    var link = CONFIG.bookingUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, "").replace(/[?#].*$/, "");
+    if (!window.Cal) {
+      (function (C, A, L) {
+        var p = function (a, ar) { a.q.push(ar); }, d = C.document;
+        C.Cal = C.Cal || function () {
+          var cal = C.Cal, ar = arguments;
+          if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+          if (ar[0] === L) {
+            var api = function () { p(api, arguments); }, ns = ar[1];
+            api.q = api.q || [];
+            if (typeof ns === "string") { cal.ns[ns] = cal.ns[ns] || api; p(cal.ns[ns], ar); p(cal, ["initNamespace", ns]); } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+      window.Cal("init", { origin: "https://cal.com" });
+      window.Cal("ui", { hideEventTypeDetails: true, layout: "month_view", theme: "light", cssVarsPerTheme: { light: { "cal-brand": "#1e54f0" } } });
+    }
+    if (onBooked) {
+      if (openBooking.booked) window.Cal("off", { action: "bookingSuccessfulV2", callback: openBooking.booked });
+      openBooking.booked = function () { onBooked(); };
+      window.Cal("on", { action: "bookingSuccessfulV2", callback: openBooking.booked });
+    }
+    el.innerHTML = "";
+    window.Cal("inline", { elementOrSelector: el, calLink: link, config: { name: name, email: email, notes: notes, layout: "month_view", theme: "light" } });
   }
-  window.WD = { config: CONFIG, spotsLong: spotsCopy.long, bookingSrc: bookingSrc };
+  window.WD = { config: CONFIG, spotsLong: spotsCopy.long, openBooking: openBooking };
 
   /* Links to /estimate carry which button it was (from=hero) plus this visit's utm tags and outside referrer,
      so every lead email says where the lead came from. Nothing is stored on the device. */

@@ -13,6 +13,7 @@
 const core = require("../js/estimate.js");
 
 const VISITOR_FROM = "Deyar Zakir <hello@wizarddynamics.com>";
+const BOOKING = "https://cal.com/wizard-dynamics-consulting/30min";   // same as CONFIG.bookingUrl in js/site.js
 const LEAD_FROM = [
   "wizarddynamics.com <leads@wizarddynamics.com>",
   "wizarddynamics.com <leads@bynoor.app>"   // verified fallback until wizarddynamics.com is verified in Resend
@@ -83,7 +84,7 @@ function visitorEstimate(name, a) {
   const payback = "At €" + price + " a year, it takes about " + core.num(f.pb.subs) + " paying subscribers to earn the build back in year one. " +
     "With a typical " + f.pb.paidPct + "% of downloads paying, that's about " + core.num(f.pb.downloads) + " downloads.";
   const reveal = "Building the app is the predictable part. Getting those downloads is where most apps stall, and it's the part we've done with our own: Grass Identifier went from $458 to $20.2k a month in 10 months.";
-  const call = "Want to go through it with a founder? Reply to this email with two times that work for you and we'll set up a free 30-minute project call. We check your scope and cut what version one doesn't need. If you want us to build it, you get a fixed price.";
+  const call = "Want to go through it with a founder? Pick a time for a free 30-minute project call, or reply to this email with two times that work for you. We check your scope and cut what version one doesn't need. If you want us to build it, you get a fixed price.";
   const cutsTotal = f.cuts.list.length ? (f.cuts.list.length > 1 ? "All together: " : "With that: ") + core.kr(f.cuts.after.low) + " to " + core.kr(f.cuts.after.high) + "." : "";
 
   const text = "Hi " + name.split(/\s+/)[0] + ",\n\nhere's the estimate you just made on wizarddynamics.com.\n\n" +
@@ -93,7 +94,7 @@ function visitorEstimate(name, a) {
     "How to launch for less\n" + (f.cuts.list.length
       ? f.cuts.list.map((x) => "- " + x.title + " " + x.text + " Saves about " + core.kl(x.saves) + ".").join("\n") + "\n" + cutsTotal
       : "Your version one is already lean. Keep it that way until paying users ask for more.") + "\n\n" +
-    "When does it pay for itself?\n" + payback + "\n\n" + reveal + "\n\n" + call + "\n\n" +
+    "When does it pay for itself?\n" + payback + "\n\n" + reveal + "\n\n" + call + "\nPick a time: " + BOOKING + "\n\n" +
     "Deyar Zakir\nCo-founder, Wizard Dynamics\nhttps://www.wizarddynamics.com";
 
   const P = 'style="margin:0 0 14px;font-size:16px;line-height:1.55;color:#0a0a0f"';
@@ -114,6 +115,7 @@ function visitorEstimate(name, a) {
       : '<p style="margin:0;font-size:15px;line-height:1.5;color:#464651">Your version one is already lean. Keep it that way until paying users ask for more.</p>') +
     "<h3 " + H + ">When does it pay for itself?</h3><p " + P + ">" + esc(payback) + "</p><p " + P + ">" + esc(reveal) + "</p>" +
     '<p style="margin:28px 0 14px;padding-top:18px;border-top:1px solid #e4e4ea;font-size:16px;line-height:1.55;color:#0a0a0f">' + esc(call) + "</p>" +
+    '<p style="margin:0 0 14px"><a href="' + BOOKING + '" style="display:inline-block;padding:13px 22px;border-radius:8px;background:#1e54f0;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none">Pick a time for the call</a></p>' +
     '<p style="margin:24px 0 0;font-size:15px;line-height:1.5;color:#0a0a0f">Deyar Zakir<br><span style="color:#6b6b77">Co-founder, Wizard Dynamics</span><br><a href="https://www.wizarddynamics.com" style="color:#1e54f0">wizarddynamics.com</a></p>' +
     "</div></div>";
   return { subject: "Your app cost estimate: " + f.range, text, html };
@@ -149,9 +151,9 @@ module.exports = async function handler(req, res) {
       lead = { subject: "New cost estimate: " + name + " (" + range + ", start: " + core.labelOf("start", a.start) + ")", text: body };
       visitor = visitorEstimate(name, a);
     } else {
-      lead = { subject: "Call request: " + name + " (estimate " + range + ")", text: "Wants the free 30-minute project call. Reply with times.\n\n" + body };
-      visitor = visitorNote(name, "Your project call request",
-        "thanks, your request for a free 30-minute project call is in (your estimate: " + range + "). We'll email you within 24 hours with times for the call.");
+      lead = { subject: "Call request: " + name + " (estimate " + range + ")", text: "Wants the free 30-minute project call and got the calendar (Cal.com). No booking in Cal.com within a day? Reply with times.\n\n" + body };
+      visitor = visitorNote(name, "Your project call",
+        "thanks, your request for a free 30-minute project call is in (your estimate: " + range + "). If you picked a slot, the calendar invite is on its way. If not, pick a time here: " + BOOKING + " or reply with two times that work for you.");
     }
   } else if (b.type === "audit") {
     const revenue = REVENUE.indexOf(b.revenue) > -1 ? b.revenue : "-";
@@ -162,7 +164,7 @@ module.exports = async function handler(req, res) {
       text: "Name: " + name + "\nEmail: " + email + "\nStage: Live app (Revenue Audit)\nMonthly revenue: " + revenue + "\nApp: " + app + "\nSource: " + source
     };
     visitor = visitorNote(name, "Your Revenue Audit request",
-      "thanks, your request for the free Revenue Audit is in. We'll look at your app (" + app + ") and reply within 24 hours with times for the call.");
+      "thanks, your request for the free Revenue Audit is in. We'll look at your app (" + app + ") before the call. If you picked a slot, the calendar invite is on its way. If not, pick a time here: " + BOOKING + " or reply with two times that work for you.");
   } else {
     return res.status(400).json({ ok: false, error: "type" });
   }

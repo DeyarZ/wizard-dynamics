@@ -20,11 +20,11 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 | `pricing` | Estimate card, FAQ "What does an app cost?" | The `PRICES` table in `js/estimate.js` is a proposal from typical market ranges (€8k simple iPhone app to €100k+). Set your real ranges there; keep the FAQ range in line |
 | `guarantee` | Offer section | Confirm you'll honour the launch-date guarantee (ideally with a number) |
 | `faq-answer` | FAQ (equity) | Confirm whether rev-share deals are on the table |
-| `legal` | `/datenschutz` | Written 3 Nov 2026 (Vercel hosting + Web Analytics, Resend, IONOS). Update it when the VSL host or a booking tool (Cal.com) goes in |
+| `legal` | `/datenschutz` | Written 3 Nov 2026 (Vercel hosting + Web Analytics, Resend, Cal.com booking, IONOS). Update it when the VSL host or another tool goes in |
 
 The hero chart card shows Grass Identifier's real monthly revenue from RevenueCat (launch to August 2026). Refresh it with `python3 tools/update-charts.py` (key comes from `~/.claude/.env.secrets`), then check the card title and the Grass case number still match.
 
-Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). Optionally set `CONFIG.bookingUrl` (Cal.com) in `js/site.js` so "Book my free project call" opens a calendar.
+Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). `CONFIG.bookingUrl` (Cal.com) in `js/site.js` makes "Book my free project call" open a calendar; it's set to the consulting site's 30-minute Discovery Call.
 
 **To switch on the visitor's email copy:** add these four records for wizarddynamics.com at IONOS (DNS), then verify the domain in Resend (Domains → wizarddynamics.com → Verify). Nothing else changes; the lead mails then also come from leads@wizarddynamics.com.
 

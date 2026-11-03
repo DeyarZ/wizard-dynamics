@@ -349,14 +349,11 @@
     done.textContent = "Sending…";
     post({ type: "call", name: lead.name, email: lead.email, answers: ans }).then(function (res) {
       btn.disabled = false;
-      if (CONFIG.bookingUrl && WD.bookingSrc) {
-        var cal = document.getElementById("est-calendar"), f = document.createElement("iframe");
-        f.src = WD.bookingSrc(lead.name, lead.email, "Cost estimate " + rangeText() + ". " + summary().split("\n\n")[1].replace(/\n/g, ". "));
-        f.title = "Pick a time for your project call";
-        f.loading = "eager";
-        cal.innerHTML = "";
-        cal.appendChild(f);
+      if (CONFIG.bookingUrl && WD.openBooking) {
+        var cal = document.getElementById("est-calendar");
         cal.hidden = false;
+        WD.openBooking(cal, lead.name, lead.email, "Cost estimate " + rangeText() + ". " + summary().split("\n\n")[1].replace(/\n/g, ". "),
+          function () { go("call-booked"); });
         btn.hidden = true;
         done.textContent = "";
       } else if (res.ok) {
@@ -405,14 +402,11 @@
       form.style.display = "none";
       var success = document.getElementById("form-success");
       success.classList.add("show");
-      if (CONFIG.bookingUrl && WD.bookingSrc) {
-        var cal = document.getElementById("calendar"), f = document.createElement("iframe");
-        f.src = WD.bookingSrc(data.name, data.email, "Revenue Audit. Monthly revenue: " + data.budget + ". App: " + data.message);
-        f.title = "Pick a time for your audit call";
-        f.loading = "eager";
-        cal.innerHTML = "";
-        cal.appendChild(f);
+      if (CONFIG.bookingUrl && WD.openBooking) {
+        var cal = document.getElementById("calendar");
         cal.hidden = false;
+        WD.openBooking(cal, data.name, data.email, "Revenue Audit. Monthly revenue: " + data.budget + ". App: " + data.message,
+          function () { go("audit-booked"); });
         document.getElementById("success-title").textContent = "Pick a time";
         document.getElementById("success-copy").textContent = "Your details are filled in. Choose a slot that works for you.";
       }
@@ -458,13 +452,13 @@
   /* Render whatever the URL asks for, as far as the answers so far allow it */
   function route(fromHistory) {
     var view = location.pathname.replace(/\.html$/, "").replace(/^\/estimate\/?/, "").replace(/\/$/, "");
-    if (view === "audit" || view === "audit-sent") { showAudit(false, true); return; }
+    if (view === "audit" || view === "audit-sent" || view === "audit-booked") { showAudit(false, true); return; }
     showEst();
     for (var i = 0; i < STEPS.length; i++) {
       if (STEPS[i].slug === view && i <= reached) { step = i; renderStep(true); return; }
     }
     if (view === "email" && complete()) { step = STEPS.length; renderGate(true); return; }
-    if ((view === "result" || view === "call-requested") && lead && complete()) { renderResult(true); return; }
+    if ((view === "result" || view === "call-requested" || view === "call-booked") && lead && complete()) { renderResult(true); return; }
     step = 0;
     renderStep(true);
     if (fromHistory || view) go("", true);

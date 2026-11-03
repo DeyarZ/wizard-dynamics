@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=12" />
+  <link rel="stylesheet" href="css/site.css?v=13" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -540,6 +540,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=11" defer></script>
+<script src="js/site.js?v=12" defer></script>
 </body>
 </html>

@@ -657,8 +657,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .form-success:focus { outline: none; }
 .form-success p { margin-top: 10px; font-size: 16.5px; color: var(--ink-2); }
 .form-success .btn { margin-top: 22px; }
-.calendar { margin-top: 20px; }
-.calendar iframe { display: block; width: 100%; height: 700px; border: 0; border-radius: 10px; }
+.calendar { margin-top: 20px; min-height: 420px; }
+.calendar iframe { display: block; width: 100%; border: 0; }   /* Cal.com embed sets the height */
 
 /* ---------- Footer ---------- */
 .footer { padding: 0 0 40px; font-size: 15px; }
