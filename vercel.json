@@ -9,6 +9,19 @@
       "source": "/go/grass",
       "destination": "https://grassidentifier.wizarddynamics.com/go",
       "permanent": false
+    },
+    { "source": "/contact", "destination": "/#book", "permanent": false },
+    { "source": "/construction", "destination": "/", "permanent": false },
+    { "source": "/scroll", "destination": "/", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
     }
   ]
 }

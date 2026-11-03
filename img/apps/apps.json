@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "grass",
+    "name": "Grass Identifier: AI Scan",
+    "appStoreUrl": "https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668",
+    "rating": 4.38,
+    "ratingCount": 221,
+    "genre": "Reference",
+    "icon": "img/apps/grass-icon.jpg",
+    "shots": [
+      "img/apps/grass-shot1.jpg",
+      "img/apps/grass-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "rock",
+    "name": "Rock Scanner: Mineral ID",
+    "appStoreUrl": "https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418",
+    "rating": 4.31,
+    "ratingCount": 154,
+    "genre": "Reference",
+    "icon": "img/apps/rock-icon.jpg",
+    "shots": [
+      "img/apps/rock-shot1.jpg",
+      "img/apps/rock-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "noor-stories",
+    "name": "Noor: Muslim Sleep Stories",
+    "appStoreUrl": "https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034",
+    "rating": 4.5,
+    "ratingCount": 6,
+    "genre": "Health & Fitness",
+    "icon": "img/apps/noor-stories-icon.jpg",
+    "shots": [
+      "img/apps/noor-stories-shot1.jpg",
+      "img/apps/noor-stories-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "prayer-lock",
+    "name": "Prayer Lock: Noor",
+    "appStoreUrl": "https://apps.apple.com/us/app/prayer-lock-noor/id6758148553",
+    "rating": 4.79,
+    "ratingCount": 29,
+    "genre": "Productivity",
+    "icon": "img/apps/prayer-lock-icon.jpg",
+    "shots": [
+      "img/apps/prayer-lock-shot1.jpg",
+      "img/apps/prayer-lock-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "everlens",
+    "name": "Everlens: Guest Party Camera",
+    "appStoreUrl": "https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628",
+    "rating": 4.76,
+    "ratingCount": 17,
+    "genre": "Photo & Video",
+    "icon": "img/apps/everlens-icon.jpg",
+    "shots": [
+      "img/apps/everlens-shot1.jpg",
+      "img/apps/everlens-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "ledgr",
+    "name": "Invoice Maker: Ledgr",
+    "appStoreUrl": "https://apps.apple.com/us/app/invoice-maker-ledgr/id6757974274",
+    "rating": 0,
+    "ratingCount": 0,
+    "genre": "Utilities",
+    "icon": "img/apps/ledgr-icon.jpg",
+    "shots": [
+      "img/apps/ledgr-shot1.jpg",
+      "img/apps/ledgr-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "quran-widgets",
+    "name": "Quran Widgets by Noor",
+    "appStoreUrl": "https://apps.apple.com/us/app/quran-widgets-by-noor/id6775821781",
+    "rating": 4.6,
+    "ratingCount": 15,
+    "genre": "Lifestyle",
+    "icon": "img/apps/quran-widgets-icon.jpg",
+    "shots": [
+      "img/apps/quran-widgets-shot1.jpg",
+      "img/apps/quran-widgets-shot2.jpg"
+    ]
+  },
+  {
+    "slug": "wedding-planner",
+    "name": "Wedding Planner: BridePlan",
+    "appStoreUrl": "https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577",
+    "rating": 4.68,
+    "ratingCount": 94,
+    "genre": "Utilities",
+    "icon": "img/apps/wedding-planner-icon.jpg",
+    "shots": [
+      "img/apps/wedding-planner-shot1.jpg",
+      "img/apps/wedding-planner-shot2.jpg"
+    ]
+  }
+]

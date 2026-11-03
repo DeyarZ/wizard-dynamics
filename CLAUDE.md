@@ -1,10 +1,12 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code in this repo.
 
 ## Project
 
-`wizarddynamics.com` — a single-page scroll-driven landing site. Vanilla HTML/CSS/JS, no framework, no build step, no package manager. Deployed statically on Vercel from `main`.
+`wizarddynamics.com` — the Wizard Dynamics **app studio / app agency** landing page (rebuilt from scratch 2026-11-03; the old scroll-frame venture-studio site is gone). Single page, vanilla HTML/CSS/JS, no framework, no build step, no package manager. Static deploy on Vercel from `main`.
+
+Positioning: "We build apps that actually make money" — operators, not just devs. Proof = our own app portfolio (18 live apps, real App Store / RevenueCat numbers). Conversion goal = one action: **book a free strategy call** (`#book`).
 
 ## Local development
 
@@ -12,46 +14,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 python3 -m http.server 8765
 ```
 
-Open http://localhost:8765. The site **must** be served over HTTP (not `file://`) — the canvas frame loader fetches `frames/frame_NNNN.jpg` over the network and CORS/file-protocol restrictions break it otherwise.
+Open http://localhost:8765. Append `?ph` to highlight every placeholder that still needs real content.
+
+## Files
+
+```
+index.html          The landing page (all sections + content live here)
+css/site.css        Design system + all section styles (tokens at :root)
+js/site.js          Interactions + CONFIG block (VSL url, Web3Forms key, booking url)
+impressum.html      Legal (German) — keep
+datenschutz.html    Legal (German) — PLACEHOLDER text, must be completed before go-live
+fonts/              Self-hosted Geist, Geist Mono, Instrument Serif (no Google Fonts → GDPR)
+img/wd-mark.svg     Logo mark as <symbol id="m">, uses currentColor
+img/apps/           Icons + App Store screenshots of our own apps (+ apps.json with store URLs/ratings)
+vercel.json         Static deploy config + redirects (see below)
+```
+
+## Hard rules
+
+- **Never remove the `/go/grass` redirect in `vercel.json`** — it's the destination URL of live ChatGPT Ads (apex-domain requirement). Removing it breaks paid traffic.
+- **No fake trust.** Testimonials, client logos, client case studies and review scores stay as clearly-marked placeholders (`data-ph`) until real ones exist. Never invent names, quotes or client results.
+- Numbers marked `data-ph="verify"` are real (ASC/RevenueCat, Nov 2026) but must be re-checked against `Studios/os/snapshot.md` before go-live and kept current.
+- Prices (`data-ph="price"`) and the offer/guarantee/slots are proposals — human-owned, confirm before go-live.
+- No third-party requests without a reason (fonts are self-hosted on purpose). If you add an embed (YouTube, Cal.com), update `datenschutz.html`.
+
+## Page structure (top → bottom)
+
+Offer banner → nav → hero (headline, CTA + trust-next-to-CTA, VSL) → logo marquee → 01 proof stats → 02 comparison → 03 services → 04 work (own apps) + screenshot strip → 05 testimonials → 06 process → 07 pricing + guarantee → 08 FAQ → 09 booking form → footer. Floating founder pill (desktop) and sticky CTA bar (mobile) appear after the hero and hide at `#book`.
+
+Sections alternate `.on-ink` (dark) and `.on-paper` (light). Section header pattern: `.section-head.split` → `.label` (mono, numbered) + `.h2` with a `.serif.gold-text` accent line + `.lead`. Reveal-on-scroll: add `.reveal` (optional `style="--d:.05s"` delay).
+
+## Config (js/site.js → CONFIG)
+
+- `vslUrl` — YouTube/Vimeo embed URL or `.mp4`. Empty → "coming soon" modal that pushes to the form.
+- `web3formsKey` — leads emailed via Web3Forms. Empty → form opens a pre-filled `mailto:` to hello@wizarddynamics.com.
+- `bookingUrl` — Cal.com/Calendly link shown after submit. Empty → hidden.
 
 ## Deployment
 
-Auto-deploys on push to `main` via Vercel. `vercel.json` explicitly nulls out `framework`, `buildCommand`, `installCommand`, and `outputDirectory` to force a pure static deploy — Vercel will otherwise misdetect this as a Next.js project.
-
-## Architecture
-
-The site is a single 100vh hero followed by a tall `#scroll-container` that drives every animation via one shared ScrollTrigger progress value (0 → 1 over the container's height). Understanding this is essential — almost everything is wired off `self.progress` from a `trigger: scrollContainer` ScrollTrigger.
-
-### Frame-bound canvas ([js/app.js](js/app.js))
-
-- `FRAME_COUNT = 226` — must match the file count in `frames/`. If you add/remove frames, update this constant.
-- Two-phase preloader: first `EAGER_COUNT` (12) frames load in parallel before first paint, then the rest load with `CONCURRENCY = 6` workers behind the loader.
-- `FRAME_SPEED = 2.0` accelerates the canvas animation so it finishes by ~50% scroll, leaving the second half for content sections over a held final frame.
-- The canvas uses padded-cover rendering: it samples corner pixels of the current frame to set `bgColor` and fills the canvas with that color before drawing, so any padding around the image blends with the frame's edges. `bgColor` is re-sampled every ~20 frames.
-
-### Section choreography pattern
-
-Each `.scroll-section` declares its lifecycle via data attributes on the element:
-
-- `data-enter` / `data-leave` — integer percentages (0–100) of total scroll progress where the section is visible.
-- `data-animation` — one of: `fade-up`, `slide-left`, `slide-right`, `scale-up`, `rotate-in`, `stagger-up`, `clip-reveal`. Defined in the `switch` in `setupSectionAnimation`.
-- `data-persist="true"` — section stays visible after `leave` (used for the final CTA).
-
-`setupSectionAnimation` absolute-positions each section at the **midpoint** of its enter/leave range (`top = mid * 100%`), then drives opacity from a single ScrollTrigger that watches the global progress. The section's children (`.section-label`, `.section-heading`, `.section-body`, `.section-note`, `.stats-label`, `.stat`, `.cta-button`, `.app-list li`) are animated by a paused GSAP timeline that plays once when `progress` enters the range.
-
-If you add a new section, give it `data-enter` / `data-leave` / `data-animation` and ensure its inner elements match the selector list above so they get picked up by the timeline.
-
-### Other scroll-driven layers
-
-- Hero text fade — opacity ramps off with `1 - p * 15` so it disappears within the first ~6% of scroll.
-- Dark overlay (`#dark-overlay`) — fades in for the stats section's range only (currently `0.64 → 0.76`).
-- Marquee — `data-scroll-speed`, `data-enter`, `data-leave` on `.marquee-wrap`. `xPercent` is driven by ScrollTrigger scrub; opacity fades at the range edges.
-- Stat counters — animate from 0 to `data-value` (with `data-decimals`) the first time the parent section's range is entered, and reset if the user scrolls back above it.
-
-### Smooth scroll
-
-Lenis drives smooth scrolling and is bridged to ScrollTrigger via `lenis.on("scroll", ScrollTrigger.update)` and `gsap.ticker.add((time) => lenis.raf(time * 1000))`. Don't use native `scroll` listeners or `window.scrollTo` directly — use Lenis APIs.
-
-### Dependencies
-
-All third-party libs (Lenis, GSAP, ScrollTrigger) are loaded from `cdn.jsdelivr.net` in [index.html](index.html). There is no `package.json` and no local `node_modules`.
+Push to `main` = live on wizarddynamics.com. Other branches get Vercel preview URLs — use a branch for anything with unfilled placeholders.
