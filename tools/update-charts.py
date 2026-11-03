@@ -86,15 +86,12 @@ def svg(rows):
             f'H{x + bw - r:.1f} Q{x + bw:.1f},{top:.1f} {x + bw:.1f},{top + r:.1f} V{Y_BOTTOM} Z" fill="{fill}"/>'
         )
         if (month, v) == best:
-            parts.append(f'<text class="chart-end bar-label" x="{x + bw / 2:.1f}" y="{top - 10:.1f}" fill="#ffffff" font-size="16" '
+            parts.append(f'<text class="chart-end bar-label" x="{x + bw / 2:.1f}" y="{top - 10:.1f}" fill="#ffffff" font-size="20" '
                          f'font-weight="650" text-anchor="middle">${v / 1000:.1f}k</text>')
-        if i == 0:
-            parts.append(f'<text class="bar-label" x="{x:.1f}" y="{top - 10:.1f}" fill="#85858f" font-size="12">'
-                         f'Launch, ${v:,.0f}</text>')
     fmt = lambda m: datetime.date(int(m[:4]), int(m[5:]), 1).strftime("%b %Y")
     first_x = X0 + (slot - bw) / 2
     last_x = X0 + (n - 1) * slot + (slot + bw) / 2
-    parts.append(f'<text x="{first_x:.1f}" y="{H - 12}" fill="#85858f" font-size="12">{fmt(rows[0][0])}</text>')
+    parts.append(f'<text x="{first_x:.1f}" y="{H - 12}" fill="#85858f" font-size="12">Launch, {fmt(rows[0][0])}</text>')
     parts.append(f'<text x="{last_x:.1f}" y="{H - 12}" fill="#85858f" font-size="12" text-anchor="end">{fmt(rows[-1][0])}</text>')
     title = (f"Grass Identifier monthly revenue from {fmt(rows[0][0])} to {fmt(rows[-1][0])}, "
              f"best month {fmt(best[0])} at ${best[1] / 1000:.1f}k")

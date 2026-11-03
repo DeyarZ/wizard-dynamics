@@ -34,7 +34,7 @@ tools/update-charts.py   Refreshes the Grass monthly-revenue chart (hero card) f
 ## Hard rules
 
 - **Never remove the `/go/grass` redirect in `vercel.json`** — it's the destination URL of live ChatGPT Ads (apex-domain requirement). Removing it breaks paid traffic.
-- **No fake trust on the live site.** Client logos, client case studies and review scores stay placeholders (`data-ph`) until real ones exist. The testimonials section holds invented draft quotes the founder asked for as layout placeholders: it carries `.draft-only`, which an inline script + CSS hide on wizarddynamics.com. Replace each quote with a real one, then remove its `data-ph` and the section's `draft-only`. Every number must survive a buyer checking it (App Store rating = real weighted average, revenue = RevenueCat).
+- **No fake trust on the live site.** Client logos, client case studies and review scores stay placeholders (`data-ph`) until real ones exist. The testimonials are invented draft quotes the founder asked for as layout placeholders: they live in `js/draft-reviews.js`, which the inline `<head>` script loads only on preview hosts, so the names are never in the production HTML; on wizarddynamics.com the `#reviews` section (`.draft-only`) stays hidden. Real quotes go straight into `#reviews .quotes`; then remove `draft-only` and delete `js/draft-reviews.js`. Every number must survive a buyer checking it (App Store rating = real weighted average, revenue = RevenueCat/ASC).
 - Numbers marked `data-ph="verify"` are real (ASC/RevenueCat, Nov 2026) but must be re-checked against `Studios/os/snapshot.md` before go-live and kept current.
 - The offer (free MVP Blueprint / App Audit, `CONFIG.spotsLeft`/`spotsTotal`, weekly reset), the guarantee and the FAQ rev-share answer are proposals — human-owned. Keep `spotsLeft` true.
 - No third-party requests without a reason (fonts are self-hosted on purpose). If you add an embed (YouTube, Cal.com), update `datenschutz.html`.
@@ -53,7 +53,8 @@ Brand = the logo: near-black `#09080d`, white, blue `#1e54f0` (only for actions 
 - Both empty → the poster opens a "being recorded" modal that pushes to the form.
 - `web3formsKey` — leads emailed via Web3Forms. Empty → form opens a pre-filled `mailto:` to hello@wizarddynamics.com.
 - `bookingUrl` — Cal.com/Calendly link shown after submit. Empty → hidden.
-- `spotsLeft` / `spotsTotal` — free blueprint spots this week, shown in the offer bar, offer, booking and mobile bar. The countdown always runs to Sunday 23:59 (visitor's time).
+- `spotsTotal` (5) / `spotsLeft` (null) — weekly free blueprint calls. `null` shows "Only 5 spots a week" (true while the cap holds); a number shows "3 of 5 spots left" and must be kept current. The countdown always runs to Sunday 23:59 (visitor's time).
+- The form's second question follows the stage: "Budget for the app" (ideas) or "Monthly revenue today" (live apps, button "Get my free audit"). Links with `data-stage="Live app"` preselect it.
 
 ## Deployment
 

@@ -45,8 +45,8 @@
   var hasLeft = typeof left === "number";
   var spotsCopy = {
     bar: hasLeft
-      ? "<b>" + left + "</b> of " + total + ' <span class="hide-sm">spots </span>left<span class="hide-sm"> this week</span>'
-      : '<span class="hide-sm">Only </span><b>' + total + '</b> <span class="hide-sm">spots </span>a week',
+      ? "<b>" + left + "</b> of " + total + ' spots left<span class="hide-sm"> this week</span>'
+      : "Only <b>" + total + "</b> spots a week",
     long: hasLeft ? left + " of " + total + " spots left this week." : "Only " + total + " blueprint calls a week.",
     mobile: hasLeft ? "<b>" + left + "</b> of " + total + " free spots left" : "Only <b>" + total + "</b> free spots a week"
   };
@@ -115,11 +115,35 @@
     });
   });
 
-  /* Links like "Already live? Get a free paywall teardown" preselect the stage in the form */
+  /* The form asks a build budget for ideas and the current revenue for live apps (the retainer buyer) */
+  var STAGE_FORMS = {
+    build: { label: "Budget for the app", button: "Get my free blueprint",
+             options: ["Under \u20ac25k", "\u20ac25k to \u20ac60k", "\u20ac60k or more", "Monthly growth retainer", "Not sure yet"] },
+    live: { label: "Monthly revenue today", button: "Get my free audit",
+            options: ["Pre-revenue", "Under $1k", "$1k to $10k", "Over $10k"] }
+  };
+  var currentStageForm = "build";
+  function syncStage() {
+    var checked = $('#lead-form input[name="stage"]:checked');
+    var key = checked && checked.value === "Live app" ? "live" : "build";
+    if (key === currentStageForm) return;
+    currentStageForm = key;
+    var cfg = STAGE_FORMS[key];
+    var sel = $("#f-budget"), label = $("#f-budget-label"), btn = $("#form-submit");
+    if (label) label.textContent = cfg.label;
+    if (sel) {
+      sel.innerHTML = '<option value="" selected disabled>Choose a range</option>' +
+        cfg.options.map(function (o) { return "<option>" + o + "</option>"; }).join("");
+    }
+    if (btn && !CONFIG.bookingUrl) btn.textContent = cfg.button;
+  }
+  $$('#lead-form input[name="stage"]').forEach(function (r) { r.addEventListener("change", syncStage); });
+
+  /* Links like "Already live? Get a free App Audit" preselect the stage in the form */
   $$("a[data-stage]").forEach(function (a) {
     a.addEventListener("click", function () {
       var radio = $('#lead-form input[name="stage"][value="' + a.getAttribute("data-stage") + '"]');
-      if (radio) radio.checked = true;
+      if (radio) { radio.checked = true; syncStage(); }
     });
   });
 
@@ -238,7 +262,7 @@
 
   function showCalendar(data) {
     var cal = $("#calendar");
-    var notes = "Stage: " + (data.stage || "-") + ". Budget: " + (data.budget || "-") + ". " + (data.message || "");
+    var notes = "Stage: " + (data.stage || "-") + ". " + STAGE_FORMS[currentStageForm].label + ": " + (data.budget || "-") + ". " + (data.message || "");
     var url = CONFIG.bookingUrl +
       (CONFIG.bookingUrl.indexOf("?") > -1 ? "&" : "?") +
       "name=" + encodeURIComponent(data.name) +
@@ -279,7 +303,7 @@
         status.className = "form-status err";
         status.textContent = !data.name ? "Add your name so we know who we're talking to."
           : !emailOk ? "Add an email address we can reply to."
-          : "Pick a budget range, so we can prepare the right plan.";
+          : "Pick a range, so we can prepare the right plan.";
         (!data.name ? $("#f-name") : !emailOk ? $("#f-email") : $("#f-budget")).focus();
         return;
       }
@@ -288,7 +312,7 @@
         "Name: " + data.name + "\n" +
         "Email: " + data.email + "\n" +
         "Stage: " + (data.stage || "-") + "\n" +
-        "Budget: " + (data.budget || "-") + "\n\n" +
+        STAGE_FORMS[currentStageForm].label + ": " + (data.budget || "-") + "\n\n" +
         (data.message || "");
 
       if (!CONFIG.web3formsKey) {
