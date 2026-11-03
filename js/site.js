@@ -21,9 +21,9 @@
     // qualifying questions (name + email prefilled), so "Book a call" really books. Needs a datenschutz update.
     bookingUrl: "",
     leadEmail: "hello@wizarddynamics.com",
-    // Free blueprint calls per week (offer bar, offer, booking section, mobile bar).
-    // spotsLeft: null -> "Only 5 spots a week" (always true while you cap at 5).
-    // spotsLeft: 3    -> "3 of 5 spots left this week". Only set it if you update it as calls get booked:
+    // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking, estimate result.
+    // spotsLeft: null -> "Only 5 founder calls a week" (always true while you cap at 5).
+    // spotsLeft: 3    -> "3 of 5 founder calls left this week". Only set it if you update it as calls get booked:
     // a returning visitor who sees "3 left" on Monday and on Sunday knows the scarcity is fake.
     // The countdown always runs to Sunday 23:59 (visitor's time), when the week's spots reset.
     spotsLeft: null,
@@ -40,15 +40,14 @@
   var y = $("#year");
   if (y) y.textContent = String(new Date().getFullYear());
 
-  /* Weekly blueprint spots + countdown to Sunday 23:59 */
+  /* Weekly founder calls + countdown to Sunday 23:59 */
   var total = CONFIG.spotsTotal, left = CONFIG.spotsLeft;
   var hasLeft = typeof left === "number";
   var spotsCopy = {
     bar: hasLeft
-      ? "<b>" + left + "</b> of " + total + ' spots left<span class="hide-sm"> this week</span>'
-      : "Only <b>" + total + "</b> spots a week",
-    long: hasLeft ? left + " of " + total + " spots left this week." : "Only " + total + " blueprint calls a week.",
-    mobile: hasLeft ? "<b>" + left + "</b> of " + total + " spots left" : "<b>" + total + "</b> spots a week"
+      ? "<b>" + left + "</b> of " + total + ' <span class="hide-sm">founder </span>calls left'
+      : "Only <b>" + total + '</b> <span class="hide-sm">founder </span>calls a week',
+    long: hasLeft ? left + " of " + total + " founder calls left this week." : "Only " + total + " founder calls a week."
   };
   $$("[data-spots]").forEach(function (el) {
     var html = spotsCopy[el.getAttribute("data-spots")];
@@ -112,40 +111,6 @@
   faqs.forEach(function (d) {
     d.addEventListener("toggle", function () {
       if (d.open) faqs.forEach(function (o) { if (o !== d) o.open = false; });
-    });
-  });
-
-  /* The form asks a build budget for ideas and the current revenue for live apps (the retainer buyer) */
-  var STAGE_FORMS = {
-    build: { label: "Budget for the app", button: "Get my free blueprint", msg: "What are you building?",
-             options: ["Under \u20ac25k", "\u20ac25k to \u20ac60k", "\u20ac60k or more", "Monthly growth retainer", "Not sure yet"] },
-    live: { label: "Monthly revenue today", button: "Get my free audit", msg: "Link to your app",
-            options: ["Pre-revenue", "Under $1k", "$1k to $10k", "Over $10k"] }
-  };
-  var currentStageForm = "build";
-  function syncStage() {
-    var checked = $('#lead-form input[name="stage"]:checked');
-    var key = checked && checked.value === "Live app" ? "live" : "build";
-    if (key === currentStageForm) return;
-    currentStageForm = key;
-    var cfg = STAGE_FORMS[key];
-    var sel = $("#f-budget"), label = $("#f-budget-label"), btn = $("#form-submit");
-    if (label) label.textContent = cfg.label;
-    var msgLabel = $("#f-msg-label");
-    if (msgLabel) msgLabel.textContent = cfg.msg;
-    if (sel) {
-      sel.innerHTML = '<option value="" selected disabled>Choose a range</option>' +
-        cfg.options.map(function (o) { return "<option>" + o + "</option>"; }).join("");
-    }
-    if (btn && !CONFIG.bookingUrl) btn.textContent = cfg.button;
-  }
-  $$('#lead-form input[name="stage"]').forEach(function (r) { r.addEventListener("change", syncStage); });
-
-  /* Links like "Already live? Get a free App Audit" preselect the stage in the form */
-  $$("a[data-stage]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      var radio = $('#lead-form input[name="stage"][value="' + a.getAttribute("data-stage") + '"]');
-      if (radio) { radio.checked = true; syncStage(); }
     });
   });
 
@@ -256,24 +221,27 @@
   var submitBtn = $("#form-submit");
   if (CONFIG.bookingUrl && submitBtn) {
     submitBtn.textContent = "Pick my call time";
-    var lead = $("#book-lead");
-    if (lead) lead.textContent = "Answer four quick questions, then pick a time for your 30-minute blueprint call.";
-    var foot = $(".form-foot");
+    var foot = $("#audit .form-foot");
     if (foot) foot.textContent = "Next screen: pick a 30-minute slot. No newsletter, no sales sequence.";
   }
 
-  function showCalendar(data) {
-    var cal = $("#calendar");
-    var notes = "Stage: " + (data.stage || "-") + ". " + STAGE_FORMS[currentStageForm].label + ": " + (data.budget || "-") + ". " + (data.message || "");
-    var url = CONFIG.bookingUrl +
+  function bookingSrc(name, email, notes) {
+    return CONFIG.bookingUrl +
       (CONFIG.bookingUrl.indexOf("?") > -1 ? "&" : "?") +
-      "name=" + encodeURIComponent(data.name) +
-      "&email=" + encodeURIComponent(data.email) +
+      "name=" + encodeURIComponent(name) +
+      "&email=" + encodeURIComponent(email) +
       "&notes=" + encodeURIComponent(notes) +
       "&embed=true";
+  }
+  /* js/estimate.js (the free cost estimate) reads these */
+  window.WD = { config: CONFIG, spotsLong: spotsCopy.long, bookingSrc: bookingSrc };
+
+  function showCalendar(data) {
+    var cal = $("#calendar");
+    var notes = "Revenue Audit. Monthly revenue: " + (data.budget || "-") + ". App: " + (data.message || "-");
     var f = document.createElement("iframe");
-    f.src = url;
-    f.title = "Pick a time for your blueprint call";
+    f.src = bookingSrc(data.name, data.email, notes);
+    f.title = "Pick a time for your audit call";
     f.loading = "eager";
     cal.innerHTML = "";
     cal.appendChild(f);
@@ -301,27 +269,28 @@
       if (data.botcheck) return;
 
       var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email || "");
-      if (!data.name || !emailOk || !data.budget) {
+      if (!data.name || !emailOk || !data.budget || !data.message) {
         status.className = "form-status err";
         status.textContent = !data.name ? "Add your name so we know who we're talking to."
           : !emailOk ? "Add an email address we can reply to."
-          : "Pick a range, so we can prepare the right plan.";
-        (!data.name ? $("#f-name") : !emailOk ? $("#f-email") : $("#f-budget")).focus();
+          : !data.budget ? "Pick a range, so we can prepare the audit."
+          : "Add the link to your app, so we can look at it before the call.";
+        (!data.name ? $("#f-name") : !emailOk ? $("#f-email") : !data.budget ? $("#f-budget") : $("#f-msg")).focus();
         return;
       }
 
       var summary =
         "Name: " + data.name + "\n" +
         "Email: " + data.email + "\n" +
-        "Stage: " + (data.stage || "-") + "\n" +
-        STAGE_FORMS[currentStageForm].label + ": " + (data.budget || "-") + "\n\n" +
-        (data.message || "");
+        "Stage: Live app (Revenue Audit)\n" +
+        "Monthly revenue: " + (data.budget || "-") + "\n" +
+        "App: " + (data.message || "-");
 
       if (!CONFIG.web3formsKey) {
         // With a booking link the calendar itself captures the lead; otherwise fall back to email.
         if (!CONFIG.bookingUrl) {
           window.location.href = "mailto:" + CONFIG.leadEmail +
-            "?subject=" + encodeURIComponent("Free blueprint request: " + data.name) +
+            "?subject=" + encodeURIComponent("Free Revenue Audit request: " + data.name) +
             "&body=" + encodeURIComponent(summary);
         }
         showSuccess(data, !CONFIG.bookingUrl);
@@ -337,7 +306,7 @@
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: CONFIG.web3formsKey,
-          subject: "New free blueprint request: " + data.name + " (" + (data.stage || "") + ", " + (data.budget || "") + ")",
+          subject: "New Revenue Audit request: " + data.name + " (" + (data.budget || "") + " a month)",
           from_name: "wizarddynamics.com",
           name: data.name,
           email: data.email,
