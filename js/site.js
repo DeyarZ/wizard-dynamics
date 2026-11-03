@@ -48,7 +48,7 @@
       ? "<b>" + left + "</b> of " + total + ' spots left<span class="hide-sm"> this week</span>'
       : "Only <b>" + total + "</b> spots a week",
     long: hasLeft ? left + " of " + total + " spots left this week." : "Only " + total + " blueprint calls a week.",
-    mobile: hasLeft ? "<b>" + left + "</b> of " + total + " free spots left" : "Only <b>" + total + "</b> free spots a week"
+    mobile: hasLeft ? "<b>" + left + "</b> of " + total + " spots left" : "<b>" + total + "</b> spots a week"
   };
   $$("[data-spots]").forEach(function (el) {
     var html = spotsCopy[el.getAttribute("data-spots")];
@@ -117,9 +117,9 @@
 
   /* The form asks a build budget for ideas and the current revenue for live apps (the retainer buyer) */
   var STAGE_FORMS = {
-    build: { label: "Budget for the app", button: "Get my free blueprint",
+    build: { label: "Budget for the app", button: "Get my free blueprint", msg: "What are you building?",
              options: ["Under \u20ac25k", "\u20ac25k to \u20ac60k", "\u20ac60k or more", "Monthly growth retainer", "Not sure yet"] },
-    live: { label: "Monthly revenue today", button: "Get my free audit",
+    live: { label: "Monthly revenue today", button: "Get my free audit", msg: "Link to your app",
             options: ["Pre-revenue", "Under $1k", "$1k to $10k", "Over $10k"] }
   };
   var currentStageForm = "build";
@@ -131,6 +131,8 @@
     var cfg = STAGE_FORMS[key];
     var sel = $("#f-budget"), label = $("#f-budget-label"), btn = $("#form-submit");
     if (label) label.textContent = cfg.label;
+    var msgLabel = $("#f-msg-label");
+    if (msgLabel) msgLabel.textContent = cfg.msg;
     if (sel) {
       sel.innerHTML = '<option value="" selected disabled>Choose a range</option>' +
         cfg.options.map(function (o) { return "<option>" + o + "</option>"; }).join("");

@@ -858,8 +858,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
     transition: transform .25s ease;
   }
   .mobile-cta b { color: var(--ink); font-weight: 650; }
+  .mobile-cta span { white-space: nowrap; font-size: 14px; }
   .mobile-cta.show { transform: none; }
-  .mobile-cta .btn { height: 46px; padding: 0 18px; font-size: 16px; }
+  .mobile-cta .btn { height: 46px; padding: 0 16px; font-size: 15.5px; }
 }
 
 @media (max-width: 640px) {

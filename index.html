@@ -20,9 +20,10 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
-  <!-- Draft content (class "draft-only", js/draft-reviews.js) only renders on preview hosts, never on wizarddynamics.com. -->
-  <script>(function () { var live = /(^|\.)wizarddynamics\.com$/.test(location.hostname); document.documentElement.classList.add(live ? "is-live" : "drafts-on"); if (!live) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=8" />
+  <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
+       Never on wizarddynamics.com or a production deployment URL. -->
+  <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
+  <link rel="stylesheet" href="css/site.css?v=9" />
 </head>
 <body>
 
@@ -521,7 +522,7 @@
         </div>
 
         <div class="field">
-          <label for="f-msg">What are you building? <span class="optional">Optional</span></label>
+          <label for="f-msg"><span id="f-msg-label">What are you building?</span> <span class="optional">Optional</span></label>
           <textarea id="f-msg" name="message" rows="3"></textarea>
         </div>
 
@@ -570,7 +571,7 @@
 </footer>
 
 <div class="mobile-cta" id="mobile-cta">
-  <span data-spots="mobile"><b>5</b> free spots a week</span>
+  <span data-spots="mobile"><b>5</b> spots a week</span>
   <a class="btn" href="#book" data-cta="mobile-sticky">Get my free blueprint</a>
 </div>
 
@@ -583,6 +584,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=8" defer></script>
+<script src="js/site.js?v=9" defer></script>
 </body>
 </html>
