@@ -22,6 +22,7 @@ INDEX = os.path.join(ROOT, "index.html")
 
 PROJECT, KEY_ENV = "proj98d6cf78", "RC_API_KEY"
 START, THROUGH = "2025-07", "2026-08"   # launch month .. last month shown
+GROWTH_FROM = "2026-03"                 # bars before this month are dimmed
 GRID = [(5000, "$5k"), (10000, "$10k"), (15000, "$15k"), (20000, "$20k")]
 YMAX = 21500
 
@@ -78,14 +79,18 @@ def svg(rows):
         top = y(v)
         h = max(Y_BOTTOM - top, 2)
         r = min(4, bw / 2, h / 2)
-        # rounded top corners only
+        # rounded top corners only; months before the growth phase are dimmed so the climb reads first
+        fill = "#ffffff" if month >= GROWTH_FROM else "rgba(255,255,255,.3)"
         parts.append(
-            f'<path d="M{x:.1f},{Y_BOTTOM} V{top + r:.1f} Q{x:.1f},{top:.1f} {x + r:.1f},{top:.1f} '
-            f'H{x + bw - r:.1f} Q{x + bw:.1f},{top:.1f} {x + bw:.1f},{top + r:.1f} V{Y_BOTTOM} Z" fill="#ffffff"/>'
+            f'<path class="bar" style="--i:{i}" d="M{x:.1f},{Y_BOTTOM} V{top + r:.1f} Q{x:.1f},{top:.1f} {x + r:.1f},{top:.1f} '
+            f'H{x + bw - r:.1f} Q{x + bw:.1f},{top:.1f} {x + bw:.1f},{top + r:.1f} V{Y_BOTTOM} Z" fill="{fill}"/>'
         )
         if (month, v) == best:
-            parts.append(f'<text class="chart-end" x="{x + bw / 2:.1f}" y="{top - 10:.1f}" fill="#ffffff" font-size="16" '
+            parts.append(f'<text class="chart-end bar-label" x="{x + bw / 2:.1f}" y="{top - 10:.1f}" fill="#ffffff" font-size="16" '
                          f'font-weight="650" text-anchor="middle">${v / 1000:.1f}k</text>')
+        if i == 0:
+            parts.append(f'<text class="bar-label" x="{x:.1f}" y="{top - 10:.1f}" fill="#85858f" font-size="12">'
+                         f'Launch, ${v:,.0f}</text>')
     fmt = lambda m: datetime.date(int(m[:4]), int(m[5:]), 1).strftime("%b %Y")
     first_x = X0 + (slot - bw) / 2
     last_x = X0 + (n - 1) * slot + (slot + bw) / 2

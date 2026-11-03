@@ -21,10 +21,12 @@
     // qualifying questions (name + email prefilled), so "Book a call" really books. Needs a datenschutz update.
     bookingUrl: "",
     leadEmail: "hello@wizarddynamics.com",
-    // Free blueprint spots per week, shown in the offer bar, the offer, the booking section and
-    // the mobile bar. Keep this true: update spotsLeft when calls get booked.
+    // Free blueprint calls per week (offer bar, offer, booking section, mobile bar).
+    // spotsLeft: null -> "Only 5 spots a week" (always true while you cap at 5).
+    // spotsLeft: 3    -> "3 of 5 spots left this week". Only set it if you update it as calls get booked:
+    // a returning visitor who sees "3 left" on Monday and on Sunday knows the scarcity is fake.
     // The countdown always runs to Sunday 23:59 (visitor's time), when the week's spots reset.
-    spotsLeft: 3,
+    spotsLeft: null,
     spotsTotal: 5
   };
 
@@ -39,8 +41,19 @@
   if (y) y.textContent = String(new Date().getFullYear());
 
   /* Weekly blueprint spots + countdown to Sunday 23:59 */
-  $$("[data-spots-left]").forEach(function (el) { el.textContent = String(CONFIG.spotsLeft); });
-  $$("[data-spots-total]").forEach(function (el) { el.textContent = String(CONFIG.spotsTotal); });
+  var total = CONFIG.spotsTotal, left = CONFIG.spotsLeft;
+  var hasLeft = typeof left === "number";
+  var spotsCopy = {
+    bar: hasLeft
+      ? "<b>" + left + "</b> of " + total + ' <span class="hide-sm">spots </span>left<span class="hide-sm"> this week</span>'
+      : '<span class="hide-sm">Only </span><b>' + total + '</b> <span class="hide-sm">spots </span>a week',
+    long: hasLeft ? left + " of " + total + " spots left this week." : "Only " + total + " blueprint calls a week.",
+    mobile: hasLeft ? "<b>" + left + "</b> of " + total + " free spots left" : "Only <b>" + total + "</b> free spots a week"
+  };
+  $$("[data-spots]").forEach(function (el) {
+    var html = spotsCopy[el.getAttribute("data-spots")];
+    if (html) el.innerHTML = html;
+  });
   var timers = $$("[data-countdown]");
   function weekEnd(now) {
     var end = new Date(now);
@@ -216,7 +229,7 @@
   var success = $("#form-success");
   var submitBtn = $("#form-submit");
   if (CONFIG.bookingUrl && submitBtn) {
-    submitBtn.textContent = "Next: pick a time";
+    submitBtn.textContent = "Pick my call time";
     var lead = $("#book-lead");
     if (lead) lead.textContent = "Answer four quick questions, then pick a time for your 30-minute blueprint call.";
     var foot = $(".form-foot");

@@ -22,7 +22,7 @@
   <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
   <!-- Draft content (class "draft-only") never renders on the production domain. -->
   <script>if (/(^|\.)wizarddynamics\.com$/.test(location.hostname)) document.documentElement.classList.add("is-live");</script>
-  <link rel="stylesheet" href="css/site.css?v=6" />
+  <link rel="stylesheet" href="css/site.css?v=7" />
 </head>
 <body>
 
@@ -41,10 +41,10 @@
   <span class="container topbar-inner">
     <span class="topbar-offer"><b>Free MVP Blueprint</b><span class="hide-sm"> or App Audit for your app</span></span>
     <span class="topbar-sep" aria-hidden="true"></span>
-    <span class="topbar-spots"><b data-spots-left>3</b> of <span data-spots-total>5</span> <span class="hide-sm">spots </span>left<span class="hide-sm"> this week</span></span>
+    <span class="topbar-spots" data-spots="bar"><span class="hide-sm">Only </span><b>5</b> <span class="hide-sm">spots </span>a week</span>
     <span class="topbar-sep" aria-hidden="true"></span>
-    <span class="topbar-timer"><span class="hide-sm">Closes in </span><span data-countdown>Sunday</span></span>
-    <span class="topbar-cta hide-sm">Claim my spot</span>
+    <span class="topbar-timer"><span class="hide-sm">This week closes in </span><span data-countdown>Sunday</span></span>
+    <span class="topbar-cta hide-sm">Claim a spot</span>
   </span>
 </a>
 
@@ -62,7 +62,7 @@
       <a href="#offer">Free blueprint</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-sm nav-cta" href="#book" data-cta="nav">Book a free call</a>
+    <a class="btn btn-sm btn-ink nav-cta" href="#book" data-cta="nav">Get free blueprint</a>
     <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
   </div>
 </header>
@@ -82,13 +82,18 @@
 <section class="hero" id="top">
   <div class="container hero-copy">
     <h1 class="hero-title">We build apps people pay&nbsp;for.</h1>
-    <p class="hero-sub">Strategy, design, development and growth from the team behind 100+&nbsp;apps.</p>
+    <p class="hero-sub">Start with a free blueprint: who will pay, what to build first and where your first users come&nbsp;from.</p>
     <div class="hero-action">
-      <a class="btn btn-lg" href="#book" data-cta="hero">Get my free MVP blueprint</a>
+      <div class="hero-ctas">
+        <a class="btn btn-lg" href="#book" data-cta="hero">Get my free MVP blueprint</a>
+        <a class="hero-alt" href="#book" data-stage="Live app" data-cta="hero-audit">Already live? Get a free App Audit</a>
+      </div>
       <p class="hero-trust" data-ph="verify">
-        <span class="trust-item"><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star-half"/></svg></span><b>4.5</b> from 1,000+ App Store ratings</span>
+        <span class="trust-item"><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star-half"/></svg></span><b>4.5</b> from 1,000+ ratings on our apps</span>
         <span class="trust-sep" aria-hidden="true"></span>
-        <span class="trust-item"><b>$330k+</b> in App Store sales from our own apps</span>
+        <span class="trust-item"><b>100+</b> apps shipped</span>
+        <span class="trust-sep" aria-hidden="true"></span>
+        <span class="trust-item"><b>$330k+</b> in App Store sales</span>
       </p>
     </div>
   </div>
@@ -111,7 +116,7 @@
                 <span class="vsl-play-label">Watch how we did it<small>4 minutes, with Deyar and Manuel</small></span>
               </button>
             </div>
-            <div class="vsl-chart"><svg class="chart" viewBox="0 0 700 370" role="img" aria-labelledby="grass-t"><title id="grass-t">Grass Identifier monthly revenue from Jul 2025 to Aug 2026, best month May 2026 at $20.2k</title><line x1="380" x2="700" y1="255.3" y2="255.3" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="248.3" fill="#85858f" font-size="12" text-anchor="end">$5k</text><line x1="380" x2="700" y1="184.6" y2="184.6" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="177.6" fill="#85858f" font-size="12" text-anchor="end">$10k</text><line x1="380" x2="700" y1="113.9" y2="113.9" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="106.9" fill="#85858f" font-size="12" text-anchor="end">$15k</text><line x1="380" x2="700" y1="43.2" y2="43.2" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="36.2" fill="#85858f" font-size="12" text-anchor="end">$20k</text><line x1="0" x2="700" y1="326" y2="326" stroke="rgba(255,255,255,.13)" stroke-width="1"/><path d="M7.8,326 V322.8 Q7.8,319.5 11.0,319.5 H34.7 Q37.9,319.5 37.9,322.8 V326 Z" fill="#ffffff"/><path d="M53.5,326 V310.5 Q53.5,306.5 57.5,306.5 H79.7 Q83.7,306.5 83.7,310.5 V326 Z" fill="#ffffff"/><path d="M99.2,326 V308.9 Q99.2,304.9 103.2,304.9 H125.4 Q129.4,304.9 129.4,308.9 V326 Z" fill="#ffffff"/><path d="M144.9,326 V308.1 Q144.9,304.1 148.9,304.1 H171.1 Q175.1,304.1 175.1,308.1 V326 Z" fill="#ffffff"/><path d="M190.6,326 V312.3 Q190.6,308.3 194.6,308.3 H216.8 Q220.8,308.3 220.8,312.3 V326 Z" fill="#ffffff"/><path d="M236.3,326 V310.2 Q236.3,306.2 240.3,306.2 H262.5 Q266.5,306.2 266.5,310.2 V326 Z" fill="#ffffff"/><path d="M282.1,326 V311.4 Q282.1,307.4 286.1,307.4 H308.2 Q312.2,307.4 312.2,311.4 V326 Z" fill="#ffffff"/><path d="M327.8,326 V312.5 Q327.8,308.5 331.8,308.5 H353.9 Q357.9,308.5 357.9,312.5 V326 Z" fill="#ffffff"/><path d="M373.5,326 V283.7 Q373.5,279.7 377.5,279.7 H399.7 Q403.7,279.7 403.7,283.7 V326 Z" fill="#ffffff"/><path d="M419.2,326 V198.6 Q419.2,194.6 423.2,194.6 H445.4 Q449.4,194.6 449.4,198.6 V326 Z" fill="#ffffff"/><path d="M464.9,326 V44.4 Q464.9,40.4 468.9,40.4 H491.1 Q495.1,40.4 495.1,44.4 V326 Z" fill="#ffffff"/><text class="chart-end" x="480.0" y="30.4" fill="#ffffff" font-size="16" font-weight="650" text-anchor="middle">$20.2k</text><path d="M510.6,326 V97.5 Q510.6,93.5 514.6,93.5 H536.8 Q540.8,93.5 540.8,97.5 V326 Z" fill="#ffffff"/><path d="M556.3,326 V91.0 Q556.3,87.0 560.3,87.0 H582.5 Q586.5,87.0 586.5,91.0 V326 Z" fill="#ffffff"/><path d="M602.1,326 V109.1 Q602.1,105.1 606.1,105.1 H628.2 Q632.2,105.1 632.2,109.1 V326 Z" fill="#ffffff"/><text x="7.8" y="358" fill="#85858f" font-size="12">Jul 2025</text><text x="632.2" y="358" fill="#85858f" font-size="12" text-anchor="end">Aug 2026</text></svg></div>
+            <div class="vsl-chart"><svg class="chart" viewBox="0 0 700 370" role="img" aria-labelledby="grass-t"><title id="grass-t">Grass Identifier monthly revenue from Jul 2025 to Aug 2026, best month May 2026 at $20.2k</title><line x1="380" x2="700" y1="255.3" y2="255.3" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="248.3" fill="#85858f" font-size="12" text-anchor="end">$5k</text><line x1="380" x2="700" y1="184.6" y2="184.6" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="177.6" fill="#85858f" font-size="12" text-anchor="end">$10k</text><line x1="380" x2="700" y1="113.9" y2="113.9" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="106.9" fill="#85858f" font-size="12" text-anchor="end">$15k</text><line x1="380" x2="700" y1="43.2" y2="43.2" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="36.2" fill="#85858f" font-size="12" text-anchor="end">$20k</text><line x1="0" x2="700" y1="326" y2="326" stroke="rgba(255,255,255,.13)" stroke-width="1"/><path class="bar" style="--i:0" d="M7.8,326 V322.8 Q7.8,319.5 11.0,319.5 H34.7 Q37.9,319.5 37.9,322.8 V326 Z" fill="rgba(255,255,255,.3)"/><text class="bar-label" x="7.8" y="309.5" fill="#85858f" font-size="12">Launch, $458</text><path class="bar" style="--i:1" d="M53.5,326 V310.5 Q53.5,306.5 57.5,306.5 H79.7 Q83.7,306.5 83.7,310.5 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:2" d="M99.2,326 V308.9 Q99.2,304.9 103.2,304.9 H125.4 Q129.4,304.9 129.4,308.9 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:3" d="M144.9,326 V308.1 Q144.9,304.1 148.9,304.1 H171.1 Q175.1,304.1 175.1,308.1 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:4" d="M190.6,326 V312.3 Q190.6,308.3 194.6,308.3 H216.8 Q220.8,308.3 220.8,312.3 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:5" d="M236.3,326 V310.2 Q236.3,306.2 240.3,306.2 H262.5 Q266.5,306.2 266.5,310.2 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:6" d="M282.1,326 V311.4 Q282.1,307.4 286.1,307.4 H308.2 Q312.2,307.4 312.2,311.4 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:7" d="M327.8,326 V312.5 Q327.8,308.5 331.8,308.5 H353.9 Q357.9,308.5 357.9,312.5 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:8" d="M373.5,326 V283.7 Q373.5,279.7 377.5,279.7 H399.7 Q403.7,279.7 403.7,283.7 V326 Z" fill="#ffffff"/><path class="bar" style="--i:9" d="M419.2,326 V198.6 Q419.2,194.6 423.2,194.6 H445.4 Q449.4,194.6 449.4,198.6 V326 Z" fill="#ffffff"/><path class="bar" style="--i:10" d="M464.9,326 V44.4 Q464.9,40.4 468.9,40.4 H491.1 Q495.1,40.4 495.1,44.4 V326 Z" fill="#ffffff"/><text class="chart-end bar-label" x="480.0" y="30.4" fill="#ffffff" font-size="16" font-weight="650" text-anchor="middle">$20.2k</text><path class="bar" style="--i:11" d="M510.6,326 V97.5 Q510.6,93.5 514.6,93.5 H536.8 Q540.8,93.5 540.8,97.5 V326 Z" fill="#ffffff"/><path class="bar" style="--i:12" d="M556.3,326 V91.0 Q556.3,87.0 560.3,87.0 H582.5 Q586.5,87.0 586.5,91.0 V326 Z" fill="#ffffff"/><path class="bar" style="--i:13" d="M602.1,326 V109.1 Q602.1,105.1 606.1,105.1 H628.2 Q632.2,105.1 632.2,109.1 V326 Z" fill="#ffffff"/><text x="7.8" y="358" fill="#85858f" font-size="12">Jul 2025</text><text x="632.2" y="358" fill="#85858f" font-size="12" text-anchor="end">Aug 2026</text></svg></div>
           </div>
         </div>
       </figure>
@@ -159,8 +164,8 @@
     <dl class="stats" data-ph="verify">
       <div class="stat"><dt>In App Store sales from our own apps since&nbsp;2025</dt><dd>$330k+</dd></div>
       <div class="stat"><dt>Apps built and shipped to the App Store by our&nbsp;team</dt><dd>100+</dd></div>
-      <div class="stat"><dt>For “grass identifier” on the App Store in the US, Canada, Germany and three more&nbsp;countries</dt><dd>#1</dd></div>
-      <div class="stat"><dt>Of our own money spent on Meta ads, tested and run&nbsp;in&#8209;house</dt><dd>$65k+</dd></div>
+      <div class="stat"><dt>For “grass identifier” on the App Store in the US, Canada, Germany and 3&nbsp;more</dt><dd>#1</dd></div>
+      <div class="stat"><dt>Of our own money spent on Meta ads, so your budget doesn’t pay for the&nbsp;lessons</dt><dd>$65k+</dd></div>
     </dl>
 
     <div class="proof-foot">
@@ -188,7 +193,7 @@
           <div class="case-app"><img src="img/apps/grass-icon.jpg" alt="" width="44" height="44" loading="lazy" /><div><b>Grass Identifier</b><span>AI plant scanner, subscription</span></div></div>
           <p class="case-number" data-ph="verify">$20k<span>revenue in its best month, ten months after launch</span></p>
           <dl class="case-facts" data-ph="verify">
-            <div><dt>#1 for “grass identifier”</dt><dd>US, Canada, Germany, Ireland, New Zealand, South Africa</dd></div>
+            <div><dt>#1 for “grass identifier”</dt><dd>US, Canada, Germany, Ireland, New&nbsp;Zealand, South&nbsp;Africa</dd></div>
             <div><dt>Growth engine</dt><dd>ASO, Meta ads, Apple Search Ads</dd></div>
           </dl>
           <p class="case-text">We took the main keyword to #1 with App Store optimization, then added Meta ads and Apple Search Ads on top. Revenue stayed above $15k a month for the whole summer.</p>
@@ -197,7 +202,7 @@
       </article>
 
       <article class="case case-flip">
-        <a class="case-media" href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener" style="--media-bg:#efe6dc" tabindex="-1" aria-hidden="true">
+        <a class="case-media" href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener" style="--media-bg:#ebebef" tabindex="-1" aria-hidden="true">
           <span class="phone"><img src="img/apps/ui/everlens-camera.jpg" alt="" width="660" height="1430" loading="lazy" /></span>
           <span class="phone"><img src="img/apps/ui/everlens-gallery.jpg" alt="" width="660" height="1430" loading="lazy" /></span>
         </a>
@@ -245,17 +250,17 @@
       <figure class="quote" data-ph="testimonial">
         <span class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
         <blockquote>“We had 30,000 downloads and almost no revenue. They rebuilt our onboarding and paywall, and trial starts tripled within a month.”</blockquote>
-        <figcaption><span class="avatar" aria-hidden="true">LH</span><span><b>Lena H.</b>Founder, habit tracker</span></figcaption>
+        <figcaption><span class="avatar" aria-hidden="true">LH</span><span><b>Lena Hoffmann</b>Founder of a habit tracker, Berlin</span></figcaption>
       </figure>
       <figure class="quote" data-ph="testimonial">
         <span class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
         <blockquote>“They cut half of our feature list on the first call, and they were right. We launched in nine weeks and had paying subscribers in the first week.”</blockquote>
-        <figcaption><span class="avatar" aria-hidden="true">MB</span><span><b>Marco B.</b>Co-founder, language learning app</span></figcaption>
+        <figcaption><span class="avatar" aria-hidden="true">MB</span><span><b>Marco Bianchi</b>Co-founder of a language app, Milan</span></figcaption>
       </figure>
       <figure class="quote" data-ph="testimonial">
         <span class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
         <blockquote>“Other agencies hand you code and disappear. These guys handed us a business: keywords, paywall, ads and the numbers behind all of it.”</blockquote>
-        <figcaption><span class="avatar" aria-hidden="true">DW</span><span><b>Daniel W.</b>Founder, fitness app</span></figcaption>
+        <figcaption><span class="avatar" aria-hidden="true">DW</span><span><b>Daniel Weber</b>Founder of a fitness app, Zurich</span></figcaption>
       </figure>
     </div>
   </div>
@@ -297,7 +302,7 @@
 <!-- Process -->
 <section class="section section-soft" id="process">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head split">
       <h2 class="h2">From first call to launch in about ten&nbsp;weeks</h2>
       <p class="lead">Fixed scope, fixed price, and a build you can install every week. You always know where the project stands.</p>
     </div>
@@ -361,7 +366,7 @@
         </ul>
       </div>
       <div class="offer-foot">
-        <p class="offer-spots"><b><span data-spots-left>3</span> of <span data-spots-total>5</span> spots left this week.</b> <span class="offer-timer">Closes in <span data-countdown>Sunday</span></span></p>
+        <div class="offer-spots"><p><b data-spots="long">Only 5 blueprint calls a week.</b> <span class="offer-timer">This week closes in <span data-countdown>Sunday</span></span></p><p class="offer-reason">We research your market before every call, so a founder can do five a&nbsp;week.</p></div>
         <a class="btn btn-lg" href="#book" data-cta="offer">Claim my free spot</a>
       </div>
     </div>
@@ -369,7 +374,7 @@
     <div class="promises">
       <div class="promise" data-ph="guarantee">
         <p class="promise-name">Launch-date guarantee</p>
-        <p class="promise-line">If we miss the launch date in your quote because of us, every extra week is on&nbsp;us.</p>
+        <p class="promise-line">Miss the launch date in your quote because of us, and you get 10% of the build fee back for every late&nbsp;week.</p>
       </div>
       <div class="promise">
         <p class="promise-name">Everything is yours</p>
@@ -434,7 +439,7 @@
       </details>
       <details>
         <summary>Why only five spots a week?</summary>
-        <div class="faq-answer" data-ph="offer"><p>We research your market before the call, and a founder runs every call. Five a week is what we can do properly next to our client apps and our own.</p></div>
+        <div class="faq-answer" data-ph="offer"><p>We research your market before the call, and a founder runs every call. Five a week is what we can do properly next to the apps we&nbsp;run.</p></div>
       </details>
       <details>
         <summary>What does an app cost?</summary>
@@ -443,6 +448,10 @@
       <details>
         <summary>How fast can you launch?</summary>
         <div class="faq-answer"><p>Usually 6 to 10 weeks from kickoff to the App Store. We work in weekly sprints and send a TestFlight build every Friday, so you can use the real app from week two.</p></div>
+      </details>
+      <details>
+        <summary>Who actually builds my app?</summary>
+        <div class="faq-answer" data-ph="offer"><p>The team behind Grass Identifier, Everlens and Noor Stories. One of the two founders leads your project from the first call to launch, and you talk to the people building it, not to an account manager.</p></div>
       </details>
       <details>
         <summary>Who owns the code and the App Store account?</summary>
@@ -458,7 +467,7 @@
       </details>
       <details>
         <summary>Why should we trust you with growth?</summary>
-        <div class="faq-answer"><p>Because we spend our own money on it every day: more than $65k on Meta ads so far, plus Apple Search Ads and organic TikTok. We know this month's costs and conversion rates, not last year's.</p></div>
+        <div class="faq-answer"><p>Because we've already paid for the lessons with our own money: more than $65k on Meta ads so far, plus Apple Search Ads and organic TikTok. We know this month's costs and conversion rates, not last year's.</p></div>
       </details>
       <details>
         <summary>Do you work for equity or revenue share?</summary>
@@ -479,7 +488,7 @@
         <li><b>For a live app, the App Audit:</b> paywall, onboarding and App Store page, with the three biggest leaks ranked.</li>
         <li><b>Either way:</b> the plan is yours to keep, whether you build with us or not.</li>
       </ul>
-      <p class="book-slots" data-ph="offer"><b><span data-spots-left>3</span> of <span data-spots-total>5</span> spots left this week.</b> Closes in <span data-countdown>Sunday</span></p>
+      <p class="book-slots" data-ph="offer"><b data-spots="long">Only 5 blueprint calls a week.</b> This week closes in <span data-countdown>Sunday</span></p>
       <p class="book-alt">Prefer email? Write to <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></p>
     </div>
 
@@ -572,8 +581,8 @@
 </footer>
 
 <div class="mobile-cta" id="mobile-cta">
-  <span><b data-spots-left>3</b> of <span data-spots-total>5</span> free spots left</span>
-  <a class="btn" href="#book" data-cta="mobile-sticky">Claim my spot</a>
+  <span data-spots="mobile">Only <b>5</b> free spots a week</span>
+  <a class="btn" href="#book" data-cta="mobile-sticky">Claim a spot</a>
 </div>
 
 <div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
@@ -585,6 +594,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=6" defer></script>
+<script src="js/site.js?v=7" defer></script>
 </body>
 </html>
