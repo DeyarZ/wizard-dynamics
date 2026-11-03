@@ -1,72 +1,72 @@
-/* Wizard Dynamics — landing interactions. Vanilla, no dependencies. */
+/* Wizard Dynamics: landing interactions. Vanilla, no dependencies.
+   The page is fully readable without JavaScript; this file only adds behaviour. */
 (function () {
   "use strict";
 
   /* ------------------------------------------------------------------
-     CONFIG — fill these in, nothing else needs to change.
+     CONFIG: fill these in, nothing else needs to change.
      ------------------------------------------------------------------ */
   var CONFIG = {
-    // VSL: a YouTube/Vimeo embed URL (https://www.youtube.com/embed/ID) or a direct .mp4 path.
-    // Empty → the play button opens a "coming soon" card that pushes to the booking form.
-    vslUrl: "",
-    // Lead delivery: Web3Forms access key (free, emails each lead to hello@wizarddynamics.com).
+    // VSL, option A (recommended): self-hosted .mp4 (or a Bunny/other EU CDN mp4 URL).
+    // Plays muted with captions on load, "Click for sound" restarts it with sound.
+    vslSrc: "",
+    vslCaptions: "",   // optional WebVTT file, e.g. "video/vsl-en.vtt"
+    vslPoster: "",     // optional poster image for the <video>
+    // VSL, option B: YouTube/Vimeo embed URL (click to play). Needs a datenschutz update.
+    vslEmbed: "",
+    // Lead delivery: Web3Forms access key (free, emails each lead to leadEmail).
     // Empty → the form falls back to opening a pre-filled email.
     web3formsKey: "",
-    // Booking link shown after the form is submitted (Cal.com / Calendly). Empty → hidden.
+    // Cal.com / Calendly booking link. When set, the calendar opens inline right after the
+    // qualifying questions (name + email prefilled), so "Book a call" really books. Needs a datenschutz update.
     bookingUrl: "",
     leadEmail: "hello@wizarddynamics.com"
   };
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-
-  function safeGet(store, key) { try { return window[store].getItem(key); } catch (e) { return null; } }
-  function safeSet(store, key, val) { try { window[store].setItem(key, val); } catch (e) {} }
+  function safeGet(key) { try { return window.sessionStorage.getItem(key); } catch (e) { return null; } }
+  function safeSet(key, val) { try { window.sessionStorage.setItem(key, val); } catch (e) {} }
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Placeholder highlighter: open the page with ?ph */
   if (/[?&]ph\b/.test(location.search)) document.documentElement.classList.add("show-ph");
 
-  /* Year */
   var y = $("#year");
   if (y) y.textContent = String(new Date().getFullYear());
 
-  /* Offer banner — dismiss for this session */
+  /* Offer bar: dismiss for this session */
   var banner = $("#offer-banner");
   if (banner) {
-    if (safeGet("sessionStorage", "wd-offer-dismissed") === "1") banner.classList.add("hidden");
+    if (safeGet("wd-offer-dismissed") === "1") banner.classList.add("hidden");
     var close = $("#offer-close");
     if (close) close.addEventListener("click", function () {
       banner.classList.add("hidden");
-      safeSet("sessionStorage", "wd-offer-dismissed", "1");
+      safeSet("wd-offer-dismissed", "1");
     });
   }
 
-  /* Nav: glass on scroll */
+  /* Nav rule on scroll + mobile sticky CTA */
   var nav = $("#nav");
-  var floatCta = $("#float-cta");
   var mobileCta = $("#mobile-cta");
-  var hero = $(".hero");
+  var heroCta = $(".hero-action .btn");
   var book = $("#book");
-
   function onScroll() {
-    var sy = window.scrollY || window.pageYOffset;
-    if (nav) nav.classList.toggle("scrolled", sy > 8);
-    if (hero && book) {
-      var pastHero = hero.getBoundingClientRect().bottom < 80;
-      var bookRect = book.getBoundingClientRect();
-      var atBook = bookRect.top < window.innerHeight * 0.75 && bookRect.bottom > 0;
-      var show = pastHero && !atBook;
-      if (floatCta) floatCta.classList.toggle("show", show);
-      if (mobileCta) mobileCta.classList.toggle("show", show);
+    if (nav) nav.classList.toggle("scrolled", (window.scrollY || window.pageYOffset) > 4);
+    if (mobileCta && heroCta && book) {
+      var pastHeroCta = heroCta.getBoundingClientRect().bottom < 0;
+      var b = book.getBoundingClientRect();
+      var atBook = b.top < window.innerHeight && b.bottom > 0;
+      mobileCta.classList.toggle("show", pastHeroCta && !atBook);
     }
   }
   var ticking = false;
   window.addEventListener("scroll", function () {
-    if (!ticking) {
-      window.requestAnimationFrame(function () { onScroll(); ticking = false; });
-      ticking = true;
-    }
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { onScroll(); ticking = false; });
   }, { passive: true });
+  window.addEventListener("resize", onScroll);
   onScroll();
 
   /* Mobile menu */
@@ -82,53 +82,6 @@
   if (burger) burger.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
   $$("#mobile-menu a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
 
-  /* Reveal on scroll */
-  var reveals = $$(".reveal");
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    reveals.forEach(function (el) { io.observe(el); });
-  } else {
-    reveals.forEach(function (el) { el.classList.add("in"); });
-  }
-
-  /* Count-up stats */
-  function formatNum(v, el) {
-    var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
-    var s = v.toFixed(dec);
-    if (el.getAttribute("data-format") === "comma") s = Number(s).toLocaleString("en-US");
-    return s;
-  }
-  var counters = $$("[data-count]");
-  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // Final values stay in the HTML (crawlers, link previews, no-JS); the count-up
-  // starts the moment a number first enters the viewport.
-  if ("IntersectionObserver" in window && !reduced) {
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var el = e.target;
-        cio.unobserve(el);
-        var target = parseFloat(el.getAttribute("data-count"));
-        var start = null;
-        var dur = 1400;
-        function step(t) {
-          if (start === null) start = t;
-          var p = Math.min(1, (t - start) / dur);
-          var eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = formatNum(target * eased, el);
-          if (p < 1) requestAnimationFrame(step);
-        }
-        el.textContent = formatNum(0, el);
-        requestAnimationFrame(step);
-      });
-    }, { threshold: 0 });
-    counters.forEach(function (el) { cio.observe(el); });
-  }
-
   /* FAQ: one open at a time */
   var faqs = $$(".faq-list details");
   faqs.forEach(function (d) {
@@ -137,71 +90,139 @@
     });
   });
 
-  /* Video modal (VSL + video testimonials) */
+  /* ------------------------------------------------------------------
+     VSL
+     ------------------------------------------------------------------ */
+  var frame = $("#vsl-frame");
+  var poster = $("#vsl-play");
   var modal = $("#video-modal");
-  var box = $("#modal-box");
-  var empty = $("#modal-empty");
   var lastFocus = null;
 
-  function embedFor(url) {
-    if (!url) return null;
-    if (/\.mp4(\?|$)/i.test(url)) {
-      var v = document.createElement("video");
-      v.src = url; v.controls = true; v.autoplay = true; v.playsInline = true;
-      return v;
-    }
-    var f = document.createElement("iframe");
-    f.src = url + (url.indexOf("?") > -1 ? "&" : "?") + "autoplay=1&rel=0";
-    f.allow = "autoplay; fullscreen; picture-in-picture";
-    f.allowFullscreen = true;
-    f.title = "Video";
-    return f;
-  }
-  function openModal(url) {
+  function openModal() {
     if (!modal) return;
     lastFocus = document.activeElement;
-    var media = embedFor(url);
-    if (media) { empty.style.display = "none"; media.className = "modal-media"; box.appendChild(media); }
-    else { empty.style.display = ""; }
-    modal.classList.add("open");
+    modal.hidden = false;
     document.body.style.overflow = "hidden";
     $("#modal-close").focus();
   }
   function closeModal() {
-    if (!modal || !modal.classList.contains("open")) return;
-    var m = $(".modal-media", box);
-    if (m) m.remove();
-    modal.classList.remove("open");
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
     document.body.style.overflow = "";
     if (lastFocus) lastFocus.focus();
   }
-  var vsl = $("#vsl");
-  if (vsl) vsl.addEventListener("click", function () { openModal(CONFIG.vslUrl); });
-  $$("[data-video]").forEach(function (b) {
-    b.addEventListener("click", function () { openModal(b.getAttribute("data-video")); });
-  });
   if (modal) {
     $("#modal-close").addEventListener("click", closeModal);
-    modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
     $("#modal-cta").addEventListener("click", closeModal);
+    modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
   }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { closeModal(); setMenu(false); }
   });
 
-  /* Lead form */
+  function buildVideo(withSound) {
+    var v = document.createElement("video");
+    v.src = CONFIG.vslSrc;
+    v.playsInline = true;
+    v.setAttribute("playsinline", "");
+    v.preload = "metadata";
+    if (CONFIG.vslPoster) v.poster = CONFIG.vslPoster;
+    if (CONFIG.vslCaptions) {
+      var t = document.createElement("track");
+      t.kind = "captions"; t.srclang = "en"; t.label = "English"; t.src = CONFIG.vslCaptions; t.default = true;
+      v.appendChild(t);
+    }
+    v.muted = !withSound;
+    v.controls = !!withSound;
+    return v;
+  }
+
+  function mountSmartAutoplay() {
+    var v = buildVideo(false);
+    v.autoplay = true;
+    v.loop = true;
+    var sound = document.createElement("button");
+    sound.type = "button";
+    sound.className = "vsl-sound";
+    sound.innerHTML = '<svg width="22" height="22" aria-hidden="true"><use href="#i-muted"/></svg>Click for sound';
+    sound.addEventListener("click", function () {
+      v.loop = false;
+      v.muted = false;
+      v.currentTime = 0;
+      v.controls = true;
+      v.play();
+      sound.remove();
+    });
+    frame.innerHTML = "";
+    frame.appendChild(v);
+    frame.appendChild(sound);
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { /* autoplay blocked: user can still click for sound */ });
+  }
+
+  if (frame && poster) {
+    var saveData = navigator.connection && navigator.connection.saveData;
+    if (CONFIG.vslSrc && !reducedMotion && !saveData) {
+      mountSmartAutoplay();
+    } else {
+      poster.addEventListener("click", function () {
+        if (CONFIG.vslSrc) {
+          var v = buildVideo(true);
+          frame.innerHTML = "";
+          frame.appendChild(v);
+          v.play();
+        } else if (CONFIG.vslEmbed) {
+          var f = document.createElement("iframe");
+          f.src = CONFIG.vslEmbed + (CONFIG.vslEmbed.indexOf("?") > -1 ? "&" : "?") + "autoplay=1&rel=0";
+          f.allow = "autoplay; fullscreen; picture-in-picture";
+          f.allowFullscreen = true;
+          f.title = "Wizard Dynamics intro video";
+          frame.innerHTML = "";
+          frame.appendChild(f);
+        } else {
+          openModal();
+        }
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Lead form
+     ------------------------------------------------------------------ */
   var form = $("#lead-form");
   var status = $("#form-status");
   var success = $("#form-success");
+  var submitBtn = $("#form-submit");
+  if (CONFIG.bookingUrl && submitBtn) submitBtn.textContent = "Next: pick a time";
 
-  function showSuccess(viaMail) {
+  function showCalendar(data) {
+    var cal = $("#calendar");
+    var notes = "Stage: " + (data.stage || "-") + ". Budget: " + (data.budget || "-") + ". " + (data.message || "");
+    var url = CONFIG.bookingUrl +
+      (CONFIG.bookingUrl.indexOf("?") > -1 ? "&" : "?") +
+      "name=" + encodeURIComponent(data.name) +
+      "&email=" + encodeURIComponent(data.email) +
+      "&notes=" + encodeURIComponent(notes) +
+      "&embed=true";
+    var f = document.createElement("iframe");
+    f.src = url;
+    f.title = "Pick a time for your strategy call";
+    f.loading = "eager";
+    cal.innerHTML = "";
+    cal.appendChild(f);
+    cal.hidden = false;
+    $("#success-title").textContent = "Pick a time";
+    $("#success-copy").textContent = "Your details are filled in. Choose a slot that works for you.";
+  }
+
+  function showSuccess(data, viaMail) {
     form.style.display = "none";
     success.classList.add("show");
-    if (viaMail) {
-      $("#success-copy").textContent = "Your email app should have opened with everything pre-filled — just hit send. We reply within 24 hours.";
+    if (CONFIG.bookingUrl) showCalendar(data);
+    else if (viaMail) {
+      $("#success-copy").textContent = "Your email app opened with everything filled in. Send it and we'll reply within 24 hours.";
     }
-    var b = $("#success-book");
-    if (CONFIG.bookingUrl && b) { b.href = CONFIG.bookingUrl; b.style.display = "inline-flex"; }
+    success.focus();
   }
 
   if (form) {
@@ -214,7 +235,7 @@
       var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email || "");
       if (!data.name || !emailOk) {
         status.className = "form-status err";
-        status.textContent = !data.name ? "Please add your name." : "Please add a valid email address.";
+        status.textContent = !data.name ? "Add your name so we know who we're talking to." : "Add an email address we can reply to.";
         (!data.name ? $("#f-name") : $("#f-email")).focus();
         return;
       }
@@ -227,11 +248,13 @@
         (data.message || "");
 
       if (!CONFIG.web3formsKey) {
-        var subject = "Strategy call request — " + data.name;
-        window.location.href = "mailto:" + CONFIG.leadEmail +
-          "?subject=" + encodeURIComponent(subject) +
-          "&body=" + encodeURIComponent(summary);
-        showSuccess(true);
+        // With a booking link the calendar itself captures the lead; otherwise fall back to email.
+        if (!CONFIG.bookingUrl) {
+          window.location.href = "mailto:" + CONFIG.leadEmail +
+            "?subject=" + encodeURIComponent("Strategy call request: " + data.name) +
+            "&body=" + encodeURIComponent(summary);
+        }
+        showSuccess(data, !CONFIG.bookingUrl);
         return;
       }
 
@@ -244,7 +267,7 @@
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: CONFIG.web3formsKey,
-          subject: "New strategy call request — " + data.name + " (" + (data.stage || "") + ", " + (data.budget || "") + ")",
+          subject: "New strategy call request: " + data.name + " (" + (data.stage || "") + ", " + (data.budget || "") + ")",
           from_name: "wizarddynamics.com",
           name: data.name,
           email: data.email,
@@ -256,16 +279,16 @@
         .then(function (r) { return r.json(); })
         .then(function (j) {
           btn.disabled = false;
-          if (j && j.success) { status.textContent = ""; showSuccess(false); }
+          if (j && j.success) { status.textContent = ""; showSuccess(data, false); }
           else {
             status.className = "form-status err";
-            status.textContent = "Something went wrong — email us at " + CONFIG.leadEmail;
+            status.textContent = "The request didn't go through. Email us at " + CONFIG.leadEmail + " instead.";
           }
         })
         .catch(function () {
           btn.disabled = false;
           status.className = "form-status err";
-          status.textContent = "Network error — email us at " + CONFIG.leadEmail;
+          status.textContent = "No connection. Email us at " + CONFIG.leadEmail + " instead.";
         });
     });
   }

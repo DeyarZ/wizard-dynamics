@@ -3,747 +3,509 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Wizard Dynamics — The app studio that builds apps that make money</title>
-  <meta name="description" content="Munich app studio run by app operators. We design, build, monetize and grow subscription apps — with the same playbook behind our own portfolio of 18 live apps." />
+  <title>Wizard Dynamics | App studio from Munich</title>
+  <meta name="description" content="We design, build and grow subscription apps for founders. Our own 18 apps earn €16k a month, and yours gets the same team and the same playbook." />
   <link rel="canonical" href="https://wizarddynamics.com/" />
-  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://wizarddynamics.com/" />
-  <meta property="og:title" content="Wizard Dynamics — Apps that actually make money" />
-  <meta property="og:description" content="We don't just build your app. We run 18 of our own — and grow yours with the same playbook." />
+  <meta property="og:title" content="Wizard Dynamics: we build apps people pay for" />
+  <meta property="og:description" content="Munich app studio with 18 subscription apps of its own. We build and grow yours with the same playbook." />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="preload" href="fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/site.css?v=1" />
-  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/site.css?v=3" />
 </head>
 <body>
 
-<!-- Icon sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.5 8.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-x" viewBox="0 0 16 16"><path d="m4.5 4.5 7 7m0-7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-  <symbol id="i-star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.6l2.47 5.3 5.8.68-4.29 3.96 1.15 5.73L10 14.4l-5.13 2.87 1.15-5.73L1.73 7.58l5.8-.68z"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15c0 .8.87 1.3 1.56.87l12-7.5a1 1 0 0 0 0-1.74l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.2v13.6c0 .8.86 1.28 1.53.86l10.7-6.8a1 1 0 0 0 0-1.72L9.53 4.34A1 1 0 0 0 8 5.2z"/></symbol>
   <symbol id="i-close" viewBox="0 0 16 16"><path d="m4 4 8 8m0-8-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="i-compass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></g></symbol>
-  <symbol id="i-code" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="m10.5 9.5-2 2.5 2 2.5m3-5 2 2.5-2 2.5"/></g></symbol>
-  <symbol id="i-coin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-.9-1.6-1.4-2.8-1.4-1.6 0-2.8.8-2.8 2.1 0 2.9 5.8 1.5 5.8 4.3 0 1.3-1.3 2.1-3 2.1-1.3 0-2.4-.6-2.9-1.5M12 6.3v1.5m0 8.5v1.4"/></g></symbol>
-  <symbol id="i-growth" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="m4 15 5-5 4 3 7-7"/><path d="M15 6h5v5"/></g></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.5 5.6v6c0 4.6 3.1 8.2 7.5 9.6 4.4-1.4 7.5-5 7.5-9.6v-6z"/><path d="m8.8 12 2.2 2.2 4.4-4.6"/></g></symbol>
-  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-3.8zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12z"/></g></symbol>
+  <symbol id="i-muted" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="m16 9.5 5 5m0-5-5 5"/></g></symbol>
 </svg>
 
-<!-- ============================ OFFER BANNER ============================ -->
-<div class="offer-banner" id="offer-banner" role="region" aria-label="Current offer">
-  <div class="container">
-    <span class="pulse" aria-hidden="true"></span>
-    <span data-ph="offer">
-      <b>Q1 2027: only 2 of 4 build slots left.</b>
-      <span class="hide-sm">Book your call before Dec 15 and get a free App Revenue Audit (worth €2,500).</span>
-    </span>
-    <a class="offer-link" href="#book" data-cta="banner">Claim your slot <svg width="14" height="14"><use href="#i-arrow"/></svg></a>
-    <button class="offer-close" id="offer-close" aria-label="Dismiss offer"><svg width="14" height="14"><use href="#i-close"/></svg></button>
+<!-- Offer bar -->
+<div class="topbar" id="offer-banner" role="region" aria-label="Current availability">
+  <div class="container topbar-inner">
+    <p data-ph="offer"><strong>Two build slots left for Q1 2027.</strong><span class="hide-sm"> Book a call before 15&nbsp;December and we'll audit your live app's revenue for free.</span></p>
+    <a href="#book" data-cta="topbar">Book a call</a>
+    <button class="topbar-close" id="offer-close" type="button" aria-label="Dismiss"><svg width="14" height="14"><use href="#i-close"/></svg></button>
   </div>
 </div>
 
-<!-- ================================ NAV ================================ -->
+<!-- Nav -->
 <header class="nav" id="nav">
   <div class="container nav-inner">
-    <a href="/" class="brand" aria-label="Wizard Dynamics — home">
-      <svg viewBox="0 0 738 416"><use href="img/wd-mark.svg#m" width="738" height="416"/></svg>
-      Wizard Dynamics
-      <span class="brand-sub">App Studio</span>
+    <a href="/" class="brand" aria-label="Wizard Dynamics, home">
+      <span class="brand-icon"><svg viewBox="0 0 738 416" aria-hidden="true"><use href="img/wd-mark.svg#m" width="738" height="416"/></svg></span>
+      <span class="brand-name">Wizard Dynamics</span>
     </a>
     <nav class="nav-links" aria-label="Main">
-      <a href="#work">Work</a>
+      <a href="#work">Our apps</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <div class="nav-cta">
-      <a class="btn btn-gold btn-sm" href="#book" data-cta="nav">Book a call <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
-      <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
-    </div>
+    <a class="btn btn-sm nav-cta" href="#book" data-cta="nav">Book a call</a>
+    <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#work">Work</a>
+  <a href="#work">Our apps</a>
   <a href="#services">Services</a>
   <a href="#process">Process</a>
   <a href="#pricing">Pricing</a>
   <a href="#faq">FAQ</a>
-  <a class="btn btn-gold btn-lg" href="#book" data-cta="mobile-menu">Book a free strategy call <svg class="arrow" width="16" height="16"><use href="#i-arrow"/></svg></a>
+  <a class="btn btn-lg" href="#book" data-cta="mobile-menu">Book my free strategy call</a>
 </div>
 
 <main>
 
-<!-- ================================ HERO ================================ -->
-<section class="hero on-ink" id="top">
-  <div class="container hero-inner">
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <p class="hero-for">For founders with an app idea or a live app.</p>
 
-    <div class="eyebrow-pill reveal">
-      <span class="tag">Live</span>
-      <span><b>18 apps</b> of our own in the App Store<span class="hide-sm"> — and counting</span></span>
-    </div>
+    <h1 class="hero-title">We build apps people pay&nbsp;for.</h1>
 
-    <h1 class="display reveal" style="--d:.05s">
-      We build apps that<br />
-      <span class="serif gold-text">actually make money.</span>
-    </h1>
-
-    <p class="lead reveal" style="--d:.1s">
-      Most agencies ship code and disappear. We're operators: our own subscription apps earn
-      <b style="color:var(--on-ink);font-weight:600" data-ph="verify">€16k+ every month</b>. You get the exact same playbook —
-      product, paywall, launch and paid growth — under one roof.
+    <p class="hero-sub">
+      We run 18 subscription apps of our own, and together they earn
+      <span data-ph="verify">€16k a month</span>. Your app gets the same team and the same playbook,
+      from the first screen to the first paid ad.
     </p>
 
-    <div class="action-row reveal" style="--d:.15s">
-      <a class="btn btn-gold btn-lg" href="#book" data-cta="hero">Book your free strategy call <svg class="arrow" width="16" height="16"><use href="#i-arrow"/></svg></a>
-      <div class="trust">
-        <div class="avatars" aria-hidden="true">
-          <span><img src="img/apps/grass-icon.jpg" alt="" width="36" height="36" /></span>
-          <span><img src="img/apps/noor-stories-icon.jpg" alt="" width="36" height="36" /></span>
-          <span><img src="img/apps/everlens-icon.jpg" alt="" width="36" height="36" /></span>
-          <span><img src="img/apps/rock-icon.jpg" alt="" width="36" height="36" /></span>
-        </div>
-        <div class="trust-copy">
-          <div class="stars" aria-label="4.5 out of 5 stars">
-            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
-          </div>
-          <small data-ph="verify"><b>4,200+</b> paying subscribers on our own apps</small>
-        </div>
+    <figure class="hero-vsl vsl">
+      <div class="vsl-frame" id="vsl-frame" data-ph="vsl-video">
+        <button class="vsl-poster" id="vsl-play" type="button" aria-label="Play the intro video">
+          <span class="vsl-text">
+            <span class="vsl-title">How we take an app from zero to €10k a month</span>
+            <span class="vsl-play-row">
+              <span class="vsl-play"><svg width="26" height="26"><use href="#i-play"/></svg></span>
+              <span class="vsl-play-label">Watch the intro<small>4 min, captions on</small></span>
+            </span>
+          </span>
+          <span class="vsl-shots" aria-hidden="true">
+            <img src="img/apps/grass-shot1.jpg" alt="" width="600" height="1304" />
+            <img src="img/apps/noor-stories-shot1.jpg" alt="" width="600" height="1304" />
+          </span>
+        </button>
       </div>
-    </div>
-    <div class="micro reveal" style="--d:.2s">
-      <span><svg><use href="#i-check"/></svg>Free 30-min call, no commitment</span>
-      <span data-ph="guarantee"><svg><use href="#i-check"/></svg>Launch date guaranteed</span>
-      <span><svg><use href="#i-check"/></svg>You own 100% of the code</span>
-    </div>
+      <figcaption>Deyar Zakir and Manuel Worlitzer, founders of Wizard Dynamics</figcaption>
+    </figure>
 
-    <!-- VSL -->
-    <div class="vsl-wrap reveal" style="--d:.25s">
-      <div class="vsl-glow" aria-hidden="true"></div>
-      <button class="vsl" id="vsl" type="button" aria-label="Play video: how we take an app from idea to €10k MRR" data-ph="vsl-video">
-        <div class="vsl-media" aria-hidden="true">
-          <div class="vsl-shots">
-            <img src="img/apps/grass-shot1.jpg" alt="" loading="lazy" />
-            <img src="img/apps/noor-stories-shot1.jpg" alt="" loading="lazy" />
-            <img src="img/apps/everlens-shot1.jpg" alt="" loading="lazy" />
-          </div>
-        </div>
-        <div class="vsl-copy">
-          <div class="vsl-kicker">Watch first · 4 min</div>
-          <div class="vsl-title">How we take apps<br />from 0 to <span class="serif">€10k MRR</span></div>
-          <div class="vsl-meta"><span class="who"><i></i>Deyar &amp; Manuel, founders</span></div>
-        </div>
-        <span class="vsl-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
-        <span class="vsl-duration" aria-hidden="true">4:12</span>
-      </button>
-    </div>
-    <div class="vsl-caption reveal">Watched it? <a href="#book" data-cta="vsl">Grab one of the remaining slots →</a></div>
-  </div>
-
-  <!-- Logo marquee -->
-  <div class="logos">
-    <div class="container logos-row">
-      <div class="logos-title">Trusted by founders &amp; brands</div>
-      <div class="marquee" data-ph="client-logos">
-        <div class="marquee-track">
-          <div class="marquee-group">
-            <span class="logo-ph"><i></i>Client Logo</span>
-            <span class="logo-ph"><i></i>Brand Name</span>
-            <span class="logo-ph"><i></i>Startup Co</span>
-            <span class="logo-ph"><i></i>Partner</span>
-            <span class="logo-ph"><i></i>Client Logo</span>
-            <span class="logo-ph"><i></i>Featured In</span>
-            <span class="logo-ph"><i></i>Brand Name</span>
-          </div>
-          <div class="marquee-group" aria-hidden="true">
-            <span class="logo-ph"><i></i>Client Logo</span>
-            <span class="logo-ph"><i></i>Brand Name</span>
-            <span class="logo-ph"><i></i>Startup Co</span>
-            <span class="logo-ph"><i></i>Partner</span>
-            <span class="logo-ph"><i></i>Client Logo</span>
-            <span class="logo-ph"><i></i>Featured In</span>
-            <span class="logo-ph"><i></i>Brand Name</span>
-          </div>
-        </div>
-      </div>
+    <div class="hero-action">
+      <a class="btn btn-lg" href="#book" data-cta="hero">Book my free strategy call</a>
+      <p class="hero-micro">30 minutes with Deyar, co-founder. You leave with a revenue plan for your app, whether we work together or not.</p>
+      <ul class="hero-proof">
+        <li data-ph="verify">
+          <span class="mini-icons" aria-hidden="true">
+            <img src="img/apps/grass-icon.jpg" alt="" width="24" height="24" />
+            <img src="img/apps/rock-icon.jpg" alt="" width="24" height="24" />
+            <img src="img/apps/noor-stories-icon.jpg" alt="" width="24" height="24" />
+          </span>
+          <span><b>€16k a month</b> from our own apps, after Apple's fee</span>
+        </li>
+        <li data-ph="verify">
+          <span class="stars" style="--rating:4.5" aria-hidden="true"></span>
+          <span><b>4,261</b> paying subscribers, <b>4.5</b> from 536 ratings</span>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- =============================== PROOF =============================== -->
-<section class="section on-paper" id="proof">
+<!-- App shelf -->
+<section class="shelf" aria-labelledby="shelf-title">
+  <div class="container">
+    <div class="shelf-head">
+      <h2 class="shelf-title" id="shelf-title">Apps we designed, built and run ourselves</h2>
+      <p class="shelf-more">6 of 18, the rest are on the App&nbsp;Store and Google&nbsp;Play</p>
+    </div>
+    <ul class="shelf-list">
+      <li><a href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/grass-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Grass Identifier</span><span class="shelf-meta">4.4 ★ (221)</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener"><img src="img/apps/rock-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Rock Scanner</span><span class="shelf-meta">4.3 ★ (154)</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/wedding-planner-brideplan/id6753721577" target="_blank" rel="noopener"><img src="img/apps/wedding-planner-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">BridePlan</span><span class="shelf-meta">4.7 ★ (94)</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/prayer-lock-noor/id6758148553" target="_blank" rel="noopener"><img src="img/apps/prayer-lock-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Prayer Lock</span><span class="shelf-meta">4.8 ★ (29)</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener"><img src="img/apps/everlens-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Everlens</span><span class="shelf-meta">4.8 ★ (17)</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener"><img src="img/apps/noor-stories-icon.jpg" alt="" width="44" height="44" loading="lazy" /><span class="shelf-name">Noor Stories</span><span class="shelf-meta">4.5 ★ (6)</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Proof ledger -->
+<section class="section" id="proof">
   <div class="container proof-grid">
-    <div class="proof-intro">
-      <div class="label reveal"><span class="num">01</span>Operator proof</div>
-      <h2 class="h2 reveal" style="margin-top:22px">We don't pitch theory.<br /><span class="serif gold-text">We run apps.</span></h2>
-      <p class="lead reveal">
-        Every recommendation we give you has been paid for with our own ad budget first. Paywalls, pricing,
-        onboarding, Apple Search Ads, Meta creatives, 30-language localization — tested on our portfolio,
-        then shipped for clients.
+    <div class="proof-copy">
+      <h2 class="h2">Numbers from our own App&nbsp;Store account</h2>
+      <p class="lead">
+        Every tactic we'll suggest for your app, we've paid for first with our own ad budget:
+        paywalls, pricing, onboarding, Apple Search Ads, Meta creatives and localization into 30&nbsp;languages.
       </p>
-      <a class="btn btn-ink reveal" href="#book" data-cta="proof">Get the playbook for your app <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
-      <div class="source-note reveal">Live data · App Store Connect &amp; RevenueCat · Nov 2026</div>
+      <p class="lead-link"><a class="link" href="#book" data-cta="proof">Get the same playbook for your app</a></p>
+      <figure class="dashboard ph-box" data-ph="dashboard-screenshot">
+        <span>Cropped RevenueCat dashboard screenshot goes here (real data).</span>
+      </figure>
     </div>
 
-    <div class="stats">
-      <div class="stat reveal">
-        <div class="stat-value"><span data-count="18">18</span></div>
-        <div class="stat-label"><b>Apps live</b>In the App Store &amp; Google Play, all built in-house</div>
-      </div>
-      <div class="stat reveal" data-ph="verify">
-        <div class="stat-value"><span class="pre">€</span><span data-count="16">16</span><span class="unit">k+</span></div>
-        <div class="stat-label"><b>Every month</b>App Store proceeds, after Apple's cut</div>
-      </div>
-      <div class="stat reveal" data-ph="verify">
-        <div class="stat-value"><span data-count="4200" data-format="comma">4,200</span><span class="unit">+</span></div>
-        <div class="stat-label"><b>Paying subscribers</b>Active right now across our apps</div>
-      </div>
-      <div class="stat reveal" data-ph="verify">
-        <div class="stat-value"><span data-count="4.5" data-decimals="1">4.5</span><span class="unit">★</span></div>
-        <div class="stat-label"><b>Avg. rating</b>Across 530+ App Store reviews</div>
+    <div class="proof-data">
+      <table class="ledger" data-ph="verify">
+        <caption>Wizard Dynamics portfolio on 1&nbsp;November 2026</caption>
+        <tbody>
+          <tr><th scope="row">Live apps</th><td>18</td></tr>
+          <tr><th scope="row">App Store proceeds, last 30 days<small>After Apple's fee, iOS only</small></th><td>€16,131</td></tr>
+          <tr><th scope="row">Paying subscribers</th><td>4,261</td></tr>
+          <tr><th scope="row">Average App Store rating<small>From 536 ratings</small></th><td>4.5</td></tr>
+          <tr><th scope="row">Languages we ship in</th><td>30</td></tr>
+        </tbody>
+      </table>
+      <p class="source">Source: App Store Connect and RevenueCat. Google Play revenue is not included.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Work -->
+<section class="section section-panel" id="work">
+  <div class="container">
+    <div class="section-head split">
+      <h2 class="h2">Some of our apps, and what each one taught&nbsp;us</h2>
+      <p class="lead">We made the expensive mistakes on our own products, with our own money. Your app starts from what survived.</p>
+    </div>
+
+    <div class="cases">
+      <a class="case" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener">
+        <div class="case-media">
+          <img src="img/apps/grass-shot1.jpg" alt="Grass Identifier App Store screenshot" width="600" height="1304" loading="lazy" />
+          <img src="img/apps/grass-shot2.jpg" alt="Grass Identifier plant result screen" width="600" height="1304" loading="lazy" />
+        </div>
+        <div class="case-body">
+          <div class="case-app"><img src="img/apps/grass-icon.jpg" alt="" width="36" height="36" loading="lazy" /><div><b>Grass Identifier</b><span>AI plant scanner, subscription</span></div></div>
+          <div class="case-number" data-ph="verify">€7.5k<span>monthly recurring revenue, gross, from 3,133 subscribers</span></div>
+          <p>Our biggest app, grown with Meta ads and Apple Search Ads. This is where we learned to buy installs that turn into trials, and trials that renew.</p>
+          <span class="case-link">View in the App Store</span>
+        </div>
+      </a>
+
+      <a class="case" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener">
+        <div class="case-media">
+          <img src="img/apps/noor-stories-shot1.jpg" alt="Noor Stories App Store screenshot" width="600" height="1304" loading="lazy" />
+          <img src="img/apps/noor-stories-shot2.jpg" alt="Noor Stories story screen" width="600" height="1304" loading="lazy" />
+        </div>
+        <div class="case-body">
+          <div class="case-app"><img src="img/apps/noor-stories-icon.jpg" alt="" width="36" height="36" loading="lazy" /><div><b>Noor Stories</b><span>Sleep audio, subscription</span></div></div>
+          <div class="case-number" data-ph="verify">64%<span>of revenue through our own web checkout</span></div>
+          <p>Subscriptions sold on the web next to the in-app purchase. Most of the revenue now skips the App Store fee, set up within Apple's rules.</p>
+          <span class="case-link">View in the App Store</span>
+        </div>
+      </a>
+
+      <a class="case" href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener">
+        <div class="case-media case-media-full" style="--media-bg:#f4ede5">
+          <img src="img/apps/rock-pano.jpg" alt="Rock Scanner App Store screenshots" width="1200" height="780" loading="lazy" />
+        </div>
+        <div class="case-body">
+          <div class="case-app"><img src="img/apps/rock-icon.jpg" alt="" width="36" height="36" loading="lazy" /><div><b>Rock Scanner</b><span>AI mineral scanner, subscription</span></div></div>
+          <div class="case-number" data-ph="verify">€2.3k<span>monthly recurring revenue, gross, from 880 subscribers</span></div>
+          <p>The Grass engine in a new niche. Onboarding and paywall were already proven, so it earned money within weeks. Reusing what works is how we keep your budget small.</p>
+          <span class="case-link">View in the App Store</span>
+        </div>
+      </a>
+
+      <div class="case case-slot ph-box" data-ph="client-case">
+        <div class="case-slot-inner">
+          <h3 class="h3">Client case study</h3>
+          <p>Placeholder: client logo, the problem in one sentence, two or three hard numbers (MRR, trial-to-paid, weeks to launch) and a line from the founder.</p>
+          <a class="link" href="#book" data-cta="client-case">Talk to us about your app</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================ COMPARISON ============================ -->
-<section class="section on-ink" id="why">
+<!-- Testimonials -->
+<section class="section" id="voices">
   <div class="container">
-    <div class="section-head split">
-      <div class="label reveal"><span class="num">02</span>Why Wizard Dynamics</div>
-      <h2 class="h2 reveal">Most apps die at launch.<br /><span class="serif gold-text">Ours don't.</span></h2>
-      <p class="lead reveal">A typical dev shop is paid to ship features. We get paid when your app makes money — so that's what we build for, from the first wireframe.</p>
+    <div class="section-head">
+      <h2 class="h2">What founders say after working with&nbsp;us</h2>
     </div>
 
-    <div class="compare reveal">
-      <div class="compare-col">
-        <div class="compare-head"><h3>Typical dev agency</h3><span class="chip">Ships code</span></div>
-        <ul>
-          <li><span class="ico"><svg><use href="#i-x"/></svg></span><span><b>Builds what you spec</b> — even if nobody will pay for it</span></li>
-          <li><span class="ico"><svg><use href="#i-x"/></svg></span><span><b>Paywall is an afterthought</b> — one screen, one price, no tests</span></li>
-          <li><span class="ico"><svg><use href="#i-x"/></svg></span><span><b>Launch = App Store submit.</b> Then you're on your own</span></li>
-          <li><span class="ico"><svg><use href="#i-x"/></svg></span><span><b>Has never spent its own money</b> on user acquisition</span></li>
-          <li><span class="ico"><svg><use href="#i-x"/></svg></span><span><b>Hourly billing</b> — slow is profitable for them</span></li>
-        </ul>
-      </div>
-      <div class="compare-col">
-        <div class="compare-head"><h3>Wizard Dynamics</h3><span class="chip">Ships revenue</span></div>
-        <ul>
-          <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Validates demand first</b> — keywords, competitors, pricing, before a line of code</span></li>
-          <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Paywall &amp; onboarding built to convert</b> — patterns proven across 18 live apps</span></li>
-          <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Launch with traffic</b> — ASO, Apple Search Ads and Meta creatives from day one</span></li>
-          <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Spends its own budget daily</b> — we know today's CPI and trial rates, not last year's</span></li>
-          <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Fixed price, fixed timeline</b> — weekly TestFlight builds you can hold in your hand</span></li>
-        </ul>
-      </div>
+    <div class="quotes">
+      <figure class="quote ph-box" data-ph="testimonial">
+        <blockquote>“The founder's own words about the result, with one number in it: what changed, by how much and how fast. Two or three sentences.”</blockquote>
+        <figcaption><span class="avatar" aria-hidden="true"></span><span><b>Founder name</b>Founder, Company</span></figcaption>
+      </figure>
+      <figure class="quote ph-box" data-ph="testimonial">
+        <blockquote>“A quote about working together: speed, communication, owning the code. Ideally it answers the fear that agencies are slow and vague.”</blockquote>
+        <figcaption><span class="avatar" aria-hidden="true"></span><span><b>Founder name</b>Head of Product, Company</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="logos ph-box" data-ph="client-logos">
+      <span>Client logo</span><span>Client logo</span><span>Client logo</span><span>Client logo</span><span>Client logo</span><span>Client logo</span>
     </div>
   </div>
 </section>
 
-<!-- ============================= SERVICES ============================= -->
-<section class="section on-paper" id="services">
+<!-- Services -->
+<section class="section" id="services">
   <div class="container">
-    <div class="section-head split">
-      <div class="label reveal"><span class="num">03</span>What we do</div>
-      <h2 class="h2 reveal">One team.<br /><span class="serif gold-text">Idea to income.</span></h2>
-      <p class="lead reveal">No hand-offs between a design agency, a dev shop and a growth freelancer. Strategy, build, monetization and growth sit at one table — ours.</p>
+    <div class="section-head">
+      <h2 class="h2">One team from the idea to the revenue</h2>
+      <p class="lead">Strategy, design, development, monetization and growth sit at one table, so nothing gets lost in hand-offs between agencies.</p>
     </div>
 
     <div class="services">
-      <article class="service reveal">
-        <div class="service-top"><span class="service-icon"><svg><use href="#i-compass"/></svg></span><span class="service-num">01</span></div>
-        <h3 class="h3">Strategy &amp; validation</h3>
-        <p>We pressure-test the idea against real App Store demand before you spend a euro on development: keyword volume, competitor revenue, pricing benchmarks and a monetization model you can defend.</p>
-        <div class="tags"><span>Market &amp; keyword research</span><span>Competitor teardown</span><span>Revenue model</span></div>
-      </article>
-      <article class="service reveal" style="--d:.06s">
-        <div class="service-top"><span class="service-icon"><svg><use href="#i-code"/></svg></span><span class="service-num">02</span></div>
-        <h3 class="h3">Design &amp; development</h3>
-        <p>Native iOS in SwiftUI or cross-platform in Flutter, a clean backend, AI features where they earn their keep. Weekly TestFlight builds so you see real progress every Friday.</p>
-        <div class="tags"><span>SwiftUI</span><span>Flutter</span><span>iOS &amp; Android</span><span>AI features</span><span>Backend</span></div>
-      </article>
-      <article class="service feature reveal">
-        <div class="service-top"><span class="service-icon"><svg><use href="#i-coin"/></svg></span><span class="badge">Our edge</span></div>
+      <div class="service">
+        <h3 class="h3">Strategy and validation</h3>
+        <p>We test the idea against real App Store demand before you spend money on development: who searches for it, what competitors earn, what people pay, and a revenue model you can defend.</p>
+        <ul><li>Keyword and competitor research</li><li>Pricing benchmarks</li><li>Revenue model</li></ul>
+      </div>
+      <div class="service">
+        <h3 class="h3">Design and development</h3>
+        <p>Native iOS in SwiftUI, or iOS and Android from one Flutter codebase. A clean backend, and AI features where they earn their keep. You get a TestFlight build every Friday.</p>
+        <ul><li>SwiftUI and Flutter</li><li>iOS and Android</li><li>Backend and AI features</li></ul>
+      </div>
+      <div class="service">
         <h3 class="h3">Monetization</h3>
-        <p>The part most agencies skip — and the part that decides whether your app pays. Onboarding flows, paywalls, trials, pricing per country and web checkout, all instrumented and A/B-tested.</p>
-        <div class="tags"><span>Paywalls</span><span>Onboarding</span><span>RevenueCat</span><span>Pricing tests</span><span>Web billing</span></div>
-      </article>
-      <article class="service feature reveal" style="--d:.06s">
-        <div class="service-top"><span class="service-icon"><svg><use href="#i-growth"/></svg></span><span class="badge">Our edge</span></div>
-        <h3 class="h3">Launch &amp; growth</h3>
-        <p>We launch with traffic, not hope: App Store optimization, Apple Search Ads, Meta and TikTok creatives, and localization into 30 languages — run by the same team that does it for our own apps every day.</p>
-        <div class="tags"><span>ASO</span><span>Apple Search Ads</span><span>Meta &amp; TikTok ads</span><span>Creatives</span><span>30 languages</span></div>
-      </article>
+        <p>This decides whether an app pays, and most agencies leave it to you. We build onboarding, paywall, trial, prices per country and web checkout, and test them until the numbers move.</p>
+        <ul><li>Onboarding and paywalls</li><li>RevenueCat and pricing tests</li><li>Web checkout</li></ul>
+      </div>
+      <div class="service">
+        <h3 class="h3">Launch and growth</h3>
+        <p>We launch with traffic: App Store optimization, Apple Search Ads, Meta and TikTok creatives and localization into 30 languages. The same team does this for our own apps every day.</p>
+        <ul><li>ASO and Apple Search Ads</li><li>Meta and TikTok ads</li><li>Localization</li></ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- =============================== WORK =============================== -->
-<section class="section on-ink" id="work">
+<!-- Process -->
+<section class="section section-panel" id="process">
   <div class="container">
     <div class="section-head split">
-      <div class="label reveal"><span class="num">04</span>Selected work</div>
-      <h2 class="h2 reveal">Our own apps.<br /><span class="serif gold-text">Our own money on the line.</span></h2>
-      <p class="lead reveal">Before we touch your app, we've already made the expensive mistakes on ours. A few of the products we designed, built and grow ourselves:</p>
+      <h2 class="h2">From first call to launch in about ten&nbsp;weeks</h2>
+      <p class="lead">Fixed scope, fixed price, and a build you can install every week. You always know where the project stands and what it costs.</p>
     </div>
 
-    <div class="work-grid">
-      <a class="case wide reveal" style="--case-bg: radial-gradient(ellipse at 80% 20%, #4fb35c 0%, transparent 55%), linear-gradient(135deg, #1f6b2b 0%, #0f3517 100%);" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener" data-app="grass">
-        <div class="case-top">
-          <img src="img/apps/grass-icon.jpg" alt="" width="56" height="56" loading="lazy" />
-          <div><div class="name">Grass Identifier</div><div class="cat">AI scanner · Subscription</div></div>
-          <span class="case-own">Own product</span>
-        </div>
-        <div class="case-shots" aria-hidden="true">
-          <img src="img/apps/grass-shot1.jpg" alt="" loading="lazy" />
-          <img src="img/apps/grass-shot2.jpg" alt="" loading="lazy" />
-        </div>
-        <div class="case-bottom">
-          <h3>A niche AI scanner, scaled with Meta ads and Apple Search Ads into our flagship.</h3>
-          <div class="metrics">
-            <div class="metric" data-ph="verify"><b>3,100+</b><span>active subscribers</span></div>
-            <div class="metric" data-ph="verify"><b>€7.5k</b><span>MRR (gross)</span></div>
-            <div class="metric"><b>4.4★</b><span>221 ratings</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a class="case reveal" style="--case-bg: radial-gradient(ellipse at 90% 10%, #a48760 0%, transparent 55%), linear-gradient(135deg, #4a3c2c 0%, #1c1611 100%);" href="https://apps.apple.com/us/app/rock-scanner-mineral-id/id6746742418" target="_blank" rel="noopener" data-app="rock">
-        <div class="case-top">
-          <img src="img/apps/rock-icon.jpg" alt="" width="56" height="56" loading="lazy" />
-          <div><div class="name">Rock Scanner</div><div class="cat">AI scanner · Subscription</div></div>
-          <span class="case-own">Own product</span>
-        </div>
-        <div class="case-shots" aria-hidden="true">
-          <img src="img/apps/rock-shot1.jpg" alt="" loading="lazy" />
-          <img src="img/apps/rock-shot2.jpg" alt="" loading="lazy" />
-        </div>
-        <div class="case-bottom">
-          <h3>Same engine, new niche — profitable in weeks, not months.</h3>
-          <div class="metrics">
-            <div class="metric" data-ph="verify"><b>880+</b><span>active subs</span></div>
-            <div class="metric"><b>4.3★</b><span>154 ratings</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a class="case reveal" style="--d:.06s; --case-bg: radial-gradient(ellipse at 85% 15%, #3a4a86 0%, transparent 55%), linear-gradient(135deg, #18213f 0%, #0a0d1c 100%);" href="https://apps.apple.com/us/app/noor-muslim-sleep-stories/id6778146034" target="_blank" rel="noopener" data-app="noor-stories">
-        <div class="case-top">
-          <img src="img/apps/noor-stories-icon.jpg" alt="" width="56" height="56" loading="lazy" />
-          <div><div class="name">Noor Stories</div><div class="cat">Audio · Sleep · Subscription</div></div>
-          <span class="case-own">Own product</span>
-        </div>
-        <div class="case-shots" aria-hidden="true">
-          <img src="img/apps/noor-stories-shot1.jpg" alt="" loading="lazy" />
-          <img src="img/apps/noor-stories-shot2.jpg" alt="" loading="lazy" />
-        </div>
-        <div class="case-bottom">
-          <h3>Web checkout next to in-app purchase — most revenue now skips the App Store fee.</h3>
-          <div class="metrics">
-            <div class="metric" data-ph="verify"><b>64%</b><span>revenue via web billing</span></div>
-            <div class="metric"><b>4.5★</b><span>App Store</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a class="case reveal" style="--case-bg: radial-gradient(ellipse at 85% 15%, #f07a5a 0%, transparent 55%), linear-gradient(135deg, #b23d29 0%, #4a140c 100%);" href="https://apps.apple.com/us/app/everlens-guest-party-camera/id6775506628" target="_blank" rel="noopener" data-app="everlens">
-        <div class="case-top">
-          <img src="img/apps/everlens-icon.jpg" alt="" width="56" height="56" loading="lazy" />
-          <div><div class="name">Everlens</div><div class="cat">Events · Photo &amp; video</div></div>
-          <span class="case-own">Own product</span>
-        </div>
-        <div class="case-shots" aria-hidden="true">
-          <img src="img/apps/everlens-shot1.jpg" alt="" loading="lazy" />
-          <img src="img/apps/everlens-shot2.jpg" alt="" loading="lazy" />
-        </div>
-        <div class="case-bottom">
-          <h3>A disposable guest camera for weddings &amp; parties — one QR code, every angle.</h3>
-          <div class="metrics">
-            <div class="metric"><b>4.8★</b><span>App Store rating</span></div>
-            <div class="metric" data-ph="metric"><b>XX k</b><span>photos shared</span></div>
-          </div>
-        </div>
-      </a>
-
-      <div class="case case-placeholder reveal" style="--d:.06s" data-ph="client-case">
-        <span class="label"><span class="num">Client</span>Case study</span>
-        <h3 class="h3">Your client case study goes here.</h3>
-        <p>Logo, one-line challenge, and 2–3 hard numbers (downloads, MRR, trial-to-paid, time-to-launch). Ideally with a quote from the founder.</p>
-        <a class="btn btn-ghost btn-sm" href="#book" data-cta="work-placeholder">Be our next case study <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="app-strip" aria-label="Screens from our app portfolio">
-    <div class="marquee-track">
-      <div class="marquee-group">
-        <img src="img/apps/grass-shot1.jpg" alt="Grass Identifier" loading="lazy" />
-        <img src="img/apps/prayer-lock-shot1.jpg" alt="Prayer Lock" loading="lazy" />
-        <img src="img/apps/everlens-shot1.jpg" alt="Everlens" loading="lazy" />
-        <img src="img/apps/wedding-planner-shot1.jpg" alt="Wedding Planner" loading="lazy" />
-        <img src="img/apps/noor-stories-shot1.jpg" alt="Noor Stories" loading="lazy" />
-        <img src="img/apps/ledgr-shot1.jpg" alt="Ledgr invoice maker" loading="lazy" />
-        <img src="img/apps/rock-shot1.jpg" alt="Rock Scanner" loading="lazy" />
-        <img src="img/apps/quran-widgets-shot1.jpg" alt="Quran Widgets" loading="lazy" />
-        <img src="img/apps/grass-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/prayer-lock-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/everlens-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/wedding-planner-shot2.jpg" alt="" loading="lazy" />
-      </div>
-      <div class="marquee-group" aria-hidden="true">
-        <img src="img/apps/grass-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/prayer-lock-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/everlens-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/wedding-planner-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/noor-stories-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/ledgr-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/rock-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/quran-widgets-shot1.jpg" alt="" loading="lazy" />
-        <img src="img/apps/grass-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/prayer-lock-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/everlens-shot2.jpg" alt="" loading="lazy" />
-        <img src="img/apps/wedding-planner-shot2.jpg" alt="" loading="lazy" />
-      </div>
-    </div>
-  </div>
-  <p class="strip-caption">18 live apps · designed, built, monetized and grown in-house</p>
-</section>
-
-<!-- =========================== TESTIMONIALS =========================== -->
-<section class="section on-paper" id="testimonials">
-  <div class="container">
-    <div class="section-head split">
-      <div class="label reveal"><span class="num">05</span>Founders on working with us</div>
-      <h2 class="h2 reveal">Don't take<br /><span class="serif gold-text">our word for it.</span></h2>
-      <p class="lead reveal">What founders say after launch — in their words, with their numbers.</p>
-    </div>
-
-    <div class="testimonials">
-      <article class="quote video reveal" data-ph="video-testimonial">
-        <div class="video-ph" aria-hidden="true"></div>
-        <div class="inner">
-          <button class="play-sm" type="button" data-video="" aria-label="Play video testimonial"><svg><use href="#i-play"/></svg></button>
-          <div>
-            <blockquote>“Short video testimonial — the result in one sentence, said by the founder on camera.”</blockquote>
-            <div class="quote-person" style="margin-top:22px">
-              <span class="ph-avatar">FN</span>
-              <div><b>Founder Name</b><span>CEO, Company</span></div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="quote reveal" style="--d:.05s" data-ph="testimonial">
-        <div>
-          <div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-          <blockquote>“Specific quote about the outcome — <b>what changed, in numbers, and how fast</b>. Two to three sentences max.”</blockquote>
-        </div>
-        <div class="quote-person">
-          <span class="ph-avatar">FN</span>
-          <div><b>Founder Name</b><span>Founder, Company</span></div>
-          <div class="quote-result"><b>+XX%</b><br />trial → paid</div>
-        </div>
-      </article>
-
-      <article class="quote reveal" style="--d:.1s" data-ph="testimonial">
-        <div>
-          <div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-          <blockquote>“Quote about the experience — <b>speed, communication, ownership</b>. The objection it kills: ‘agencies are slow and vague’.”</blockquote>
-        </div>
-        <div class="quote-person">
-          <span class="ph-avatar">FN</span>
-          <div><b>Founder Name</b><span>Head of Product, Company</span></div>
-          <div class="quote-result"><b>X wks</b><br />to launch</div>
-        </div>
-      </article>
-    </div>
-
-    <div class="rating-strip reveal">
-      <div class="items">
-        <div class="item"><svg><use href="#i-apple"/></svg><b>4.5★</b>avg. across our App Store apps</div>
-        <div class="item" data-ph="review-platform"><b>X.X★</b>Clutch / Google reviews</div>
-        <div class="item" data-ph="review-platform"><b>XX</b>projects delivered</div>
-      </div>
-      <a class="btn btn-ink btn-sm" href="#book" data-cta="testimonials">Book your call <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== PROCESS ============================== -->
-<section class="section on-ink" id="process">
-  <div class="container">
-    <div class="section-head split">
-      <div class="label reveal"><span class="num">06</span>How it works</div>
-      <h2 class="h2 reveal">First call to first revenue<br /><span class="serif gold-text">in about 10 weeks.</span></h2>
-      <p class="lead reveal">A fixed process, a fixed price and a build in your hands every week. You always know where the project is — and what it costs.</p>
-    </div>
-
-    <div class="process">
-      <article class="step reveal">
-        <span class="step-when">Day 0 · Free</span>
-        <div class="step-num">01</div>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-when">Day 0, free</span>
         <h3 class="h3">Strategy call</h3>
-        <p>30 minutes. We look at your idea or live app and tell you honestly if — and how — it can make money.</p>
-      </article>
-      <article class="step reveal" style="--d:.05s">
+        <p>30 minutes. We look at your idea or your live app and tell you honestly whether it can make money, and how.</p>
+      </li>
+      <li class="step">
         <span class="step-when">Week 1</span>
-        <div class="step-num">02</div>
         <h3 class="h3">Blueprint</h3>
-        <p>Scope, screens, monetization model and launch plan.</p>
-        <ul><li>Fixed price</li><li>Fixed launch date</li></ul>
-      </article>
-      <article class="step reveal" style="--d:.1s">
-        <span class="step-when">Weeks 2–8</span>
-        <div class="step-num">03</div>
-        <h3 class="h3">Build sprints</h3>
-        <p>Design and development in weekly sprints.</p>
-        <ul><li>TestFlight build every Friday</li><li>Paywall &amp; analytics built in</li></ul>
-      </article>
-      <article class="step reveal" style="--d:.15s">
-        <span class="step-when">Week 9+</span>
-        <div class="step-num">04</div>
-        <h3 class="h3">Launch &amp; grow</h3>
-        <p>We launch with traffic and optimize for revenue, not features.</p>
-        <ul><li>ASO + Apple Search Ads</li><li>Paywall A/B tests</li><li>Paid creatives</li></ul>
-      </article>
-    </div>
+        <p>Scope, screens, revenue model and launch plan. You get a fixed price and a fixed launch date.</p>
+      </li>
+      <li class="step">
+        <span class="step-when">Weeks 2 to 8</span>
+        <h3 class="h3">Build</h3>
+        <p>Design and development in weekly sprints, with paywall and analytics built in from the start. A new TestFlight build every Friday.</p>
+      </li>
+      <li class="step">
+        <span class="step-when">Week 9 onward</span>
+        <h3 class="h3">Launch and grow</h3>
+        <p>App Store launch with ASO, Apple Search Ads and paid creatives, then paywall tests until the numbers move.</p>
+      </li>
+    </ol>
 
-    <div class="process-line reveal">
-      <p><b>Already live?</b> Skip straight to step 4 — we audit your paywall, onboarding and acquisition and fix the leaks first.</p>
-      <a class="btn btn-gold btn-sm" href="#book" data-cta="process">Book your free call <svg class="arrow" width="14" height="14"><use href="#i-arrow"/></svg></a>
-    </div>
+    <p class="process-note"><b>Already live?</b> We start at step four: an audit of your paywall, onboarding and acquisition, then we fix the biggest leak first. <a class="link" href="#book" data-cta="process">Book a call</a></p>
   </div>
 </section>
 
-<!-- ============================== PRICING ============================== -->
-<section class="section on-paper" id="pricing">
+<!-- Pricing -->
+<section class="section" id="pricing">
   <div class="container">
-    <div class="section-head split">
-      <div class="label reveal"><span class="num">07</span>Engagements</div>
-      <h2 class="h2 reveal">Clear scope.<br /><span class="serif gold-text">Clear price.</span></h2>
-      <p class="lead reveal">Every project starts with a fixed quote after the Blueprint. These are typical starting points — so you know where you stand before the call.</p>
+    <div class="section-head">
+      <h2 class="h2">What it costs</h2>
+      <p class="lead">Every project gets a fixed quote after the blueprint week. These are typical starting points, so you know where you stand before the call.</p>
     </div>
 
     <div class="plans">
-      <article class="plan reveal">
-        <h3>Launch</h3>
-        <p class="for">For founders with a validated idea who need a revenue-ready v1.</p>
-        <div class="price" data-ph="price"><span class="from">from</span><b>€25k</b></div>
-        <p class="timeline">6–8 weeks</p>
-        <ul>
-          <li><svg><use href="#i-check"/></svg>Strategy &amp; Blueprint</li>
-          <li><svg><use href="#i-check"/></svg>iOS app (Android optional)</li>
-          <li><svg><use href="#i-check"/></svg>Onboarding + paywall, RevenueCat wired</li>
-          <li><svg><use href="#i-check"/></svg>Analytics &amp; attribution setup</li>
-          <li><svg><use href="#i-check"/></svg>App Store launch &amp; ASO basics</li>
-        </ul>
-        <a class="btn btn-ghost" href="#book" data-cta="plan-launch">Book a call</a>
-      </article>
-
-      <article class="plan popular reveal" style="--d:.05s">
-        <span class="plan-tag">Most chosen</span>
-        <h3>Build + Grow</h3>
-        <p class="for">The full playbook: we build it, launch it and scale it with you.</p>
-        <div class="price" data-ph="price"><span class="from">from</span><b>€45k</b></div>
-        <p class="timeline">8–10 weeks + 90-day growth sprint</p>
-        <ul>
-          <li><svg><use href="#i-check"/></svg>Everything in Launch</li>
-          <li><svg><use href="#i-check"/></svg>iOS + Android</li>
-          <li><svg><use href="#i-check"/></svg>Paywall &amp; pricing A/B tests</li>
-          <li><svg><use href="#i-check"/></svg>Apple Search Ads + Meta campaigns</li>
-          <li><svg><use href="#i-check"/></svg>Ad creatives &amp; localization</li>
-          <li><svg><use href="#i-check"/></svg>Weekly growth report</li>
-        </ul>
-        <a class="btn btn-gold" href="#book" data-cta="plan-grow">Book a call <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
-      </article>
-
-      <article class="plan reveal" style="--d:.1s">
-        <h3>Growth Partner</h3>
-        <p class="for">For live apps that have users but leave revenue on the table.</p>
-        <div class="price" data-ph="price"><span class="from">from</span><b>€4.5k</b><span class="per">/ month</span></div>
-        <p class="timeline">Monthly · cancel anytime</p>
-        <ul>
-          <li><svg><use href="#i-check"/></svg>Paywall &amp; onboarding audit</li>
-          <li><svg><use href="#i-check"/></svg>Conversion &amp; pricing experiments</li>
-          <li><svg><use href="#i-check"/></svg>Apple Search Ads &amp; Meta management</li>
-          <li><svg><use href="#i-check"/></svg>ASO &amp; 30-language localization</li>
-          <li><svg><use href="#i-check"/></svg>Feature work on demand</li>
-        </ul>
-        <a class="btn btn-ghost" href="#book" data-cta="plan-partner">Book a call</a>
-      </article>
+      <div class="plan">
+        <div class="plan-name"><h3 class="h3">Launch</h3><p>For founders with a validated idea who need a first version that can earn.</p></div>
+        <ul class="plan-includes"><li>Strategy and blueprint</li><li>iOS app, Android optional</li><li>Onboarding and paywall with RevenueCat</li><li>Analytics and attribution</li><li>App Store launch and ASO basics</li></ul>
+        <p class="plan-time">6 to 8 weeks</p>
+        <p class="plan-price" data-ph="price"><small>from</small>€25k</p>
+      </div>
+      <div class="plan">
+        <div class="plan-name"><h3 class="h3">Build and grow</h3><p>We build it, launch it and grow it with you. Our recommendation for new apps.</p></div>
+        <ul class="plan-includes"><li>Everything in Launch</li><li>iOS and Android</li><li>Paywall and pricing tests</li><li>Apple Search Ads and Meta campaigns</li><li>Ad creatives and localization</li><li>Weekly growth report</li></ul>
+        <p class="plan-time">8 to 10 weeks, then 90 days of growth</p>
+        <p class="plan-price" data-ph="price"><small>from</small>€45k</p>
+      </div>
+      <div class="plan">
+        <div class="plan-name"><h3 class="h3">Growth partner</h3><p>For live apps with users that leave revenue on the table.</p></div>
+        <ul class="plan-includes"><li>Paywall and onboarding audit</li><li>Conversion and pricing experiments</li><li>Apple Search Ads and Meta management</li><li>ASO and localization</li><li>Feature work on demand</li></ul>
+        <p class="plan-time">Monthly, cancel any time</p>
+        <p class="plan-price" data-ph="price"><small>from</small>€4.5k<small>per month</small></p>
+      </div>
     </div>
 
-    <div class="guarantee reveal" data-ph="guarantee">
-      <div class="seal" aria-hidden="true"><svg><use href="#i-shield"/></svg></div>
-      <div>
-        <h3>The launch-date guarantee</h3>
-        <p>We commit to a launch date in your Blueprint. If we miss it because of us, every extra week is on our dime — and you keep 100% of the code, accounts and IP from day one.</p>
+    <div class="pricing-foot">
+      <div class="guarantee" data-ph="guarantee">
+        <p class="guarantee-line">If we miss the launch date in your blueprint because of us, every extra week is on&nbsp;us.</p>
+        <p>You own the code, the developer accounts and the IP from the first day.</p>
       </div>
-      <a class="btn btn-ink" href="#book" data-cta="guarantee">Claim your slot <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
+      <div class="fit">
+        <div>
+          <h3 class="h3">A good fit</h3>
+          <ul>
+            <li>You have an idea for a subscription app and a budget from €25k.</li>
+            <li>You have a live app, and the revenue doesn't match the downloads.</li>
+            <li>You want one team for product, paywall and growth.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="h3">Not a fit</h3>
+          <ul>
+            <li>You need the cheapest possible build.</li>
+            <li>The app has no business model, and you don't want one.</li>
+            <li>You want a team that builds a spec without pushing back.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================================ FAQ ================================ -->
-<section class="section on-ink" id="faq">
+<!-- Founders -->
+<section class="section section-panel" id="founders">
+  <div class="container founders-grid">
+    <figure class="founder-photo" data-ph="founder-photo">
+      <div class="photo-slot ph-box"><span>Photo of Deyar and Manuel, natural light, Munich</span></div>
+      <figcaption><b>Deyar Zakir and Manuel Worlitzer</b>Founders of Wizard Dynamics</figcaption>
+    </figure>
+    <div class="letter">
+      <h2 class="h2">Why we take on client projects</h2>
+      <div class="letter-body">
+        <p>We started Wizard Dynamics to build apps of our own, and we still spend most of our days on them. Grass Identifier is where we learned paid acquisition. Rock Scanner showed us how far a proven onboarding and paywall carry into a new niche. Noor Stories got us selling on the web next to the App Store.</p>
+        <p>Across eighteen apps, the money has come from the first minutes after install and from the first thousand users far more than from the feature list. That's the part most agencies hand back to the founder after launch, and it's the part we stay for.</p>
+        <p>We take on a few client projects per quarter, so each gets the attention our own apps get. If we don't think your app can make money, we'll say so on the first call.</p>
+      </div>
+      <p class="signoff">Deyar and Manuel</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
   <div class="container faq-grid">
     <div class="faq-side">
-      <div class="label reveal"><span class="num">08</span>FAQ</div>
-      <h2 class="h2 reveal" style="margin-top:22px">Questions,<br /><span class="serif gold-text">answered.</span></h2>
-      <p class="lead reveal">Anything else? Ask us on the call — it's free and there's no pitch deck required.</p>
-      <a class="btn btn-gold reveal" href="#book" data-cta="faq">Book your free call <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
+      <h2 class="h2">Questions founders ask&nbsp;us</h2>
+      <p class="lead">Anything else, ask on the call. It's free and you don't need a pitch deck.</p>
     </div>
 
     <div class="faq-list">
-      <details class="reveal">
-        <summary>How much does an app cost?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>Most revenue-ready v1 apps land between <b data-ph="price">€25k and €60k</b>, depending on platforms, backend and AI features. You get a fixed quote after the Blueprint week — no hourly surprises.</p>
-        </div>
+      <details>
+        <summary>How much does an app cost?</summary>
+        <div class="faq-answer"><p>Most first versions that are built to earn land between <span data-ph="price">€25k and €60k</span>, depending on platforms, backend and AI features. You get a fixed quote after the blueprint week, with no hourly billing.</p></div>
       </details>
-      <details class="reveal">
-        <summary>How fast can you launch?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>Typically <b>6–10 weeks</b> from kickoff to App Store. We work in weekly sprints and ship a TestFlight build every Friday, so you can test the real app from week two.</p>
-        </div>
+      <details>
+        <summary>How fast can you launch?</summary>
+        <div class="faq-answer"><p>Usually 6 to 10 weeks from kickoff to the App Store. We work in weekly sprints and send a TestFlight build every Friday, so you can use the real app from week two.</p></div>
       </details>
-      <details class="reveal">
-        <summary>Who owns the code and the App Store account?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p><b>You do — 100%.</b> The app is published under your developer account, the repository is yours, and all IP transfers to you. No lock-in.</p>
-        </div>
+      <details>
+        <summary>Who owns the code and the App Store account?</summary>
+        <div class="faq-answer"><p>You do, completely. The app is published under your developer account, the repository is yours, and all IP transfers to you. There's no lock-in.</p></div>
       </details>
-      <details class="reveal">
-        <summary>Native or cross-platform?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>Both. We build native iOS in <b>SwiftUI</b> when performance and platform feel matter most, and <b>Flutter</b> when you need iOS and Android from one codebase. We'll recommend the one that fits your budget and market.</p>
-        </div>
+      <details>
+        <summary>Native or cross-platform?</summary>
+        <div class="faq-answer"><p>Both. We build native iOS in SwiftUI when performance and platform feel matter most, and Flutter when you need iOS and Android from one codebase. We'll recommend the one that fits your budget and market.</p></div>
       </details>
-      <details class="reveal">
-        <summary>We already have a live app. Can you help?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>Yes — that's our <b>Growth Partner</b> engagement. We start with a paywall, onboarding and acquisition audit, then run experiments on what moves trial-starts and revenue. Often the fastest wins are on the paywall, not in new features.</p>
-        </div>
+      <details>
+        <summary>We already have a live app. Can you help?</summary>
+        <div class="faq-answer"><p>Yes, that's the growth partner engagement. We start with an audit of your paywall, onboarding and acquisition, then run experiments on what moves trial starts and revenue. The fastest wins are usually on the paywall.</p></div>
       </details>
-      <details class="reveal">
-        <summary>Why should we trust you with growth?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>Because we do it with our own money every day. Our portfolio runs on Apple Search Ads and Meta campaigns we manage ourselves, so we know current costs and conversion rates — not last year's case-study numbers.</p>
-        </div>
+      <details>
+        <summary>Why should we trust you with growth?</summary>
+        <div class="faq-answer"><p>Because we spend our own money on it every day. Our apps run on Apple Search Ads and Meta campaigns that we manage ourselves, so we know this month's costs and conversion rates.</p></div>
       </details>
-      <details class="reveal">
-        <summary>Do you work for equity or revenue share?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer" data-ph="faq-answer">
-          <p>For selected projects we combine a reduced fee with a revenue share. Tell us about your idea on the call and we'll tell you honestly whether it's a fit.</p>
-        </div>
+      <details>
+        <summary>Do you work for equity or revenue share?</summary>
+        <div class="faq-answer" data-ph="faq-answer"><p>For selected projects we combine a reduced fee with a revenue share. Tell us about your idea on the call and we'll tell you honestly whether it's a fit.</p></div>
       </details>
-      <details class="reveal">
-        <summary>When are we the wrong choice?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>If you need the cheapest possible build, an app with no business model behind it, or a team that just executes a spec without pushing back — we're not your studio. We take on <b>a few projects per quarter</b> and only the ones we believe can make money.</p>
-        </div>
-      </details>
-      <details class="reveal">
-        <summary>What happens after launch?<span class="plus" aria-hidden="true"></span></summary>
-        <div class="faq-answer">
-          <p>That's where most agencies stop and where we get started. Either we continue as your growth team, or we hand over cleanly with documentation, dashboards and a playbook your team can run.</p>
-        </div>
+      <details>
+        <summary>What happens after launch?</summary>
+        <div class="faq-answer"><p>Either we continue as your growth team, or we hand over cleanly with documentation, dashboards and a playbook your team can run.</p></div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ============================ BOOK / CTA ============================ -->
-<section class="section on-ink book" id="book">
+<!-- Booking -->
+<section class="book" id="book">
   <div class="container book-grid">
     <div class="book-copy">
-      <div class="label reveal"><span class="num">09</span>Free strategy call</div>
-      <h2 class="display reveal" style="margin-top:22px">Let's build the app that<br /><span class="serif gold-text">pays for itself.</span></h2>
-      <p class="lead reveal">Tell us where you are. In 30 minutes you'll know if your app can make money, what it takes, and what it costs — whether you work with us or not.</p>
-
-      <ul class="gets reveal">
-        <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>A revenue model</b> for your idea — pricing, trial and paywall strategy</span></li>
-        <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>A realistic budget &amp; timeline</b> — no hourly guesswork</span></li>
-        <li><span class="ico"><svg><use href="#i-check"/></svg></span><span><b>Live app?</b> A teardown of your paywall and onboarding, on the call</span></li>
+      <h2 class="book-title">Book your free strategy&nbsp;call</h2>
+      <p class="book-lead">Answer four quick questions, then pick a time. In 30 minutes you'll know whether your app can make money, and what it would take.</p>
+      <ul class="book-gets">
+        <li><b>A revenue model for your idea:</b> pricing, trial and paywall.</li>
+        <li><b>A realistic budget and timeline,</b> without hourly guesswork.</li>
+        <li><b>For live apps:</b> a teardown of your paywall and onboarding on the call.</li>
       </ul>
-
-      <div class="slots reveal" data-ph="slots">
-        <div class="slots-top"><b>Build slots Q1 2027</b><span>2 of 4 left</span></div>
-        <div class="slot-bar" style="--total:4"><i class="taken"></i><i class="taken"></i><i></i><i></i></div>
-      </div>
+      <p class="book-slots" data-ph="slots">We start four new builds per quarter. Two of the Q1&nbsp;2027 slots are still open.</p>
+      <p class="book-alt">Prefer email? Write to <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></p>
     </div>
 
-    <div class="book-card reveal" style="--d:.08s">
-      <div class="book-card-head">
-        <span class="host" data-ph="founder-photo">DZ</span>
-        <div><b>Deyar Zakir</b><span>Founder · replies within 24h</span></div>
-        <span class="dur">30 min · Free</span>
+    <div class="form-card">
+      <div class="form-host">
+        <span class="host-photo" data-ph="founder-photo" aria-hidden="true"></span>
+        <div><b>Deyar Zakir</b><span>Co-founder. Replies within 24 hours.</span></div>
       </div>
 
       <form class="form" id="lead-form" novalidate>
         <div class="form-row">
           <div class="field">
             <label for="f-name">Name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" />
+            <input id="f-name" name="name" type="text" autocomplete="name" required />
           </div>
           <div class="field">
-            <label for="f-email">Work email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="jane@company.com" />
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required />
           </div>
         </div>
 
-        <div class="field">
-          <span id="stage-label" style="font-size:13.5px;font-weight:500">Where are you right now?</span>
-          <div class="chips" role="radiogroup" aria-labelledby="stage-label">
-            <label><input type="radio" name="stage" value="Idea" checked /><span>Just an idea</span></label>
-            <label><input type="radio" name="stage" value="Building" /><span>Building / MVP</span></label>
-            <label><input type="radio" name="stage" value="Live app" /><span>Live app, want growth</span></label>
+        <fieldset class="field">
+          <legend>Where are you right now?</legend>
+          <div class="segmented">
+            <label><input type="radio" name="stage" value="Idea" checked /><span>Idea</span></label>
+            <label><input type="radio" name="stage" value="Building" /><span>Building</span></label>
+            <label><input type="radio" name="stage" value="Live app" /><span>Live app</span></label>
           </div>
-        </div>
+        </fieldset>
 
         <div class="field">
           <label for="f-budget">Budget</label>
           <select id="f-budget" name="budget">
-            <option>€15k – €30k</option>
-            <option selected>€30k – €60k</option>
-            <option>€60k+</option>
+            <option>Under €25k</option>
+            <option selected>€25k to €60k</option>
+            <option>€60k or more</option>
             <option>Monthly growth retainer</option>
             <option>Not sure yet</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="f-msg">What are you building?</label>
-          <textarea id="f-msg" name="message" rows="3" placeholder="A line or two about the app, the audience, and your goal."></textarea>
+          <label for="f-msg">What are you building? <span class="optional">Optional</span></label>
+          <textarea id="f-msg" name="message" rows="3"></textarea>
         </div>
 
-        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
 
-        <button class="btn btn-gold btn-lg" type="submit">Request my free strategy call <svg class="arrow" width="16" height="16"><use href="#i-arrow"/></svg></button>
-
-        <div class="form-foot">
-          <span style="display:inline-flex;align-items:center;gap:8px"><svg width="16" height="16" style="color:#1fae6e"><use href="#i-shield"/></svg>No spam. No pitch deck needed.</span>
-          <span>We reply within 24h</span>
-        </div>
+        <button class="btn btn-lg btn-block" type="submit" id="form-submit">Request my strategy call</button>
+        <p class="form-foot">We reply within 24 hours with times for the call. No newsletter, no sales sequence.</p>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
 
-      <div class="form-success" id="form-success">
-        <div class="seal" aria-hidden="true"><svg><use href="#i-check"/></svg></div>
-        <h3>Got it — talk soon.</h3>
-        <p id="success-copy">We'll get back to you within 24 hours with a few time slots.</p>
-        <a class="btn btn-gold" id="success-book" href="#" target="_blank" rel="noopener" style="display:none;margin-top:22px">Pick a time now <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
+      <div class="form-success" id="form-success" tabindex="-1">
+        <h3 class="h3" id="success-title">Request received</h3>
+        <p id="success-copy">We'll reply within 24 hours with a few times for the call.</p>
+        <div class="calendar" id="calendar" hidden></div>
       </div>
     </div>
   </div>
@@ -751,71 +513,46 @@
 
 </main>
 
-<!-- =============================== FOOTER =============================== -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div>
-        <a href="/" class="brand"><svg viewBox="0 0 738 416"><use href="img/wd-mark.svg#m" width="738" height="416"/></svg>Wizard Dynamics</a>
-        <p>App studio from Munich. We design, build, monetize and grow subscription apps — for clients and for ourselves.</p>
+      <div class="footer-about">
+        <a href="/" class="brand"><span class="brand-icon"><svg viewBox="0 0 738 416" aria-hidden="true"><use href="img/wd-mark.svg#m" width="738" height="416"/></svg></span><span class="brand-name">Wizard Dynamics</span></a>
+        <p>App studio from Munich. We design, build and grow subscription apps for founders, and for ourselves.</p>
       </div>
       <div>
         <h4>Studio</h4>
-        <ul>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-        </ul>
+        <ul><li><a href="#work">Our apps</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li></ul>
       </div>
       <div>
         <h4>Contact</h4>
-        <ul>
-          <li><a href="#book">Book a call</a></li>
-          <li><a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></li>
-          <li>Munich, Germany</li>
-        </ul>
+        <ul><li><a href="#book">Book a call</a></li><li><a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></li><li>Munich, Germany</li></ul>
       </div>
       <div>
         <h4>Legal</h4>
-        <ul>
-          <li><a href="/impressum">Impressum</a></li>
-          <li><a href="/datenschutz">Datenschutz</a></li>
-        </ul>
+        <ul><li><a href="/impressum">Impressum</a></li><li><a href="/datenschutz">Datenschutz</a></li></ul>
       </div>
     </div>
-    <div class="footer-word" aria-hidden="true">Wizard Dynamics</div>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> Wizard Dynamics eGbR</span>
-      <span>Built in-house. Obviously.</span>
     </div>
   </div>
 </footer>
 
-<!-- Floating CTAs -->
-<a class="float-cta" id="float-cta" href="#book" data-cta="float" aria-label="Book a call with Deyar">
-  <span class="host" data-ph="founder-photo">DZ</span>
-  <span class="who"><b>Talk to a founder</b><span>2 Q1 slots left</span></span>
-  <span class="btn btn-gold btn-sm">Book a call</span>
-</a>
 <div class="mobile-cta" id="mobile-cta">
-  <div class="slots-mini"><b>2 slots left</b>Q1 2027</div>
-  <a class="btn btn-gold" href="#book" data-cta="mobile-sticky">Book free call <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
+  <span>30 minutes, free</span>
+  <a class="btn" href="#book" data-cta="mobile-sticky">Book my strategy call</a>
 </div>
 
-<!-- Video modal -->
-<div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Video">
-  <div class="modal-box" id="modal-box">
-    <button class="modal-close" id="modal-close" aria-label="Close video"><svg width="16" height="16"><use href="#i-close"/></svg></button>
-    <div class="modal-empty" id="modal-empty">
-      <div class="label"><span class="num">●</span>Video coming soon</div>
-      <h3 class="h3">The 4-minute breakdown is in the edit.</h3>
-      <p>Until it's live, the fastest way to see the playbook is a free 30-minute call — applied to your app.</p>
-      <a class="btn btn-gold" href="#book" data-cta="modal" id="modal-cta">Book a free strategy call <svg class="arrow" width="15" height="15"><use href="#i-arrow"/></svg></a>
-    </div>
+<div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close" type="button" aria-label="Close"><svg width="16" height="16"><use href="#i-close"/></svg></button>
+    <h3 class="h3" id="modal-title">The intro video is being recorded.</h3>
+    <p>Until it's live, the fastest way to see how we'd approach your app is a free 30-minute call.</p>
+    <a class="btn" href="#book" id="modal-cta" data-cta="modal">Book my free strategy call</a>
   </div>
 </div>
 
-<script src="js/site.js?v=1" defer></script>
+<script src="js/site.js?v=3" defer></script>
 </body>
 </html>
