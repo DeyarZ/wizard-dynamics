@@ -20,13 +20,16 @@
     // Cal.com / Calendly booking link. When set, the calendar opens inline right after the
     // qualifying questions (name + email prefilled), so "Book a call" really books. Needs a datenschutz update.
     bookingUrl: "",
-    leadEmail: "hello@wizarddynamics.com"
+    leadEmail: "hello@wizarddynamics.com",
+    // Free blueprint spots per week, shown in the offer bar, the offer, the booking section and
+    // the mobile bar. Keep this true: update spotsLeft when calls get booked.
+    // The countdown always runs to Sunday 23:59 (visitor's time), when the week's spots reset.
+    spotsLeft: 3,
+    spotsTotal: 5
   };
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  function safeGet(key) { try { return window.sessionStorage.getItem(key); } catch (e) { return null; } }
-  function safeSet(key, val) { try { window.sessionStorage.setItem(key, val); } catch (e) {} }
   var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Placeholder highlighter: open the page with ?ph */
@@ -35,16 +38,25 @@
   var y = $("#year");
   if (y) y.textContent = String(new Date().getFullYear());
 
-  /* Offer bar: dismiss for this session */
-  var banner = $("#offer-banner");
-  if (banner) {
-    if (safeGet("wd-offer-dismissed") === "1") banner.classList.add("hidden");
-    var close = $("#offer-close");
-    if (close) close.addEventListener("click", function () {
-      banner.classList.add("hidden");
-      safeSet("wd-offer-dismissed", "1");
-    });
+  /* Weekly blueprint spots + countdown to Sunday 23:59 */
+  $$("[data-spots-left]").forEach(function (el) { el.textContent = String(CONFIG.spotsLeft); });
+  $$("[data-spots-total]").forEach(function (el) { el.textContent = String(CONFIG.spotsTotal); });
+  var timers = $$("[data-countdown]");
+  function weekEnd(now) {
+    var end = new Date(now);
+    end.setDate(end.getDate() + ((7 - end.getDay()) % 7));
+    end.setHours(23, 59, 59, 999);
+    return end;
   }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function tick() {
+    var now = new Date();
+    var s = Math.max(0, Math.floor((weekEnd(now) - now) / 1000));
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    var text = (d ? d + "d " : "") + pad(h) + "h " + pad(m) + "m " + pad(sec) + "s";
+    timers.forEach(function (el) { el.textContent = text; });
+  }
+  if (timers.length) { tick(); window.setInterval(tick, 1000); }
 
   /* Nav rule on scroll + mobile sticky CTA */
   var nav = $("#nav");
@@ -206,7 +218,7 @@
   if (CONFIG.bookingUrl && submitBtn) {
     submitBtn.textContent = "Next: pick a time";
     var lead = $("#book-lead");
-    if (lead) lead.textContent = "Answer four quick questions, then pick a time for a 30-minute call. You'll know whether your app can make money, and what it would take.";
+    if (lead) lead.textContent = "Answer four quick questions, then pick a time for your 30-minute blueprint call.";
     var foot = $(".form-foot");
     if (foot) foot.textContent = "Next screen: pick a 30-minute slot. No newsletter, no sales sequence.";
   }
@@ -222,7 +234,7 @@
       "&embed=true";
     var f = document.createElement("iframe");
     f.src = url;
-    f.title = "Pick a time for your strategy call";
+    f.title = "Pick a time for your blueprint call";
     f.loading = "eager";
     cal.innerHTML = "";
     cal.appendChild(f);
@@ -270,7 +282,7 @@
         // With a booking link the calendar itself captures the lead; otherwise fall back to email.
         if (!CONFIG.bookingUrl) {
           window.location.href = "mailto:" + CONFIG.leadEmail +
-            "?subject=" + encodeURIComponent("Strategy call request: " + data.name) +
+            "?subject=" + encodeURIComponent("Free blueprint request: " + data.name) +
             "&body=" + encodeURIComponent(summary);
         }
         showSuccess(data, !CONFIG.bookingUrl);
@@ -286,7 +298,7 @@
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: CONFIG.web3formsKey,
-          subject: "New strategy call request: " + data.name + " (" + (data.stage || "") + ", " + (data.budget || "") + ")",
+          subject: "New free blueprint request: " + data.name + " (" + (data.stage || "") + ", " + (data.budget || "") + ")",
           from_name: "wizarddynamics.com",
           name: data.name,
           email: data.email,
