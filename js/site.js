@@ -169,6 +169,8 @@
   }
 
   if (frame && poster) {
+    // The play button only exists once there is a video to play; until then the poster is a static revenue chart.
+    if (CONFIG.vslSrc || CONFIG.vslEmbed) poster.hidden = false;
     var saveData = navigator.connection && navigator.connection.saveData;
     if (CONFIG.vslSrc && !reducedMotion && !saveData) {
       mountSmartAutoplay();
@@ -234,7 +236,8 @@
     success.classList.add("show");
     if (CONFIG.bookingUrl) showCalendar(data);
     else if (viaMail) {
-      $("#success-copy").textContent = "Your email app opened with everything filled in. Send it and we'll reply within 24 hours.";
+      $("#success-title").textContent = "One more step: send the email";
+      $("#success-copy").innerHTML = "Your email app should have opened with everything filled in. Press send and we'll reply within 24 hours. If nothing opened, write to <a href=\"mailto:" + CONFIG.leadEmail + "\">" + CONFIG.leadEmail + "</a> with your name and what you're building.";
     }
     success.focus();
   }
@@ -247,10 +250,12 @@
       if (data.botcheck) return;
 
       var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email || "");
-      if (!data.name || !emailOk) {
+      if (!data.name || !emailOk || !data.budget) {
         status.className = "form-status err";
-        status.textContent = !data.name ? "Add your name so we know who we're talking to." : "Add an email address we can reply to.";
-        (!data.name ? $("#f-name") : $("#f-email")).focus();
+        status.textContent = !data.name ? "Add your name so we know who we're talking to."
+          : !emailOk ? "Add an email address we can reply to."
+          : "Pick a budget range, so we can prepare the right plan.";
+        (!data.name ? $("#f-name") : !emailOk ? $("#f-email") : $("#f-budget")).focus();
         return;
       }
 

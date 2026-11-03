@@ -18,10 +18,12 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 | `dashboard-screenshot` | Proof band (hidden) | Cropped, real RevenueCat or App Store Connect screenshot |
 | `verify` | Hero, proof ledger, case numbers | Numbers are real (1 Nov 2026), re-check against `Studios/os/snapshot.md` and decide what may be public |
 | `price` | Pricing, FAQ | Confirm the "from €25k / €45k / €4.5k per month" anchors |
-| `offer`, `slots` | Top bar, booking | Confirm the offer (deadline, slot count, revenue audit). Must stay true: fake scarcity is an UWG risk |
+| `offer` | Hero micro line, founding block, booking | Confirm the founding terms (20% off is a proposal; alternative: free growth until €1k MRR), add an end date, and confirm Deyar shows App Store Connect on the call. No slot counters: three open spots with zero clients reads as zero clients |
 | `guarantee` | Pricing | Confirm you'll honour the launch-date guarantee |
 | `faq-answer` | FAQ (equity) | Confirm whether rev-share deals are on the table |
 | `legal` | `/datenschutz` | Full privacy policy (Vercel hosting, Web3Forms, video host, booking tool) |
+
+Revenue charts (hero poster + Rock case) are real RevenueCat MRR curves. Refresh them with `python3 tools/update-charts.py` (keys come from `~/.claude/.env.secrets`), then check the end labels and case numbers still match.
 
 Also set `CONFIG.web3formsKey` (leads by email; without it the form only opens a pre-filled email) and optionally `CONFIG.bookingUrl` (Cal.com) in `js/site.js`.
 

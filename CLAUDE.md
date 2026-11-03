@@ -28,6 +28,7 @@ fonts/              Self-hosted Schibsted Grotesk (+ italic) and Literata, OFL (
 favicon.svg, favicon.ico, icon-192.png, apple-touch-icon.png, og-image.png   Rendered from the logo geometry
 img/apps/           Icons + App Store screenshots of our own apps (+ apps.json with store URLs/ratings)
 vercel.json         Static deploy config + redirects (see below)
+tools/update-charts.py   Refreshes the two RevenueCat MRR charts in index.html
 ```
 
 ## Hard rules
