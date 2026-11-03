@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Free app cost estimate | Wizard Dynamics</title>
+  <meta name="description" content="Six quick questions, about two minutes: your app's price range, build time, how to launch for less and how many paying users it takes to earn it back. From the team behind 200+ apps." />
+  <link rel="canonical" href="https://wizarddynamics.com/estimate" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wizarddynamics.com/estimate" />
+  <meta property="og:title" content="What will your app cost? Free estimate in two minutes" />
+  <meta property="og:description" content="Price range, build time, how to launch for less and your payback point. From the team behind 200+ apps." />
+  <meta property="og:image" content="https://wizarddynamics.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Absolute paths: this page is also served at /estimate/<step> (vercel.json rewrite) -->
+  <link rel="preload" href="/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/site.css?v=12" />
+  <!-- Vercel Web Analytics: cookieless page views, one per question (the funnel), served first-party (not on localhost) -->
+  <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
+</head>
+<body class="fx">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.2 8.4 3 3 6.6-6.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="wd" viewBox="0 0 69 27.5"><path class="wd-w" d="M0 0H7.2L16 17.6 20.3 9 23.9 16.2 18.25 27.5H13.75ZM19 0H26.2L32.75 13.1 39.3 0H46.5L32.75 27.5Z"/><path class="wd-d" d="M49.7 0H58A11 11 0 0 1 69 11V16.5A11 11 0 0 1 58 27.5H35.95L38.7 22H57.5A5.5 5.5 0 0 0 63 16.5V11A5.5 5.5 0 0 0 57.5 5.5H46.95Z"/></symbol>
+</svg>
+
+<header class="fx-nav">
+  <div class="fx-wrap fx-nav-inner">
+    <a href="/" class="brand" aria-label="Wizard Dynamics, home">
+      <svg class="brand-mark" viewBox="0 0 69 27.5" aria-hidden="true"><use href="#wd"/></svg>
+      <span class="brand-name">Wizard Dynamics</span>
+    </a>
+    <span class="fx-nav-note">Free, about 2 minutes</span>
+  </div>
+</header>
+
+<main class="fx-main">
+  <div class="fx-wrap">
+    <h1 class="sr-only">Free app cost estimate</h1>
+    <div class="fx-card">
+      <!-- The estimate: js/estimate.js renders the questions, the email step and the result; PRICES table at the top of that file -->
+      <div class="est" id="est" data-routed data-ph="pricing">
+        <noscript><p class="est-text">The estimate needs JavaScript. Email <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a> with what you're building and we'll send you a range.</p></noscript>
+      </div>
+
+      <!-- Live apps: the Revenue Audit form (/estimate/audit), sent by js/estimate.js to /api/lead -->
+      <div class="audit" id="audit" hidden>
+        <div class="est-top"><button class="est-link" type="button" id="audit-back">Not live yet? Get a cost estimate</button></div>
+        <h2 class="est-q audit-title" tabindex="-1">Free Revenue Audit</h2>
+        <p class="est-hint audit-lead">We go through your paywall, onboarding and App Store page and rank the three biggest revenue leaks.</p>
+
+        <form class="form" id="lead-form" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required />
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" maxlength="160" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-budget">Monthly revenue today</label>
+            <select id="f-budget" name="budget" required>
+              <option value="" selected disabled>Choose a range</option>
+              <option>Pre-revenue</option>
+              <option>Under $1k</option>
+              <option>$1k to $10k</option>
+              <option>Over $10k</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="f-msg">Link to your app</label>
+            <input id="f-msg" name="message" type="text" inputmode="url" autocomplete="url" maxlength="300" placeholder="apps.apple.com/..." required />
+          </div>
+
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+
+          <button class="btn btn-lg btn-block" type="submit" id="form-submit">Get my free Revenue Audit</button>
+          <p class="form-foot">We reply within 24 hours with times for the call. No newsletter, no sales sequence.</p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="form-success" id="form-success" tabindex="-1">
+          <h3 class="h3" id="success-title">Your audit request is in</h3>
+          <p id="success-copy">We'll look at your app and reply within 24 hours with times for the call.</p>
+          <div class="calendar" id="calendar" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-host">
+      <span class="host-photo" data-ph="founder-photo" aria-hidden="true"><svg viewBox="0 0 69 27.5"><use href="#wd"/></svg></span>
+      <div><b>Deyar Zakir</b><span>Co-founder. Replies within 24&nbsp;hours.</span></div>
+    </div>
+  </div>
+</main>
+
+<footer class="fx-foot">
+  <div class="fx-wrap fx-foot-inner">
+    <span>© <span id="year">2026</span> Wizard Dynamics eGbR, Munich</span>
+    <span><a href="/impressum">Impressum</a> <a href="/datenschutz">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script src="/js/site.js?v=11" defer></script>
+<script src="/js/estimate.js?v=2" defer></script>
+</body>
+</html>

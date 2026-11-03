@@ -983,14 +983,70 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .est-cta-note b { color: var(--ink); font-weight: 650; }
 .est-done { margin-top: 14px; font-size: 15.5px; line-height: 1.5; color: var(--ink); }
 .est-done:empty { display: none; }
+.est-copy { margin-top: 8px; font-size: 14.5px; line-height: 1.5; color: var(--ink-3); }
+.est-copy:empty { display: none; }
 .est-restart { margin-top: 18px; text-align: center; }
 .audit-title { margin-top: 18px; }
 .audit-lead { margin-bottom: 20px; }
 
-@media (max-width: 900px) {
-  .book-gets { display: none; }
-}
 @media (max-width: 640px) {
   .est-q { font-size: 21px; }
   .est-opt { padding: 13px 14px; }
+}
+
+/* ------------------------------------------------------------------
+   Closing call to action (#book): the estimate lives on /estimate
+   ------------------------------------------------------------------ */
+.book-action { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+.book-audit { font-size: 16px; font-weight: 600; color: #fff; text-decoration: underline; text-decoration-color: var(--blue-on-night); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+.book-audit:hover { text-decoration-color: #fff; }
+.book-side { padding-top: 12px; }
+.book-side-title { font-size: 15px; line-height: 1.4; font-weight: 600; color: var(--night-ink-3); }
+.book-side .book-gets { margin-top: 14px; }
+.book-host { display: flex; align-items: center; gap: 14px; margin-top: 28px; font-size: 14.5px; color: var(--night-ink-2); }
+.book-host b { display: block; color: #fff; font-size: 16px; font-weight: 650; }
+.book-host .host-photo { background: #fff; color: var(--night); }
+
+/* ------------------------------------------------------------------
+   /estimate: the free cost estimate on its own page (estimate.html)
+   ------------------------------------------------------------------ */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.fx { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; background: var(--paper); }
+.fx-wrap { width: min(100% - 2 * var(--gutter), 640px); margin-inline: auto; }
+.fx-nav { border-bottom: 1px solid var(--rule); }
+.fx-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.fx-nav .brand-mark { width: 40px; }
+.fx-nav-note { font-size: 14.5px; color: var(--ink-3); }
+.fx-main { flex: 1; padding: 48px 0 64px; }
+.fx-card { scroll-margin-top: 16px; }
+.fx .est-q { font-size: clamp(24px, 3vw, 30px); line-height: 1.15; letter-spacing: -0.025em; }
+.fx .est-step { margin-top: 30px; }
+.fx .est-opts { gap: 10px; margin-top: 22px; }
+.fx .est-opt { padding: 17px 18px; }
+.fx .est-opt-t { font-size: 17.5px; }
+.fx .est-gate { margin-top: 30px; }
+.fx .est-price { font-size: clamp(40px, 6vw, 56px); }
+.fx .audit-title { margin-top: 26px; }
+.fx-host { display: flex; align-items: center; gap: 14px; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule); font-size: 14.5px; color: var(--ink-3); }
+.fx-host b { display: block; color: var(--ink); font-size: 15.5px; font-weight: 650; }
+.fx-host .host-photo { width: 44px; height: 44px; }
+.fx-host .host-photo svg { width: 26px; }
+.fx-foot { border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--ink-3); }
+.fx-foot-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding: 22px 0 calc(26px + env(safe-area-inset-bottom)); }
+.fx-foot a { color: var(--ink-3); margin-left: 14px; }
+.fx-foot a:first-child { margin-left: 0; }
+@media (max-width: 640px) {
+  .fx-nav-inner { height: 60px; }
+  .fx-nav .brand { white-space: nowrap; }
+  .fx-nav-note { font-size: 13.5px; white-space: nowrap; }
+  .fx-nav .brand-mark { width: 36px; }
+  .fx-main { padding: 28px 0 48px; }
+  .fx .est-q { font-size: 23px; }
+  .fx .est-step { margin-top: 24px; }
+  .fx .est-opt { padding: 15px 16px; }
+  .fx .est-opt-t { font-size: 16.5px; }
+  .fx-host { margin-top: 40px; }
+}
+@media (max-width: 400px) {
+  .fx-nav-note { display: none; }
 }

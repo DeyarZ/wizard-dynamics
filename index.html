@@ -23,7 +23,9 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=11" />
+  <link rel="stylesheet" href="css/site.css?v=12" />
+  <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
+  <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
 <body>
 
@@ -38,7 +40,7 @@
 </svg>
 
 <!-- Offer bar: the free cost estimate, weekly founder calls, live countdown to Sunday night -->
-<a class="topbar" href="#book" data-cta="topbar" data-ph="offer">
+<a class="topbar" href="/estimate" data-cta="topbar" data-ph="offer">
   <span class="container topbar-inner">
     <span class="topbar-offer"><b>Free app cost estimate</b><span class="hide-sm"> or Revenue Audit</span></span>
     <span class="topbar-sep" aria-hidden="true"></span>
@@ -63,7 +65,7 @@
       <a href="#offer">Free estimate</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-sm btn-ink nav-cta" href="#book" data-cta="nav">Get my free estimate</a>
+    <a class="btn btn-sm btn-ink nav-cta" href="/estimate" data-cta="nav">Get my free estimate</a>
     <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
   </div>
 </header>
@@ -74,7 +76,7 @@
   <a href="#process">Process</a>
   <a href="#offer">Free estimate</a>
   <a href="#faq">FAQ</a>
-  <a class="btn btn-lg" href="#book" data-cta="mobile-menu">Get my free cost estimate</a>
+  <a class="btn btn-lg" href="/estimate" data-cta="mobile-menu">Get my free cost estimate</a>
 </div>
 
 <main>
@@ -86,8 +88,8 @@
     <p class="hero-sub">Find out in two minutes what your app will cost and how many paying users it takes to earn it&nbsp;back.</p>
     <div class="hero-action">
       <div class="hero-ctas">
-        <a class="btn btn-lg" href="#book" data-cta="hero">Get my free cost estimate</a>
-        <a class="hero-alt" href="#book" data-stage="Live app" data-cta="hero-audit">Already live? Get a free Revenue Audit</a>
+        <a class="btn btn-lg" href="/estimate" data-cta="hero">Get my free cost estimate</a>
+        <a class="hero-alt" href="/estimate/audit" data-cta="hero-audit">Already live? Get a free Revenue Audit</a>
       </div>
       <p class="hero-trust" data-ph="verify">
         <span class="trust-item"><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star-half"/></svg></span><b>4.5</b> from 1,000+ ratings on our apps</span>
@@ -171,7 +173,7 @@
 
     <div class="proof-foot">
       <p class="source">Sources: App Store Connect, Google Play Console, Stripe, RevenueCat, Meta Ads Manager, App Store search. November&nbsp;2026.</p>
-      <a class="link link-light" href="#book" data-cta="proof">Get the same playbook for your app</a>
+      <a class="link link-light" href="/estimate" data-cta="proof">Get the same playbook for your app</a>
     </div>
   </div>
 </section>
@@ -316,7 +318,7 @@
       </li>
     </ol>
 
-    <p class="process-note"><b>Already live?</b> We start at step four: an audit of your paywall, onboarding and acquisition, then we fix the biggest leak first. <a class="link" href="#book" data-stage="Live app" data-cta="process">Get a free Revenue Audit</a></p>
+    <p class="process-note"><b>Already live?</b> We start at step four: an audit of your paywall, onboarding and acquisition, then we fix the biggest leak first. <a class="link" href="/estimate/audit" data-cta="process">Get a free Revenue Audit</a></p>
   </div>
 </section>
 
@@ -353,7 +355,7 @@
       </div>
       <div class="offer-foot">
         <div class="offer-spots"><p>The estimate takes two minutes. <b data-spots="long">Only 5 founder calls a week.</b> <span class="offer-timer">This week closes in <span data-countdown>Sunday</span></span></p><p class="offer-reason">A founder runs every call and looks at your app before it, so we can do five a&nbsp;week.</p></div>
-        <a class="btn btn-lg" href="#book" data-cta="offer">Get my free cost estimate</a>
+        <a class="btn btn-lg" href="/estimate" data-cta="offer">Get my free cost estimate</a>
       </div>
     </div>
 
@@ -415,7 +417,7 @@
     <div class="side-head">
       <h2 class="h2">Questions founders ask&nbsp;us</h2>
       <p class="lead">Anything else, ask on the call. It's free and you don't need a pitch deck.</p>
-      <a class="btn side-cta" href="#book" data-cta="faq">Get my free cost estimate</a>
+      <a class="btn side-cta" href="/estimate" data-cta="faq">Get my free cost estimate</a>
     </div>
 
     <div class="faq-list">
@@ -433,7 +435,7 @@
       </details>
       <details>
         <summary>What does an app cost?</summary>
-        <div class="faq-answer" data-ph="pricing"><p>From about €8k for a simple iPhone app to €100k and more for an app with AI, user content and three platforms. A typical subscription app with accounts, a paywall and one AI feature lands around €20k to €40k. The <a class="link" href="#book">free estimate</a> gives you your range in two minutes, and the call turns it into a fixed price, with no hourly billing.</p></div>
+        <div class="faq-answer" data-ph="pricing"><p>From about €8k for a simple iPhone app to €100k and more for an app with AI, user content and three platforms. A typical subscription app with accounts, a paywall and one AI feature lands around €20k to €40k. The <a class="link" href="/estimate">free estimate</a> gives you your range in two minutes, and the call turns it into a fixed price, with no hourly billing.</p></div>
       </details>
       <details>
         <summary>How fast can you launch?</summary>
@@ -467,79 +469,30 @@
   </div>
 </section>
 
-<!-- Booking: the free cost estimate for ideas (rendered by js/estimate.js, price table in that file),
-     the Revenue Audit form for live apps (#audit, handled in js/site.js) -->
+<!-- Closing call to action. The estimate itself lives on its own page: /estimate (estimate.html + js/estimate.js) -->
 <section class="book night" id="book">
   <div class="container book-grid">
     <div class="book-copy">
       <h2 class="book-title">What will your app&nbsp;cost?</h2>
-      <p class="book-lead" id="book-lead">Six quick questions, about two minutes. You get a price range, the build time and how many paying users it takes to earn it&nbsp;back.</p>
-      <ul class="book-gets">
-        <li><b>Your price range and build time,</b> with where the money goes, line by line.</li>
-        <li><b>How to launch for less:</b> what to leave out of version one, and what that saves.</li>
-        <li><b>Your payback point:</b> how many paying users it takes to earn the build back.</li>
-        <li><b>Already live?</b> <a href="#book" data-stage="Live app" data-cta="book-audit">Get the free Revenue Audit instead.</a></li>
-      </ul>
+      <p class="book-lead">Six quick questions, about two minutes. You get a price range, the build time and how many paying users it takes to earn it&nbsp;back.</p>
+      <div class="book-action">
+        <a class="btn btn-lg" href="/estimate" data-cta="book">Get my free cost estimate</a>
+        <a class="book-audit" href="/estimate/audit" data-cta="book-audit">Already live? Get the free Revenue Audit</a>
+      </div>
       <p class="book-slots" data-ph="offer"><b data-spots="long">Only 5 founder calls a week.</b> Want to go further? A founder goes through your estimate with you in a free 30-minute&nbsp;call.</p>
       <p class="book-alt">Prefer email? Write to <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></p>
     </div>
 
-    <div class="form-card">
-      <div class="form-host">
+    <div class="book-side">
+      <h3 class="book-side-title">What you get</h3>
+      <ul class="book-gets">
+        <li><b>Your price range and build time,</b> with where the money goes, line by line.</li>
+        <li><b>How to launch for less:</b> what to leave out of version one, and what that saves.</li>
+        <li><b>Your payback point:</b> how many paying users it takes to earn the build back.</li>
+      </ul>
+      <div class="book-host">
         <span class="host-photo" data-ph="founder-photo" aria-hidden="true"><svg viewBox="0 0 69 27.5"><use href="#wd"/></svg></span>
         <div><b>Deyar Zakir</b><span>Co-founder. Replies within 24&nbsp;hours.</span></div>
-      </div>
-
-      <div class="est" id="est" data-ph="pricing">
-        <noscript><p class="est-text">The estimate needs JavaScript. Email <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a> with what you're building and we'll send you a range.</p></noscript>
-      </div>
-
-      <div class="audit" id="audit" hidden>
-        <div class="est-top"><button class="est-link" type="button" id="audit-back">Not live yet? Get a cost estimate</button></div>
-        <h3 class="est-q audit-title" tabindex="-1">Free Revenue Audit</h3>
-        <p class="est-hint audit-lead">We go through your paywall, onboarding and App Store page and rank the three biggest revenue leaks.</p>
-
-        <form class="form" id="lead-form" novalidate>
-          <div class="form-row">
-            <div class="field">
-              <label for="f-name">Name</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required />
-            </div>
-            <div class="field">
-              <label for="f-email">Email</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" required />
-            </div>
-          </div>
-          <input type="hidden" name="stage" value="Live app" />
-
-          <div class="field">
-            <label for="f-budget">Monthly revenue today</label>
-            <select id="f-budget" name="budget" required>
-              <option value="" selected disabled>Choose a range</option>
-              <option>Pre-revenue</option>
-              <option>Under $1k</option>
-              <option>$1k to $10k</option>
-              <option>Over $10k</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="f-msg">Link to your app</label>
-            <input id="f-msg" name="message" type="text" inputmode="url" autocomplete="url" placeholder="apps.apple.com/..." required />
-          </div>
-
-          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
-
-          <button class="btn btn-lg btn-block" type="submit" id="form-submit">Get my free Revenue Audit</button>
-          <p class="form-foot">We reply within 24 hours with times for the call. No newsletter, no sales sequence.</p>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="form-success" id="form-success" tabindex="-1">
-          <h3 class="h3" id="success-title">Your audit request is in</h3>
-          <p id="success-copy">We'll look at your app and reply within 24 hours with times for the call.</p>
-          <div class="calendar" id="calendar" hidden></div>
-        </div>
       </div>
     </div>
   </div>
@@ -560,7 +513,7 @@
       </div>
       <div class="footer-contact">
         <h4>Contact</h4>
-        <ul><li><a href="#book">Free cost estimate</a></li><li><a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></li><li>Munich, Germany</li></ul>
+        <ul><li><a href="/estimate" data-cta="footer">Free cost estimate</a></li><li><a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></li><li>Munich, Germany</li></ul>
       </div>
       <div>
         <h4>Legal</h4>
@@ -575,7 +528,7 @@
 
 <div class="mobile-cta" id="mobile-cta">
   <span><b>Free,</b> about 2&nbsp;minutes</span>
-  <a class="btn" href="#book" data-cta="mobile-sticky">Get my estimate</a>
+  <a class="btn" href="/estimate" data-cta="mobile-sticky">Get my estimate</a>
 </div>
 
 <div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
@@ -583,11 +536,10 @@
     <button class="modal-close" id="modal-close" type="button" aria-label="Close"><svg width="16" height="16"><use href="#i-close"/></svg></button>
     <h3 class="h3" id="modal-title">The intro video is being recorded.</h3>
     <p>Until it's live, find out what your app would cost to build and to earn back. It takes two minutes.</p>
-    <a class="btn" href="#book" id="modal-cta" data-cta="modal">Get my free cost estimate</a>
+    <a class="btn" href="/estimate" id="modal-cta" data-cta="modal">Get my free cost estimate</a>
   </div>
 </div>
 
-<script src="js/site.js?v=10" defer></script>
-<script src="js/estimate.js?v=1" defer></script>
+<script src="js/site.js?v=11" defer></script>
 </body>
 </html>

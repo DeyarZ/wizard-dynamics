@@ -14,11 +14,10 @@
     vslPoster: "",     // optional poster image for the <video>
     // VSL, option B: YouTube/Vimeo embed URL (click to play). Needs a datenschutz update.
     vslEmbed: "",
-    // Lead delivery: Web3Forms access key (free, emails each lead to leadEmail).
-    // Empty → the form falls back to opening a pre-filled email.
-    web3formsKey: "",
-    // Cal.com / Calendly booking link. When set, the calendar opens inline right after the
-    // qualifying questions (name + email prefilled), so "Book a call" really books. Needs a datenschutz update.
+    // Leads (estimates, call requests, Revenue Audit requests) go to /api/lead, which emails them via Resend
+    // (api/lead.js, key in the Vercel env). leadEmail is only the mailto fallback if that request fails.
+    // Cal.com / Calendly booking link. When set, the calendar opens inline after "Book my free project call"
+    // and after the audit form (name + email prefilled), so the call really gets booked. Needs a datenschutz update.
     bookingUrl: "",
     leadEmail: "hello@wizarddynamics.com",
     // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking, estimate result.
@@ -213,18 +212,8 @@
   }
 
   /* ------------------------------------------------------------------
-     Lead form
+     The estimate page (js/estimate.js) reads these
      ------------------------------------------------------------------ */
-  var form = $("#lead-form");
-  var status = $("#form-status");
-  var success = $("#form-success");
-  var submitBtn = $("#form-submit");
-  if (CONFIG.bookingUrl && submitBtn) {
-    submitBtn.textContent = "Pick my call time";
-    var foot = $("#audit .form-foot");
-    if (foot) foot.textContent = "Next screen: pick a 30-minute slot. No newsletter, no sales sequence.";
-  }
-
   function bookingSrc(name, email, notes) {
     return CONFIG.bookingUrl +
       (CONFIG.bookingUrl.indexOf("?") > -1 ? "&" : "?") +
@@ -233,102 +222,18 @@
       "&notes=" + encodeURIComponent(notes) +
       "&embed=true";
   }
-  /* js/estimate.js (the free cost estimate) reads these */
   window.WD = { config: CONFIG, spotsLong: spotsCopy.long, bookingSrc: bookingSrc };
 
-  function showCalendar(data) {
-    var cal = $("#calendar");
-    var notes = "Revenue Audit. Monthly revenue: " + (data.budget || "-") + ". App: " + (data.message || "-");
-    var f = document.createElement("iframe");
-    f.src = bookingSrc(data.name, data.email, notes);
-    f.title = "Pick a time for your audit call";
-    f.loading = "eager";
-    cal.innerHTML = "";
-    cal.appendChild(f);
-    cal.hidden = false;
-    $("#success-title").textContent = "Pick a time";
-    $("#success-copy").textContent = "Your details are filled in. Choose a slot that works for you.";
-  }
-
-  function showSuccess(data, viaMail) {
-    form.style.display = "none";
-    success.classList.add("show");
-    if (CONFIG.bookingUrl) showCalendar(data);
-    else if (viaMail) {
-      $("#success-title").textContent = "One more step: send the email";
-      $("#success-copy").innerHTML = "Your email app should have opened with everything filled in. Press send and we'll reply within 24 hours. If nothing opened, write to <a href=\"mailto:" + CONFIG.leadEmail + "\">" + CONFIG.leadEmail + "</a> with your name and what you're building.";
-    }
-    success.focus();
-  }
-
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var data = {};
-      new FormData(form).forEach(function (v, k) { data[k] = v; });
-      if (data.botcheck) return;
-
-      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email || "");
-      if (!data.name || !emailOk || !data.budget || !data.message) {
-        status.className = "form-status err";
-        status.textContent = !data.name ? "Add your name so we know who we're talking to."
-          : !emailOk ? "Add an email address we can reply to."
-          : !data.budget ? "Pick a range, so we can prepare the audit."
-          : "Add the link to your app, so we can look at it before the call.";
-        (!data.name ? $("#f-name") : !emailOk ? $("#f-email") : !data.budget ? $("#f-budget") : $("#f-msg")).focus();
-        return;
-      }
-
-      var summary =
-        "Name: " + data.name + "\n" +
-        "Email: " + data.email + "\n" +
-        "Stage: Live app (Revenue Audit)\n" +
-        "Monthly revenue: " + (data.budget || "-") + "\n" +
-        "App: " + (data.message || "-");
-
-      if (!CONFIG.web3formsKey) {
-        // With a booking link the calendar itself captures the lead; otherwise fall back to email.
-        if (!CONFIG.bookingUrl) {
-          window.location.href = "mailto:" + CONFIG.leadEmail +
-            "?subject=" + encodeURIComponent("Free Revenue Audit request: " + data.name) +
-            "&body=" + encodeURIComponent(summary);
-        }
-        showSuccess(data, !CONFIG.bookingUrl);
-        return;
-      }
-
-      var btn = $("button[type=submit]", form);
-      btn.disabled = true;
-      status.className = "form-status";
-      status.textContent = "Sending…";
-      fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: CONFIG.web3formsKey,
-          subject: "New Revenue Audit request: " + data.name + " (" + (data.budget || "") + " a month)",
-          from_name: "wizarddynamics.com",
-          name: data.name,
-          email: data.email,
-          stage: data.stage,
-          budget: data.budget,
-          message: data.message || ""
-        })
-      })
-        .then(function (r) { return r.json(); })
-        .then(function (j) {
-          btn.disabled = false;
-          if (j && j.success) { status.textContent = ""; showSuccess(data, false); }
-          else {
-            status.className = "form-status err";
-            status.textContent = "The request didn't go through. Email us at " + CONFIG.leadEmail + " instead.";
-          }
-        })
-        .catch(function () {
-          btn.disabled = false;
-          status.className = "form-status err";
-          status.textContent = "No connection. Email us at " + CONFIG.leadEmail + " instead.";
-        });
-    });
-  }
+  /* Links to /estimate carry which button it was (from=hero) plus this visit's utm tags and outside referrer,
+     so every lead email says where the lead came from. Nothing is stored on the device. */
+  var carry = [];
+  location.search.replace(/^\?/, "").split("&").forEach(function (kv) {
+    if (/^(utm_(source|medium|campaign|content|term)|gclid|fbclid)=./.test(kv)) carry.push(kv);
+  });
+  if (document.referrer && document.referrer.indexOf(location.host) === -1) carry.push("ref=" + encodeURIComponent(document.referrer.slice(0, 200)));
+  $$('a[href^="/estimate"]').forEach(function (a) {
+    var q = carry.slice(), from = a.getAttribute("data-cta");
+    if (from) q.unshift("from=" + encodeURIComponent(from));
+    if (q.length) a.setAttribute("href", a.getAttribute("href") + "?" + q.join("&"));
+  });
 })();

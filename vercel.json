@@ -10,9 +10,12 @@
       "destination": "https://grassidentifier.wizarddynamics.com/go",
       "permanent": false
     },
-    { "source": "/contact", "destination": "/#book", "permanent": false },
+    { "source": "/contact", "destination": "/estimate", "permanent": false },
     { "source": "/construction", "destination": "/", "permanent": false },
     { "source": "/scroll", "destination": "/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/estimate/:view", "destination": "/estimate.html" }
   ],
   "headers": [
     {

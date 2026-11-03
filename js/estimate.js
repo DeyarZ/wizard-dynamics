@@ -1,17 +1,16 @@
-/* Wizard Dynamics: the free app cost estimate, the lead magnet in #book.
+/* Wizard Dynamics: the free app cost estimate, the lead magnet on /estimate.
    Six questions, then name + email, then the result: price range, build time, where the money goes,
    how to launch for less and the payback point. Live apps go to the Revenue Audit form (#audit) instead.
+   Every view has its own URL (/estimate/platform, /estimate/result, ...) so Vercel Web Analytics shows the funnel
+   step by step, and the browser's back button goes back one question.
+
+   The first half (prices and math) also runs on the server: api/lead.js recomputes the estimate from the answers
+   for the lead email and the visitor's copy, so nothing the browser sends ends up in an email unchecked.
 
    PRICES is a proposal and human-owned. Change the numbers there; nothing else needs to change.
    Money is in EUR thousands before VAT; low/high are for that part on iPhone with a clean design. */
 (function () {
   "use strict";
-  var root = document.getElementById("est");
-  if (!root) return;
-  var audit = document.getElementById("audit");
-  var WD = window.WD || {};
-  var CONFIG = WD.config || { leadEmail: "hello@wizarddynamics.com", web3formsKey: "", bookingUrl: "" };
-  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var PRICES = {
     base: { low: 8, high: 12, weeks: 5 },          // iPhone app, clean design, about eight screens
@@ -34,15 +33,15 @@
   };
 
   var STEPS = [
-    { key: "stage", q: "Where is your app today?", options: [
+    { key: "stage", slug: "", q: "Where is your app today?", options: [
       ["idea", "Just an idea"],
       ["designs", "Designs or a prototype"],
       ["live", "Live in the App Store", "You get the free Revenue Audit instead"]] },
-    { key: "platform", q: "Where should it run?", options: [
+    { key: "platform", slug: "platform", q: "Where should it run?", options: [
       ["ios", "iPhone"],
       ["mobile", "iPhone and Android"],
       ["all", "iPhone, Android and web"]] },
-    { key: "features", q: "What does version one need?", hint: "Pick all that apply.", many: true, options: [
+    { key: "features", slug: "features", q: "What does version one need?", hint: "Pick all that apply.", many: true, options: [
       ["accounts", "Accounts and login", "Profiles, sync across devices"],
       ["payments", "Subscriptions or in-app purchases", "Paywall, free trial, plans"],
       ["ai", "AI features", "Photo recognition, chat, text or image generation"],
@@ -50,16 +49,16 @@
       ["maps", "Maps or location", "Places, routes, what's nearby"],
       ["admin", "Admin dashboard", "Manage content and users on the web"],
       ["integrations", "Connections to other services", "Health data, bookings, payments, outside APIs"]] },
-    { key: "design", q: "How should it look?", options: [
+    { key: "design", slug: "design", q: "How should it look?", options: [
       ["clean", "Clean and proven", "Familiar iOS and Android patterns, fastest to build"],
       ["custom", "Fully custom", "Your own visual style and custom animations"]] },
-    { key: "budget", q: "What budget do you have in mind?", options: [
+    { key: "budget", slug: "budget", q: "What budget do you have in mind?", options: [
       ["15", "Under €15k"],
       ["30", "€15k to €30k"],
       ["60", "€30k to €60k"],
       ["999", "€60k or more"],
       ["0", "Not sure yet"]] },
-    { key: "start", q: "When do you want to start?", options: [
+    { key: "start", slug: "timeline", q: "When do you want to start?", options: [
       ["now", "Within a month"],
       ["soon", "In 1 to 3 months"],
       ["later", "Just exploring"]] }
@@ -69,9 +68,6 @@
     social: "Posts, sharing and chat", maps: "Maps and location", admin: "Admin dashboard",
     integrations: "Connections to other services"
   };
-  var CHECK = '<svg width="12" height="12" aria-hidden="true"><use href="#i-check"/></svg>';
-
-  var ans = { features: [] }, step = 0, lead = null, interacted = false, busy = false;
 
   /* ---------- math ---------- */
   function mid(x) { return (x.low + x.high) / 2; }
@@ -114,13 +110,21 @@
     var base = calc(a).mid;
     var list = CUTS.filter(function (c) { return c.when(a); }).map(function (c) {
       var b = clone(a); c.apply(b);
-      return { cut: c, title: typeof c.title === "function" ? c.title(a) : c.title, saves: base - calc(b).mid };
+      return { cut: c, title: typeof c.title === "function" ? c.title(a) : c.title, text: c.text, saves: base - calc(b).mid };
     }).filter(function (x) { return x.saves >= 1; });
     list.sort(function (x, y) { return y.saves - x.saves; });
     list = list.slice(0, 3);
     var all = clone(a);
     list.forEach(function (x) { x.cut.apply(all); });
     return { list: list, after: calc(all) };
+  }
+  function paybackNums(m, price) {
+    var subs = m * 1000 / (price * PRICES.netShare);
+    return {
+      subs: Math.max(50, subs < 1000 ? Math.round(subs / 50) * 50 : Math.round(subs / 100) * 100),
+      downloads: Math.round(subs / PRICES.paidShare / 1000) * 1000,
+      paidPct: Math.round(PRICES.paidShare * 100)
+    };
   }
 
   /* ---------- formatting ---------- */
@@ -137,25 +141,88 @@
     }
     return "-";
   }
+  /* Answers as they may arrive from anywhere: returns clean answers, or null if anything is off. */
+  function cleanAnswers(x) {
+    if (!x || typeof x !== "object") return null;
+    var out = { features: [] };
+    for (var i = 0; i < STEPS.length; i++) {
+      var s = STEPS[i];
+      if (s.many) {
+        if (!Array.isArray(x.features)) return null;
+        for (var j = 0; j < s.options.length; j++) if (x.features.indexOf(s.options[j][0]) > -1) out.features.push(s.options[j][0]);
+      } else {
+        if (labelOf(s.key, x[s.key]) === "-" || (s.key === "stage" && x.stage === "live")) return null;
+        out[s.key] = x[s.key];
+      }
+    }
+    return out;
+  }
+  function answerLines(a) {
+    return [
+      ["Stage", labelOf("stage", a.stage)],
+      ["Platforms", labelOf("platform", a.platform)],
+      ["Features", a.features.map(function (f) { return NAMES[f]; }).join(", ") || "None"],
+      ["Design", labelOf("design", a.design)],
+      ["Budget", labelOf("budget", a.budget)],
+      ["Start", labelOf("start", a.start)]
+    ];
+  }
+
+  var core = {
+    PRICES: PRICES, STEPS: STEPS, NAMES: NAMES, calc: calc, moneyLines: moneyLines, bestCuts: bestCuts,
+    paybackNums: paybackNums, kr: kr, kl: kl, num: num, labelOf: labelOf, cleanAnswers: cleanAnswers, answerLines: answerLines
+  };
+  if (typeof module === "object" && module.exports) { module.exports = core; return; }
+
+  /* ================================================================
+     Browser: the step-by-step estimate
+     ================================================================ */
+  var root = document.getElementById("est");
+  if (!root) return;
+  var audit = document.getElementById("audit");
+  var WD = window.WD || {};
+  var CONFIG = WD.config || { leadEmail: "hello@wizarddynamics.com", bookingUrl: "" };
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var BASE = "/estimate";
+  var routed = root.hasAttribute("data-routed") && !!(window.history && history.pushState);
+  var CHECK = '<svg width="12" height="12" aria-hidden="true"><use href="#i-check"/></svg>';
+
+  var ans = { features: [] }, step = 0, reached = 0, lead = null, sentKey = "", interacted = false, busy = false;
+
+  /* Where the visitor came from: utm tags, the landing-page button (from=...), the outside referrer. Goes with each lead. */
+  var SOURCE = (function () {
+    var o = {}, q = location.search.replace(/^\?/, "").split("&");
+    q.forEach(function (kv) {
+      var i = kv.indexOf("="), k = decodeURIComponent(i > -1 ? kv.slice(0, i) : kv), v = i > -1 ? kv.slice(i + 1) : "";
+      if (/^(utm_(source|medium|campaign|content|term)|from|ref|gclid|fbclid)$/.test(k) && v) {
+        try { o[k] = decodeURIComponent(v.replace(/\+/g, " ")).slice(0, 120); } catch (e) { /* malformed: skip */ }
+      }
+    });
+    var r = document.referrer;
+    if (r && r.indexOf(location.host) === -1 && !o.ref) o.ref = r.slice(0, 200);
+    return o;
+  })();
+
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function rangeText() { var r = calc(ans); return kr(r.low) + " to " + kr(r.high); }
   function summary() {
     var r = calc(ans);
-    return "Name: " + lead.name + "\nEmail: " + lead.email +
-      "\n\nStage: " + labelOf("stage", ans.stage) +
-      "\nPlatforms: " + labelOf("platform", ans.platform) +
-      "\nFeatures: " + (ans.features.map(function (f) { return NAMES[f]; }).join(", ") || "None") +
-      "\nDesign: " + labelOf("design", ans.design) +
-      "\nBudget: " + labelOf("budget", ans.budget) +
-      "\nStart: " + labelOf("start", ans.start) +
+    return "Name: " + lead.name + "\nEmail: " + lead.email + "\n\n" +
+      answerLines(ans).map(function (l) { return l[0] + ": " + l[1]; }).join("\n") +
       "\n\nEstimate: " + kr(r.low) + " to " + kr(r.high) + " (best guess " + kr(r.mid) + "), " + r.wLow + " to " + r.wHigh + " weeks";
   }
   function payback(m, price) {
-    var subs = m * 1000 / (price * PRICES.netShare);
-    var subsR = Math.max(50, subs < 1000 ? Math.round(subs / 50) * 50 : Math.round(subs / 100) * 100);
-    var dl = Math.round(subs / PRICES.paidShare / 1000) * 1000;
-    return "At <b>€" + price + " a year</b>, it takes about <b>" + num(subsR) + " paying subscribers</b> to earn the build back in year one. " +
-      "With a typical " + Math.round(PRICES.paidShare * 100) + "% of downloads paying, that's about <b>" + num(dl) + " downloads</b>.";
+    var p = paybackNums(m, price);
+    return "At <b>€" + price + " a year</b>, it takes about <b>" + num(p.subs) + " paying subscribers</b> to earn the build back in year one. " +
+      "With a typical " + p.paidPct + "% of downloads paying, that's about <b>" + num(p.downloads) + " downloads</b>.";
+  }
+
+  /* ---------- URLs per view (funnel steps in analytics, back button) ---------- */
+  function go(view, replace) {
+    if (!routed) return;
+    var url = BASE + (view ? "/" + view : "");
+    if (location.pathname === url) return;
+    try { history[replace ? "replaceState" : "pushState"]({ est: view }, "", url); } catch (e) { /* file:// or sandboxed */ }
   }
 
   /* ---------- views ---------- */
@@ -168,12 +235,12 @@
   function focusTop(el) {
     if (!interacted || !el) return;
     el.focus({ preventScroll: true });
-    var card = root.closest(".form-card") || root;
-    var top = card.getBoundingClientRect().top;
-    if (top < 0) card.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+    var card = root.closest(".form-card, .fx-card") || root;
+    if (card.getBoundingClientRect().top < 0) card.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
   }
-  function renderStep() {
+  function renderStep(fromHistory) {
     var s = STEPS[step];
+    reached = Math.max(reached, step);
     var html = head(step > 0, "Question " + (step + 1) + " of " + STEPS.length, Math.round((step + 1) / (STEPS.length + 1) * 100));
     html += '<fieldset class="est-step"><legend class="est-q" tabindex="-1">' + s.q + "</legend>";
     if (s.hint) html += '<p class="est-hint">' + s.hint + "</p>";
@@ -190,21 +257,23 @@
     if (s.many) html += '<button class="btn btn-lg btn-block est-next" type="button">' + (ans.features.length ? "Next" : "None of these, next") + "</button>";
     html += "</fieldset>";
     root.innerHTML = html;
+    if (!fromHistory) go(s.slug);
     focusTop(root.querySelector(".est-q"));
   }
-  function renderGate() {
+  function renderGate(fromHistory) {
     root.innerHTML = head(true, "Last step", 100) +
       '<form class="form est-gate" novalidate>' +
       '<div><p class="est-q" tabindex="-1">Your estimate is ready.</p><p class="est-hint">Where can we reach you about it?</p></div>' +
-      '<div class="form-row"><div class="field"><label for="e-name">Name</label><input id="e-name" type="text" autocomplete="name" required value="' + esc(lead ? lead.name : "") + '" /></div>' +
-      '<div class="field"><label for="e-email">Email</label><input id="e-email" type="email" autocomplete="email" required value="' + esc(lead ? lead.email : "") + '" /></div></div>' +
+      '<div class="form-row"><div class="field"><label for="e-name">Name</label><input id="e-name" type="text" autocomplete="name" maxlength="80" required value="' + esc(lead ? lead.name : "") + '" /></div>' +
+      '<div class="field"><label for="e-email">Email</label><input id="e-email" type="email" autocomplete="email" maxlength="160" required value="' + esc(lead ? lead.email : "") + '" /></div></div>' +
       '<input type="checkbox" id="e-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />' +
       '<button class="btn btn-lg btn-block" type="submit">Show my estimate</button>' +
       '<p class="form-foot">No newsletter. We only email you about your app.</p>' +
       '<p class="form-status" role="status" aria-live="polite"></p></form>';
+    if (!fromHistory) go("email");
     focusTop(root.querySelector(".est-q"));
   }
-  function renderResult() {
+  function renderResult(fromHistory) {
     var r = calc(ans), cuts = bestCuts(ans), b = +ans.budget, note = "";
     if (b && b < 100) {
       if (r.high <= b) note = "That fits the budget you had in mind.";
@@ -218,19 +287,20 @@
       '<p class="est-label" tabindex="-1">Your estimate</p>' +
       '<p class="est-price">' + kr(r.low) + " to " + kr(r.high) + "</p>" +
       '<p class="est-sub">About ' + r.wLow + " to " + r.wHigh + " weeks from kickoff to the App Store. Our best single guess: " + kr(r.mid) + ".</p>" +
+      '<p class="est-copy" role="status" aria-live="polite"></p>' +
       (note ? '<p class="est-note">' + note + "</p>" : "") +
-      '<h4 class="est-h">Where the money goes</h4><dl class="est-lines">' +
+      '<h2 class="est-h">Where the money goes</h2><dl class="est-lines">' +
       moneyLines(ans).map(function (l) { return "<div><dt>" + l[0] + "</dt><dd>" + kl(l[1]) + "</dd></div>"; }).join("") + "</dl>" +
-      '<h4 class="est-h">How to launch for less</h4>';
+      '<h2 class="est-h">How to launch for less</h2>';
     if (cuts.list.length) {
       html += '<ul class="est-cuts">' + cuts.list.map(function (x) {
-        return "<li><b>" + x.title + "</b> " + x.cut.text + '<span class="est-save">Saves about ' + kl(x.saves) + "</span></li>";
+        return "<li><b>" + x.title + "</b> " + x.text + '<span class="est-save">Saves about ' + kl(x.saves) + "</span></li>";
       }).join("") + "</ul>" +
         '<p class="est-cuts-total">' + (cuts.list.length > 1 ? "All together: " : "With that: ") + kr(cuts.after.low) + " to " + kr(cuts.after.high) + ".</p>";
     } else {
       html += '<p class="est-text">Your version one is already lean. Keep it that way until paying users ask for more.</p>';
     }
-    html += '<h4 class="est-h">When does it pay for itself?</h4>' +
+    html += '<h2 class="est-h">When does it pay for itself?</h2>' +
       '<p class="est-text">Your price per year:</p>' +
       '<div class="segmented est-prices">' + PRICES.yearPrices.map(function (p) {
         return '<label><input type="radio" name="est-price" value="' + p + '"' + (p === price ? " checked" : "") + " /><span>€" + p + "</span></label>";
@@ -245,74 +315,159 @@
       '<p class="est-done" role="status" aria-live="polite"></p></div>' +
       '<p class="est-restart"><button class="est-link est-restart-btn" type="button">Start over</button></p></div>';
     root.innerHTML = html;
+    if (!fromHistory) go("result");
     focusTop(root.querySelector(".est-label"));
   }
 
-  /* ---------- lead delivery ---------- */
-  function send(subject, message) {
-    if (!CONFIG.web3formsKey || !window.fetch) return Promise.resolve(false);
-    return fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: CONFIG.web3formsKey, subject: subject, from_name: "wizarddynamics.com",
-        name: lead.name, email: lead.email, message: message
+  /* ---------- lead delivery: POST /api/lead (api/lead.js emails it via Resend) ---------- */
+  function post(payload) {
+    if (!window.fetch) return Promise.resolve({ ok: false });
+    payload.source = SOURCE;
+    return fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && !!j.ok, copy: !!j.copy }; });
       })
-    }).then(function (r) { return r.json(); })
-      .then(function (j) { return !!(j && j.success); })
-      .catch(function () { return false; });
+      .catch(function () { return { ok: false }; });
+  }
+  function mailto(subject, body) {
+    return "mailto:" + CONFIG.leadEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  }
+  function sendEstimate() {
+    var key = JSON.stringify([ans, lead]);
+    if (key === sentKey) return;   // back and forward again: no second email
+    sentKey = key;
+    var copy = root.querySelector(".est-copy");
+    post({ type: "estimate", name: lead.name, email: lead.email, answers: ans }).then(function (res) {
+      if (!res.ok) sentKey = "";
+      if (res.copy && copy && copy.isConnected) copy.textContent = "A copy is on its way to " + lead.email + ".";
+    });
   }
   function requestCall() {
     var btn = document.getElementById("est-call"), done = root.querySelector(".est-done");
     var mail = '<a href="mailto:' + CONFIG.leadEmail + '">' + CONFIG.leadEmail + "</a>";
-    if (CONFIG.bookingUrl && WD.bookingSrc) {
-      var cal = document.getElementById("est-calendar"), f = document.createElement("iframe");
-      f.src = WD.bookingSrc(lead.name, lead.email, "Cost estimate " + rangeText() + ". " + summary().split("\n\n")[1].replace(/\n/g, ". "));
-      f.title = "Pick a time for your project call";
-      f.loading = "eager";
-      cal.innerHTML = "";
-      cal.appendChild(f);
-      cal.hidden = false;
-      btn.hidden = true;
+    btn.disabled = true;
+    done.textContent = "Sending…";
+    post({ type: "call", name: lead.name, email: lead.email, answers: ans }).then(function (res) {
+      btn.disabled = false;
+      if (CONFIG.bookingUrl && WD.bookingSrc) {
+        var cal = document.getElementById("est-calendar"), f = document.createElement("iframe");
+        f.src = WD.bookingSrc(lead.name, lead.email, "Cost estimate " + rangeText() + ". " + summary().split("\n\n")[1].replace(/\n/g, ". "));
+        f.title = "Pick a time for your project call";
+        f.loading = "eager";
+        cal.innerHTML = "";
+        cal.appendChild(f);
+        cal.hidden = false;
+        btn.hidden = true;
+        done.textContent = "";
+      } else if (res.ok) {
+        btn.hidden = true;
+        done.textContent = "Done. We'll email you within 24 hours with times for the call.";
+      } else {
+        done.innerHTML = 'That didn\'t go through. <a href="' + mailto("Project call: " + lead.name + " (estimate " + rangeText() + ")", "I'd like a 30-minute call about my app.\n\n" + summary()) + '">Email us your estimate</a> or write to ' + mail + ".";
+        return;
+      }
+      go("call-requested");
+    });
+  }
+
+  /* ---------- the Revenue Audit form (live apps) ---------- */
+  var form = document.getElementById("lead-form");
+  function auditSubmit(e) {
+    e.preventDefault();
+    var data = {};
+    new FormData(form).forEach(function (v, k) { data[k] = String(v).trim(); });
+    if (data.botcheck) return;
+    var status = document.getElementById("form-status");
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email || "");
+    if (!data.name || !emailOk || !data.budget || !data.message) {
+      status.className = "form-status err";
+      status.textContent = !data.name ? "Add your name so we know who we're talking to."
+        : !emailOk ? "Add an email address we can reply to."
+        : !data.budget ? "Pick a range, so we can prepare the audit."
+        : "Add the link to your app, so we can look at it before the call.";
+      document.getElementById(!data.name ? "f-name" : !emailOk ? "f-email" : !data.budget ? "f-budget" : "f-msg").focus();
       return;
     }
-    if (CONFIG.web3formsKey) {
-      btn.disabled = true;
-      done.textContent = "Sending…";
-      send("Call request: " + lead.name + " (estimate " + rangeText() + ")", summary()).then(function (ok) {
-        btn.disabled = false;
-        if (ok) { btn.hidden = true; done.textContent = "Done. We'll email you within 24 hours with times for the call."; }
-        else done.innerHTML = "That didn't go through. Email us at " + mail + " instead.";
-      });
-      return;
+    var btn = form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    status.className = "form-status";
+    status.textContent = "Sending…";
+    post({ type: "audit", name: data.name, email: data.email, revenue: data.budget, app: data.message }).then(function (res) {
+      btn.disabled = false;
+      if (!res.ok) {
+        status.className = "form-status err";
+        status.innerHTML = 'That didn\'t go through. <a href="' + mailto("Free Revenue Audit request: " + data.name,
+          "Name: " + data.name + "\nEmail: " + data.email + "\nMonthly revenue: " + data.budget + "\nApp: " + data.message) +
+          '">Send it by email instead.</a>';
+        return;
+      }
+      status.textContent = "";
+      form.style.display = "none";
+      var success = document.getElementById("form-success");
+      success.classList.add("show");
+      if (CONFIG.bookingUrl && WD.bookingSrc) {
+        var cal = document.getElementById("calendar"), f = document.createElement("iframe");
+        f.src = WD.bookingSrc(data.name, data.email, "Revenue Audit. Monthly revenue: " + data.budget + ". App: " + data.message);
+        f.title = "Pick a time for your audit call";
+        f.loading = "eager";
+        cal.innerHTML = "";
+        cal.appendChild(f);
+        cal.hidden = false;
+        document.getElementById("success-title").textContent = "Pick a time";
+        document.getElementById("success-copy").textContent = "Your details are filled in. Choose a slot that works for you.";
+      }
+      success.focus();
+      go("audit-sent");
+    });
+  }
+  if (form) {
+    form.addEventListener("submit", auditSubmit);
+    if (CONFIG.bookingUrl) {
+      var submitBtn = document.getElementById("form-submit"), foot = form.querySelector(".form-foot");
+      if (submitBtn) submitBtn.textContent = "Pick my call time";
+      if (foot) foot.textContent = "Next screen: pick a 30-minute slot. No newsletter, no sales sequence.";
     }
-    window.location.href = "mailto:" + CONFIG.leadEmail +
-      "?subject=" + encodeURIComponent("Project call: " + lead.name + " (estimate " + rangeText() + ")") +
-      "&body=" + encodeURIComponent("I'd like a 30-minute call about my app.\n\n" + summary());
-    done.innerHTML = "Your email app should have opened with your estimate filled in. Press send and we'll reply within 24 hours. If nothing opened, write to " + mail + ".";
   }
 
   /* ---------- flow ---------- */
+  function complete() {
+    return STEPS.every(function (s) { return s.many ? reached > STEPS.indexOf(s) : ans[s.key] !== undefined; });
+  }
   function next() {
     busy = false;
     step += 1;
-    if (step >= STEPS.length) renderGate(); else renderStep();
+    if (step >= STEPS.length) { reached = STEPS.length; renderGate(); } else renderStep();
   }
   function restart() {
     ans = { features: [] };
     step = 0;
+    reached = 0;
     renderStep();
   }
-  function showAudit(focus) {
+  function showAudit(focus, fromHistory) {
     if (!audit) return;
     root.hidden = true;
     audit.hidden = false;
+    if (!fromHistory) go("audit");
     if (focus) { var h = audit.querySelector(".est-q"); if (h) h.focus({ preventScroll: true }); }
   }
   function showEst() {
     if (audit) audit.hidden = true;
     root.hidden = false;
-    if (ans.stage === "live") { ans.stage = undefined; step = 0; renderStep(); }
+  }
+  /* Render whatever the URL asks for, as far as the answers so far allow it */
+  function route(fromHistory) {
+    var view = location.pathname.replace(/\.html$/, "").replace(/^\/estimate\/?/, "").replace(/\/$/, "");
+    if (view === "audit" || view === "audit-sent") { showAudit(false, true); return; }
+    showEst();
+    for (var i = 0; i < STEPS.length; i++) {
+      if (STEPS[i].slug === view && i <= reached) { step = i; renderStep(true); return; }
+    }
+    if (view === "email" && complete()) { step = STEPS.length; renderGate(true); return; }
+    if ((view === "result" || view === "call-requested") && lead && complete()) { renderResult(true); return; }
+    step = 0;
+    renderStep(true);
+    if (fromHistory || view) go("", true);
   }
 
   root.addEventListener("click", function (e) {
@@ -320,13 +475,14 @@
     if (!t || !root.contains(t)) return;
     interacted = true;
     if (t.classList.contains("est-back")) {
-      if (step >= STEPS.length) step = STEPS.length - 1; else step = Math.max(0, step - 1);
+      if (routed) { history.back(); return; }
+      step = step >= STEPS.length ? STEPS.length - 1 : Math.max(0, step - 1);
       renderStep();
     } else if (t.hasAttribute("data-v")) {
       if (busy) return;
       var s = STEPS[step], v = t.getAttribute("data-v");
       ans[s.key] = v;
-      if (s.key === "stage" && v === "live") { showAudit(true); return; }
+      if (s.key === "stage" && v === "live") { ans.stage = undefined; showAudit(true); return; }
       Array.prototype.forEach.call(root.querySelectorAll(".est-opt"), function (o) {
         var on = o === t;
         o.classList.toggle("is-on", on);
@@ -368,25 +524,19 @@
       return;
     }
     lead = { name: name, email: email };
-    var r = calc(ans);
-    // The visitor sees the result right away; the lead goes out in the background.
-    send("New cost estimate: " + name + " (" + kr(r.low) + " to " + kr(r.high) + ", start: " + labelOf("start", ans.start) + ")", summary());
+    // The visitor sees the result right away; the lead (and the visitor's copy) go out in the background.
     renderResult();
+    sendEstimate();
   });
 
   var auditBack = document.getElementById("audit-back");
   if (auditBack) auditBack.addEventListener("click", function () {
     interacted = true;
-    ans.stage = undefined;
-    step = 0;
     showEst();
+    step = 0;
     renderStep();
   });
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#book"]'), function (a) {
-    a.addEventListener("click", function () {
-      if (a.getAttribute("data-stage") === "Live app") showAudit(false); else showEst();
-    });
-  });
+  window.addEventListener("popstate", function () { route(true); });
 
-  renderStep();
+  route(false);
 })();

@@ -20,11 +20,20 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 | `pricing` | Estimate card, FAQ "What does an app cost?" | The `PRICES` table in `js/estimate.js` is a proposal from typical market ranges (€8k simple iPhone app to €100k+). Set your real ranges there; keep the FAQ range in line |
 | `guarantee` | Offer section | Confirm you'll honour the launch-date guarantee (ideally with a number) |
 | `faq-answer` | FAQ (equity) | Confirm whether rev-share deals are on the table |
-| `legal` | `/datenschutz` | Full privacy policy (Vercel hosting, Web3Forms, video host, booking tool) |
+| `legal` | `/datenschutz` | Written 3 Nov 2026 (Vercel hosting + Web Analytics, Resend, IONOS). Update it when the VSL host or a booking tool (Cal.com) goes in |
 
 The hero chart card shows Grass Identifier's real monthly revenue from RevenueCat (launch to August 2026). Refresh it with `python3 tools/update-charts.py` (key comes from `~/.claude/.env.secrets`), then check the card title and the Grass case number still match.
 
-Also set `CONFIG.web3formsKey` (leads by email; without it the form only opens a pre-filled email) and optionally `CONFIG.bookingUrl` (Cal.com) in `js/site.js`.
+Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). Optionally set `CONFIG.bookingUrl` (Cal.com) in `js/site.js` so "Book my free project call" opens a calendar.
+
+**To switch on the visitor's email copy:** add these four records for wizarddynamics.com at IONOS (DNS), then verify the domain in Resend (Domains → wizarddynamics.com → Verify). Nothing else changes; the lead mails then also come from leads@wizarddynamics.com.
+
+| Type | Host | Value |
+|---|---|---|
+| TXT | `resend._domainkey` | the DKIM key shown in Resend → Domains → wizarddynamics.com (starts with `p=MIGfMA0GCSqGSIb3DQEB`) |
+| MX | `send` (priority 10) | `feedback-smtp.eu-west-1.amazonses.com` |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` |
+| CNAME | `rsend` | `send.forge.rmta.net` |
 
 ## Design rules (why it looks the way it does)
 
