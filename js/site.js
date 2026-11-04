@@ -177,7 +177,7 @@
      Short contact form + video floater (landing page only)
      ------------------------------------------------------------------ */
   /* Vercel Analytics on Hobby counts page views only, so these steps are virtual pages in the Pages list */
-  function track(path) { if (window.va) window.va("pageview", { route: path, path: path }); }
+  function track(path) { if (typeof window.va === "function") window.va("pageview", { route: path, path: path }); }
 
   /* Per tab, gone when the tab closes (datenschutz: Kurzformular und Video) */
   var memo = {};
