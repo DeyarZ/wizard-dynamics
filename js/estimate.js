@@ -59,9 +59,9 @@
       ["ai", "AI features"],
       ["unsure", "Not sure yet"]] },
     { key: "launch", slug: "timeline", q: "When do you want to launch?", options: [
-      ["soon", "In under 3 months"],
-      ["mid", "In 3 to 6 months"],
-      ["later", "Later"],
+      ["month", "In under 1 month"],
+      ["quarter", "In 1 to 3 months"],
+      ["half", "In 3 to 6 months"],
       ["exploring", "Just exploring"]] },
     { key: "budget", slug: "budget", q: "What budget do you have in mind?", options: [
       ["5", "Under €5k"],
