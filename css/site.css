@@ -34,6 +34,8 @@
   --ink-2: #464651;
   --ink-3: #6b6b77;
 
+  --gold-bar: #f5e3a6;      /* the offer bar only */
+  --on-gold-2: #4a3d14;
   --night: #09080d;
   --night-rule: rgba(255, 255, 255, .13);
   --night-ink-2: #a9a9b6;
@@ -151,39 +153,48 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .btn-ink:hover { background: #26252c; }
 .btn-outline:hover { background: var(--ink); color: #fff; }
 
-/* ---------- Offer bar (free blueprint, weekly spots, countdown) ---------- */
-.topbar { display: block; background: var(--night); color: #fff; text-decoration: none; font-size: 14.5px; line-height: 1.3; }
-.topbar-inner { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 48px; padding: 7px 0; }
+/* ---------- Offer bar (logo, free estimate, weekly spots, countdown) ---------- */
+.topbar { display: block; background: var(--gold-bar); color: var(--ink); text-decoration: none; font-size: 14.5px; line-height: 1.3; }
+.topbar-inner { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 48px; padding-top: 7px; padding-bottom: 7px; }
 .topbar-inner > * { white-space: nowrap; }
+.topbar-brand { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+.topbar-mark { width: 40px; height: auto; flex: none; }
 .topbar-offer b { font-weight: 650; }
-.topbar-offer span { color: var(--night-ink-2); }
-.topbar-spots { color: var(--night-ink-2); }
-.topbar-spots b { color: #fff; font-weight: 650; }
-.topbar-timer { color: var(--night-ink-2); }
-.topbar-timer [data-countdown] { color: #fff; font-weight: 600; font-variant-numeric: tabular-nums; }
-.topbar-sep { width: 1px; height: 14px; background: rgba(255, 255, 255, .22); flex: none; }
+.topbar-spots { color: var(--on-gold-2); }
+.topbar-spots b { color: var(--ink); font-weight: 650; }
+.topbar-timer { color: var(--on-gold-2); }
+.topbar-timer [data-countdown] { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
+.topbar-sep { width: 1px; height: 14px; background: rgba(9, 8, 13, .24); flex: none; }
 .show-sm { display: none; }
 .topbar-cta {
-  margin-left: 4px;
+  margin-left: auto;
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: var(--blue-on-night);
+  text-decoration-color: var(--blue);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 4px;
   transition: text-decoration-color .15s ease;
 }
-.topbar:hover .topbar-cta { text-decoration-color: #fff; }
+.topbar:hover .topbar-cta { text-decoration-color: var(--ink); }
 
-/* ---------- Nav ---------- */
+/* ---------- Nav. On the landing page (#nav) it stays hidden until the hero CTA is off screen, then it's fixed at the top (js/site.js) ---------- */
 .nav {
   position: sticky;
   top: 0;
   z-index: 40;
   background: #fff;
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s ease;
+  border-bottom: 1px solid var(--rule);
 }
-.nav.scrolled { border-bottom-color: var(--rule); }
+#nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform .22s ease, visibility .22s;
+}
+#nav.show { transform: none; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { #nav { transition: none; } }
 .nav-inner { display: flex; align-items: center; gap: 40px; height: var(--nav-h); }
 .brand {
   display: inline-flex;
@@ -748,6 +759,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 @media (max-width: 1180px) {
+  .topbar-name { display: none; }
   .shelf-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-tags { display: grid; gap: 4px; }
   .service-tags li + li::before { display: none; }
@@ -764,6 +776,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .case { column-gap: 48px; }
   .side-grid { column-gap: 56px; }
   .quotes { grid-template-columns: minmax(0, 1fr); gap: 44px; max-width: 680px; }
+}
+
+@media (max-width: 900px) {
+  .topbar-inner { position: relative; flex-wrap: wrap; justify-content: flex-start; gap: 1px 10px; min-height: 0; padding: 7px 0 8px 46px; }
+  .topbar-brand { position: absolute; left: 0; top: 50%; margin: 0; transform: translateY(-50%); }
+  .topbar-mark { width: 34px; }
+  .topbar-sep { height: 12px; }
+  .topbar-sep-2, .topbar-cta { display: none; }
+  .topbar-timer { flex-basis: 100%; }
 }
 
 @media (max-width: 900px) {
@@ -871,10 +892,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
   body { font-size: 17px; }
   .hide-sm { display: none !important; }
   .topbar { font-size: 13px; }
-  .topbar-inner { flex-wrap: wrap; gap: 1px 10px; min-height: 0; padding: 7px 0 8px; }
-  .topbar-sep { height: 12px; }
-  .topbar-sep-2 { display: none; }
-  .topbar-timer { flex-basis: 100%; text-align: center; }
   .brand { font-size: 17px; gap: 10px; }
   .brand-mark { width: 40px; }
   .hero-title { font-size: 44px; line-height: .98; }
@@ -922,6 +939,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* Smallest phones: the ARR trust item drops its tail so the row stays on one line */
 @media (max-width: 359px) {
+  .topbar-brand { display: none; }
+  .topbar-inner { padding-left: 0; }
   .trust-more { display: none; }
 }
 

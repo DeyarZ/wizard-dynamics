@@ -39,7 +39,7 @@ Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). `CONFIG.boo
 
 Researched against 61 app-agency homepages and ~40 VSL/booked-call pages (Nov 2026), redesigned 3 Nov 2026 because v1 "looked cheap":
 
-- Brand = the logo: near-black `#09080d`, white, electric blue `#1e54f0` (the D). Blue is only for actions and the D. No gold, no other accent colours.
+- Brand = the logo: near-black `#09080d`, white, electric blue `#1e54f0` (the D). Blue is only for actions and the D. No other accent colours, except light gold `#f5e3a6` for the offer bar and only there (founder's call, 4 Nov 2026; the saturated gold `#f2b33d` of v1 stays out).
 - Logo is an inline SVG symbol (`#wd` in `index.html`), redrawn from the master PNG: W follows `currentColor`, D is always blue. Favicons/OG image are rendered from the same geometry (`favicon.svg`, `og-image.png`).
 - Light page (white + cool grey `#f4f4f6`), with three near-black bands for rhythm: proof numbers, booking, footer. Schibsted Grotesk for everything, Literata only for the founders' letter.
 - The wow comes from real assets, not effects: the hero's second tier is the intro video framed by real in-app screens of our apps in CSS phone frames (`.phone`), the VSL poster shows our real app icons as a home screen with a "Your app" slot, and the cases are big panels in each app's colour.

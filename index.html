@@ -6,7 +6,7 @@
   <title>Wizard Dynamics | App studio from Munich</title>
   <meta name="description" content="What will your app really cost? Answer a few quick questions and get a free estimate: price, timeline and what your first version really needs. 200+ apps built, $480k ARR across our own." />
   <link rel="canonical" href="https://wizarddynamics.com/" />
-  <meta name="theme-color" content="#09080d" />
+  <meta name="theme-color" content="#f5e3a6" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=14" />
+  <link rel="stylesheet" href="css/site.css?v=15" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -39,14 +39,15 @@
   <symbol id="wd" viewBox="0 0 69 27.5"><path class="wd-w" d="M0 0H7.2L16 17.6 20.3 9 23.9 16.2 18.25 27.5H13.75ZM19 0H26.2L32.75 13.1 39.3 0H46.5L32.75 27.5Z"/><path class="wd-d" d="M49.7 0H58A11 11 0 0 1 69 11V16.5A11 11 0 0 1 58 27.5H35.95L38.7 22H57.5A5.5 5.5 0 0 0 63 16.5V11A5.5 5.5 0 0 0 57.5 5.5H46.95Z"/></symbol>
 </svg>
 
-<!-- Offer bar: the free app estimate, weekly founder calls, live countdown to Sunday night -->
+<!-- Offer bar: logo, the free app estimate, weekly founder calls, live countdown to Sunday night. Scrolls away; the nav below only slides in once the hero CTA is off screen (js/site.js) -->
 <a class="topbar" href="/estimate" data-cta="topbar" data-ph="offer">
   <span class="container topbar-inner">
-    <span class="topbar-offer"><b>Free app estimate</b><span class="hide-sm"> or Revenue Audit</span></span>
+    <span class="topbar-brand"><svg class="topbar-mark" viewBox="0 0 69 27.5" aria-hidden="true"><use href="#wd"/></svg><span class="topbar-name">Wizard Dynamics</span></span>
+    <span class="topbar-offer"><b>Free app estimate</b></span>
     <span class="topbar-sep" aria-hidden="true"></span>
     <span class="topbar-spots" data-spots="bar">Only <b>5</b> <span class="hide-sm">founder </span>calls a week</span>
     <span class="topbar-sep topbar-sep-2" aria-hidden="true"></span>
-    <span class="topbar-timer">This week closes in <span data-countdown>Sunday</span></span>
+    <span class="topbar-timer">This week's calls close in <span data-countdown>Sunday</span></span>
     <span class="topbar-cta hide-sm">Get my estimate</span>
   </span>
 </a>
@@ -541,6 +542,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=13" defer></script>
+<script src="js/site.js?v=14" defer></script>
 </body>
 </html>

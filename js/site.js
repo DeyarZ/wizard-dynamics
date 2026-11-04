@@ -70,15 +70,16 @@
   }
   if (timers.length) { tick(); window.setInterval(tick, 1000); }
 
-  /* Nav rule on scroll + mobile sticky CTA */
+  /* The nav and the mobile sticky CTA stay out of the way until the hero CTA has scrolled off screen */
   var nav = $("#nav");
   var mobileCta = $("#mobile-cta");
   var heroCta = $(".hero-action .btn");
   var book = $("#book");
   function onScroll() {
-    if (nav) nav.classList.toggle("scrolled", (window.scrollY || window.pageYOffset) > 4);
-    if (mobileCta && heroCta && book) {
-      var pastHeroCta = heroCta.getBoundingClientRect().bottom < 0;
+    if (!heroCta) return;
+    var pastHeroCta = heroCta.getBoundingClientRect().bottom < 0;
+    if (nav) nav.classList.toggle("show", pastHeroCta);
+    if (mobileCta && book) {
       var b = book.getBoundingClientRect();
       var atBook = b.top < window.innerHeight && b.bottom > 0;
       mobileCta.classList.toggle("show", pastHeroCta && !atBook);
