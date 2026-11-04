@@ -243,7 +243,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-weight: 780;
   text-wrap: balance;
 }
-.hero-sub { margin-top: 22px; font-size: clamp(18px, 1.45vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 48em; text-wrap: balance; }
+.hero-offer { margin-top: 20px; font-size: clamp(24px, 2.5vw, 36px); line-height: 1.16; letter-spacing: -0.03em; font-weight: 650; text-wrap: balance; }
+.hero-sub { margin-top: 12px; font-size: clamp(18px, 1.45vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 48em; text-wrap: balance; }
 .hero-action { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 28px; }
 .hero-alt { font-size: 15.5px; font-weight: 500; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--rule-strong); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color .15s ease, text-decoration-color .15s ease; }
@@ -750,7 +751,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (min-width: 901px) and (max-height: 820px) {
   .hero { padding-top: 40px; }
   .hero-title { font-size: clamp(44px, 5.6vw, 80px); }
-  .hero-sub { margin-top: 16px; }
   .hero-action { margin-top: 26px; gap: 14px; }
   .stage { margin-top: 40px; --stage-h: clamp(280px, min(28vw, calc(100vh - 470px)), 470px); }
   .vsl-text { max-width: 58%; }
@@ -896,7 +896,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .brand { font-size: 17px; gap: 10px; }
   .brand-mark { width: 40px; }
   .hero-title { font-size: 44px; line-height: .98; }
-  .hero-sub { font-size: 17.5px; margin-top: 16px; }
+  .hero-offer { font-size: 23px; margin-top: 14px; }
+  .hero-sub { font-size: 17px; margin-top: 10px; }
   .hero-action { margin-top: 26px; gap: 16px; }
   .hero-trust { gap: 6px 16px; margin-top: 4px; font-size: 14.5px; }
   .trust-item:first-child { flex-basis: 100%; justify-content: center; }
