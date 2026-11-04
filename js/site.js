@@ -11,7 +11,7 @@
     // Small: vslPreview on a muted loop (8 s, 3:4, about 180 KB, so a visitor who never clicks doesn't load the big file).
     // Click: vslSrc with sound, the button under it opens the short contact form. Empty vslSrc: no floater.
     // New cut = new file name: /video/ is cached for a week.
-    vslSrc: "/video/wd-vsl-v2.mp4",
+    vslSrc: "/video/wd-vsl-v2-full.mp4",
     vslPreview: "/video/wd-vsl-preview.mp4",
     vslPoster: "/video/wd-vsl-poster.jpg",
     vslCaptions: "",   // optional WebVTT file, only for a video without burned-in captions
