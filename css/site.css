@@ -160,7 +160,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .topbar-brand { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
 .topbar-mark { width: 40px; height: auto; flex: none; }
 .topbar-spots b { font-weight: 700; }
-.timer-short { display: none; }
+.topbar-first { color: var(--on-gold-2); }
 .topbar-timer { color: var(--on-gold-2); }
 .topbar-timer [data-countdown] { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
 .topbar-sep { width: 1px; height: 14px; background: rgba(9, 8, 13, .24); flex: none; }
@@ -234,17 +234,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ---------- Hero: one centred column, then the stage ---------- */
-.hero { padding: 54px 0 76px; overflow: hidden; }
+.hero { padding: 68px 0 76px; overflow: hidden; }
 .hero-copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero-title {
-  font-size: clamp(44px, 6.1vw, 88px);
+  font-size: clamp(44px, 5.7vw, 84px);
   line-height: .96;
   letter-spacing: -0.052em;
   font-weight: 780;
   text-wrap: balance;
 }
-.hero-offer { margin-top: 20px; font-size: clamp(24px, 2.5vw, 36px); line-height: 1.16; letter-spacing: -0.03em; font-weight: 650; text-wrap: balance; }
-.hero-sub { margin-top: 12px; font-size: clamp(18px, 1.45vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 48em; text-wrap: balance; }
+.hero-sub { margin-top: 22px; font-size: clamp(18px, 1.45vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 48em; text-wrap: balance; }
 .hero-action { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 28px; }
 .hero-alt { font-size: 15.5px; font-weight: 500; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--rule-strong); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color .15s ease, text-decoration-color .15s ease; }
@@ -258,7 +257,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* The stage: a revenue chart in the middle of a row of our apps */
 .stage {
-  --stage-h: clamp(300px, min(28vw, calc(100vh - 512px)), 470px);
+  --stage-h: clamp(300px, min(28vw, calc(100vh - 500px)), 470px);
   margin-top: 48px;
   padding-top: 4px;
   overflow-x: clip;
@@ -747,23 +746,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ---------- Responsive ---------- */
-/* Offer bar: the short timer label where the long one would not fit */
-@media (max-width: 640px), (min-width: 901px) and (max-width: 1000px) {
-  .timer-long { display: none; }
-  .timer-short { display: inline; }
-}
 /* Short laptop screens: keep the whole stage above the fold */
 @media (min-width: 901px) and (max-height: 820px) {
-  .hero { padding-top: 40px; }
+  .hero { padding-top: 60px; }
   .hero-title { font-size: clamp(44px, 5.6vw, 80px); }
+  .hero-sub { margin-top: 18px; }
   .hero-action { margin-top: 26px; gap: 14px; }
-  .stage { margin-top: 40px; --stage-h: clamp(280px, min(28vw, calc(100vh - 470px)), 470px); }
+  .stage { margin-top: 40px; --stage-h: clamp(280px, min(28vw, calc(100vh - 452px)), 470px); }
   .vsl-text { max-width: 58%; }
   .vsl-title { font-size: clamp(22px, 2.2vw, 34px); }
 }
 
 @media (max-width: 1180px) {
-  .topbar-name { display: none; }
+  .topbar-name, .topbar-first { display: none; }
   .shelf-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-tags { display: grid; gap: 4px; }
   .service-tags li + li::before { display: none; }
@@ -786,7 +781,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .topbar-inner { position: relative; flex-wrap: wrap; justify-content: flex-start; gap: 1px 10px; min-height: 0; padding: 7px 124px 8px 46px; }
   .topbar-brand { position: absolute; left: 0; top: 50%; margin: 0; transform: translateY(-50%); }
   .topbar-mark { width: 34px; }
-  .topbar-sep { display: none; }
+  .topbar-sep, .topbar-first { display: none; }
   .topbar-cta { position: absolute; right: 0; top: 50%; margin: 0; padding: 6px 10px; transform: translateY(-50%); font-size: 12.5px; }
   .topbar-timer { flex-basis: 100%; }
 }
@@ -887,6 +882,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   }
   .mobile-cta b { color: var(--ink); font-weight: 650; }
   .mobile-cta span { white-space: nowrap; font-size: 14px; line-height: 1.25; }
+  .mobile-cta [data-countdown] { font-variant-numeric: tabular-nums; }
   .mobile-cta.show { transform: none; }
   .mobile-cta .btn { height: 46px; padding: 0 16px; font-size: 15.5px; }
 }
@@ -900,9 +896,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .topbar-inner { padding-right: 66px; }
   .brand { font-size: 17px; gap: 10px; }
   .brand-mark { width: 40px; }
-  .hero-title { font-size: 44px; line-height: .98; }
-  .hero-offer { font-size: 23px; margin-top: 14px; }
-  .hero-sub { font-size: 17px; margin-top: 10px; }
+  .hero-title { font-size: min(44px, 11vw); line-height: .98; }
+  .hero-sub { font-size: 18px; margin-top: 16px; }
   .hero-action { margin-top: 26px; gap: 16px; }
   .hero-trust { gap: 6px 16px; margin-top: 4px; font-size: 14.5px; }
   .trust-item:first-child { flex-basis: 100%; justify-content: center; }
@@ -1055,4 +1050,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 @media (max-width: 400px) {
   .fx-nav-note { display: none; }
+}
+
+/* Small phones: the sticky bar keeps the count and the countdown, the rest of the line goes */
+@media (max-width: 374px) {
+  .sticky-more { display: none; }
 }

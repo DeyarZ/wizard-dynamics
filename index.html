@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=18" />
+  <link rel="stylesheet" href="css/site.css?v=19" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -39,13 +39,15 @@
   <symbol id="wd" viewBox="0 0 69 27.5"><path class="wd-w" d="M0 0H7.2L16 17.6 20.3 9 23.9 16.2 18.25 27.5H13.75ZM19 0H26.2L32.75 13.1 39.3 0H46.5L32.75 27.5Z"/><path class="wd-d" d="M49.7 0H58A11 11 0 0 1 69 11V16.5A11 11 0 0 1 58 27.5H35.95L38.7 22H57.5A5.5 5.5 0 0 0 63 16.5V11A5.5 5.5 0 0 0 57.5 5.5H46.95Z"/></symbol>
 </svg>
 
-<!-- Offer bar: logo, build slots left before January, this week's free founder calls with a live countdown to Sunday night, button. The whole bar links to /estimate. Scrolls away; the nav below only slides in once the hero CTA is off screen (js/site.js) -->
+<!-- Offer bar: logo, the weekly cap on free founder calls, live countdown to Sunday night, button. The whole bar links to /estimate. Scrolls away; the nav below only slides in once the hero CTA is off screen (js/site.js) -->
 <a class="topbar" href="/estimate" data-cta="topbar" data-ph="offer">
   <span class="container topbar-inner">
     <span class="topbar-brand"><svg class="topbar-mark" viewBox="0 0 69 27.5" aria-hidden="true"><use href="#wd"/></svg><span class="topbar-name">Wizard Dynamics</span></span>
-    <span class="topbar-spots"><b data-builds="bar">Only 2 build<span class="hide-sm"> slot</span>s left before January</b></span>
+    <span class="topbar-spots" data-spots="bar"><b>Only 5 free founder calls a week</b></span>
+    <span class="topbar-sep topbar-first" aria-hidden="true"></span>
+    <span class="topbar-first">First come, first served</span>
     <span class="topbar-sep" aria-hidden="true"></span>
-    <span class="topbar-timer"><span class="timer-long" data-spots="timerLong">This week's 5 free founder calls close in </span><span class="timer-short" data-spots="timerShort">Free calls close in </span><span data-countdown>Sunday</span></span>
+    <span class="topbar-timer"><span class="hide-sm">This week's close in </span><span class="show-sm">Closes in </span><span data-countdown>Sunday</span></span>
     <span class="topbar-cta"><span class="hide-sm">Claim my call</span><span class="show-sm">Claim</span></span>
   </span>
 </a>
@@ -84,8 +86,7 @@
 <section class="hero" id="top">
   <div class="container hero-copy">
     <h1 class="hero-title">We build apps that make&nbsp;money.</h1>
-    <p class="hero-offer">What will your app really&nbsp;cost? Get your free&nbsp;estimate.</p>
-    <p class="hero-sub">No tech skills needed. A few quick questions, then price, timeline and what your first version really&nbsp;needs.</p>
+    <p class="hero-sub">What will your app really&nbsp;cost? Get your free&nbsp;estimate.</p>
     <div class="hero-action">
       <div class="hero-ctas">
         <a class="btn btn-lg" href="/estimate" data-cta="hero">Get my free app estimate</a>
@@ -403,7 +404,7 @@
       <div class="letter-body">
         <p>We started Wizard Dynamics to build apps of our own, and we still run them every day. Grass Identifier taught us App Store optimization and paid ads. Everlens taught us organic TikTok. Noor Stories got us selling on the web next to the App Store.</p>
         <p>Across more than 200 apps, the money has come from the first minutes after install and from the first thousand users far more than from the feature list. That's the part most agencies hand back to the founder after launch, and it's the part we stay for.</p>
-        <p>We build only a few apps for other founders each quarter<span data-builds="inline">, and only 2 more start before January</span>, so each one gets the attention our own apps get. If we don't think your app can make money, we'll tell you on the first call.</p>
+        <p>We build only a few apps for other founders each quarter, so each one gets the attention our own apps get. If we don't think your app can make money, we'll tell you on the first call.</p>
       </div>
       <div class="signoff">
         <p><b>Deyar Zakir and Manuel Worlitzer</b>Founders, Wizard Dynamics, Munich</p>
@@ -429,10 +430,6 @@
       <details>
         <summary>Why only five calls a week?</summary>
         <div class="faq-answer" data-ph="offer"><p>A founder runs every call and looks at your app and your market before it. Five a week is what we can do properly next to the apps we&nbsp;run.</p></div>
-      </details>
-      <details data-builds="block">
-        <summary>Why so few build slots before January?</summary>
-        <div class="faq-answer" data-ph="offer"><p>One of the two founders leads every build from the first call to launch, next to the apps we run. That only works for a few at a time, so the next builds after these start in&nbsp;January.</p></div>
       </details>
       <details>
         <summary>Why have you built so many apps?</summary>
@@ -484,7 +481,7 @@
         <a class="btn btn-lg" href="/estimate" data-cta="book">Get my free app estimate</a>
         <a class="book-audit" href="/estimate/audit" data-cta="book-audit">Already live? Get the free Revenue Audit</a>
       </div>
-      <p class="book-slots" data-ph="offer"><b data-builds="long">Only 2 build slots left before January.</b> <b data-spots="long">Only 5 founder calls a week.</b> Want to go further? A founder goes through your estimate with you in a free 30-minute&nbsp;call.</p>
+      <p class="book-slots" data-ph="offer"><b data-spots="long">Only 5 founder calls a week.</b> Want to go further? A founder goes through your estimate with you in a free 30-minute&nbsp;call.</p>
       <p class="book-alt">Prefer email? Write to <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a></p>
     </div>
 
@@ -532,7 +529,7 @@
 </footer>
 
 <div class="mobile-cta" id="mobile-cta">
-  <span data-builds="short"><b>Only 2 builds left</b><br>before January</span>
+  <span><b data-spots="sticky">Only 5 free calls<span class="sticky-more"> a week</span></b><br><span class="sticky-more">Closes in </span><span data-countdown>Sunday</span></span>
   <a class="btn" href="/estimate" data-cta="mobile-sticky">Get my estimate</a>
 </div>
 
@@ -545,6 +542,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=16" defer></script>
+<script src="js/site.js?v=17" defer></script>
 </body>
 </html>
