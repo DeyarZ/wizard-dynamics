@@ -1,12 +1,13 @@
-/* POST /api/lead: leads from /estimate (cost estimate, call request) and the Revenue Audit form.
+/* POST /api/lead: leads from /estimate (quiz + contact details) and the Revenue Audit form.
 
    Every lead is emailed to LEAD_TO (default hello@wizarddynamics.com) via Resend, with reply-to = the visitor,
-   so answering the lead is one click. The visitor gets their estimate (or a confirmation) from
-   hello@wizarddynamics.com. That needs wizarddynamics.com verified in Resend (DNS records at IONOS, see README);
-   until then the visitor mail fails and is skipped, and lead mails go out from the verified fallback domain.
+   so answering the lead is one click. An estimate lead has the phone number in the subject and a tap-to-call button:
+   the founder calls first, with the calculated range as the talk track. The visitor gets a short note right away
+   and the full estimate ESTIMATE_DELAY_MIN later (Resend scheduled send), so the promise holds even if we miss them.
+   Visitor mails need wizarddynamics.com verified in Resend (DNS records at IONOS, see README).
 
-   The estimate is recomputed here from the answers (js/estimate.js runs on both sides), so the only free text
-   that reaches an email is the name, the email address and the app link, all trimmed and escaped.
+   The estimate is computed here from the answers (js/estimate.js runs on both sides), so the only free text that
+   reaches an email is the name, the contact details, the message and the app link, all trimmed and escaped.
 
    Env: RESEND_API_KEY (required, Vercel project env), LEAD_TO (optional, comma-separated). */
 "use strict";
@@ -14,6 +15,7 @@ const core = require("../js/estimate.js");
 
 const VISITOR_FROM = "Deyar Zakir <hello@wizarddynamics.com>";
 const BOOKING = "https://cal.com/wizard-dynamics-consulting/30min";   // same as CONFIG.bookingUrl in js/site.js
+const ESTIMATE_DELAY_MIN = 180;   // the founder call comes first; after this the estimate mail goes out on its own
 const LEAD_FROM = [
   "wizarddynamics.com <leads@wizarddynamics.com>",
   "wizarddynamics.com <leads@bynoor.app>"   // verified fallback until wizarddynamics.com is verified in Resend
@@ -60,41 +62,54 @@ function sourceText(src) {
 
 /* ---------- the estimate, as text (for us) and as the visitor's copy ---------- */
 function estimateFacts(a) {
-  const r = core.calc(a);
+  const p = core.priced(a), r = core.calc(p);
   return {
     r,
     range: core.kr(r.low) + " to " + core.kr(r.high),
-    weeks: "About " + r.wLow + " to " + r.wHigh + " weeks from kickoff to the App Store. Our best single guess: " + core.kr(r.mid) + ".",
-    lines: core.moneyLines(a).map((l) => [l[0], core.kl(l[1])]),
-    cuts: core.bestCuts(a),
+    weeks: "About " + r.wLow + " to " + r.wHigh + " weeks from kickoff to the App Store. Our best single guess: " + core.kr(r.mid) + ". This assumes iPhone and Android with a clean, proven design.",
+    lines: core.moneyLines(p).map((l) => [l[0], core.kl(l[1])]),
+    cuts: core.bestCuts(p),
     pb: core.paybackNums(r.mid, core.PRICES.defaultPrice)
   };
 }
-function summaryText(name, email, a, extra) {
+function munichTime(d) { return d.toLocaleTimeString("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit" }); }
+function estimateLead(name, email, phone, message, a, source, sendAt) {
   const f = estimateFacts(a);
-  return "Name: " + name + "\nEmail: " + email + "\n\n" +
+  const text = "Call: " + phone + "\nName: " + name + "\nEmail: " + email + "\n\n" +
+    "Stopped so far by: " + core.labelOf("blocker", a.blocker) + "\n" +
     core.answerLines(a).map((l) => l[0] + ": " + l[1]).join("\n") +
-    "\n\nEstimate: " + f.range + " (best guess " + core.kr(f.r.mid) + "), " + f.r.wLow + " to " + f.r.wHigh + " weeks" +
-    (extra ? "\n" + extra : "");
+    (message ? "\nMessage: " + message : "") +
+    "\n\nCalculated estimate: " + f.range + " (best guess " + core.kr(f.r.mid) + "), " + f.r.wLow + " to " + f.r.wHigh + " weeks. Assumes iPhone + Android, clean design.\n" +
+    f.lines.map((l) => "- " + l[0] + ": " + l[1]).join("\n") +
+    "\n\nCall first: this estimate mail goes to them on its own at " + munichTime(sendAt) + " (Munich).\n" +
+    "Call consent: ticked on /estimate, " + new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC\nSource: " + source;
+  const html = '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#0a0a0f">' +
+    '<p style="margin:0 0 18px"><a href="tel:' + esc(phone.replace(/[^\d+]/g, "")) + '" style="display:inline-block;padding:13px 22px;border-radius:8px;background:#1e54f0;color:#ffffff;font-size:17px;font-weight:600;text-decoration:none">Call ' + esc(phone) + "</a></p>" +
+    esc(text).replace(/\n/g, "<br>") + "</div>";
+  return {
+    subject: "Call " + name + " " + phone + ": " + f.range + ", budget " + core.labelOf("budget", a.budget) + ", launch " + core.labelOf("launch", a.launch).toLowerCase(),
+    text, html
+  };
 }
 function visitorEstimate(name, a) {
   const f = estimateFacts(a);
   const first = esc(name.split(/\s+/)[0]);
   const price = core.PRICES.defaultPrice;
+  const showPayback = a.kind === "consumer" || a.kind === "unsure";   // paying subscribers only fit an app people pay for
   const payback = "At €" + price + " a year, it takes about " + core.num(f.pb.subs) + " paying subscribers to earn the build back in year one. " +
     "With a typical " + f.pb.paidPct + "% of downloads paying, that's about " + core.num(f.pb.downloads) + " downloads.";
   const reveal = "Building the app is the predictable part. Getting those downloads is where most apps stall, and it's the part we've done with our own: Grass Identifier went from $458 to $20.2k a month in 10 months.";
-  const call = "Want to go through it with a founder? Pick a time for a free 30-minute project call, or reply to this email with two times that work for you. We check your scope and cut what version one doesn't need. If you want us to build it, you get a fixed price.";
+  const call = "Want to go through it with a founder? Pick a time for a free 30-minute call, or reply to this email with two times that work for you. We check your scope and cut what version one doesn't need. If you want us to build it, you get a fixed price.";
   const cutsTotal = f.cuts.list.length ? (f.cuts.list.length > 1 ? "All together: " : "With that: ") + core.kr(f.cuts.after.low) + " to " + core.kr(f.cuts.after.high) + "." : "";
 
-  const text = "Hi " + name.split(/\s+/)[0] + ",\n\nhere's the estimate you just made on wizarddynamics.com.\n\n" +
+  const text = "Hi " + name.split(/\s+/)[0] + ",\n\nhere's the estimate for your app, based on your answers on wizarddynamics.com. If we've already talked, this is the written version.\n\n" +
     "YOUR ESTIMATE: " + f.range + "\n" + f.weeks + "\n\n" +
     "Your answers\n" + core.answerLines(a).map((l) => "- " + l[0] + ": " + l[1]).join("\n") + "\n\n" +
     "Where the money goes\n" + f.lines.map((l) => "- " + l[0] + ": " + l[1]).join("\n") + "\n\n" +
     "How to launch for less\n" + (f.cuts.list.length
       ? f.cuts.list.map((x) => "- " + x.title + " " + x.text + " Saves about " + core.kl(x.saves) + ".").join("\n") + "\n" + cutsTotal
       : "Your version one is already lean. Keep it that way until paying users ask for more.") + "\n\n" +
-    "When does it pay for itself?\n" + payback + "\n\n" + reveal + "\n\n" + call + "\nPick a time: " + BOOKING + "\n\n" +
+    (showPayback ? "When does it pay for itself?\n" + payback + "\n\n" + reveal + "\n\n" : "") + call + "\nPick a time: " + BOOKING + "\n\n" +
     "Deyar Zakir\nCo-founder, Wizard Dynamics\nhttps://www.wizarddynamics.com";
 
   const P = 'style="margin:0 0 14px;font-size:16px;line-height:1.55;color:#0a0a0f"';
@@ -102,7 +117,7 @@ function visitorEstimate(name, a) {
   const row = (l, v) => '<tr><td style="padding:5px 16px 5px 0;font-size:15px;color:#464651">' + esc(l) + '</td><td style="padding:5px 0;font-size:15px;font-weight:600;color:#0a0a0f;text-align:right;white-space:nowrap">' + esc(v) + "</td></tr>";
   const html = '<div style="margin:0;padding:24px 16px;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Helvetica,Arial,sans-serif;color:#0a0a0f">' +
     '<div style="max-width:560px;margin:0 auto">' +
-    "<p " + P + ">Hi " + first + ",</p><p " + P + ">here's the estimate you just made on wizarddynamics.com.</p>" +
+    "<p " + P + ">Hi " + first + ",</p><p " + P + ">here's the estimate for your app, based on your answers on wizarddynamics.com. If we've already talked, this is the written version.</p>" +
     '<p style="margin:24px 0 2px;font-size:14px;font-weight:600;color:#6b6b77">Your estimate</p>' +
     '<p style="margin:0;font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-0.5px;color:#0a0a0f">' + esc(f.range) + "</p>" +
     '<p style="margin:8px 0 0;font-size:15px;line-height:1.5;color:#464651">' + esc(f.weeks) + "</p>" +
@@ -113,12 +128,12 @@ function visitorEstimate(name, a) {
       ? f.cuts.list.map((x) => '<p style="margin:0 0 12px;font-size:15px;line-height:1.5;color:#464651"><b style="color:#0a0a0f">' + esc(x.title) + "</b> " + esc(x.text) + '<br><b style="color:#0a0a0f">Saves about ' + esc(core.kl(x.saves)) + "</b></p>").join("") +
         '<p style="margin:0;font-size:15px;font-weight:600;color:#0a0a0f">' + esc(cutsTotal) + "</p>"
       : '<p style="margin:0;font-size:15px;line-height:1.5;color:#464651">Your version one is already lean. Keep it that way until paying users ask for more.</p>') +
-    "<h3 " + H + ">When does it pay for itself?</h3><p " + P + ">" + esc(payback) + "</p><p " + P + ">" + esc(reveal) + "</p>" +
+    (showPayback ? "<h3 " + H + ">When does it pay for itself?</h3><p " + P + ">" + esc(payback) + "</p><p " + P + ">" + esc(reveal) + "</p>" : "") +
     '<p style="margin:28px 0 14px;padding-top:18px;border-top:1px solid #e4e4ea;font-size:16px;line-height:1.55;color:#0a0a0f">' + esc(call) + "</p>" +
     '<p style="margin:0 0 14px"><a href="' + BOOKING + '" style="display:inline-block;padding:13px 22px;border-radius:8px;background:#1e54f0;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none">Pick a time for the call</a></p>' +
     '<p style="margin:24px 0 0;font-size:15px;line-height:1.5;color:#0a0a0f">Deyar Zakir<br><span style="color:#6b6b77">Co-founder, Wizard Dynamics</span><br><a href="https://www.wizarddynamics.com" style="color:#1e54f0">wizarddynamics.com</a></p>' +
     "</div></div>";
-  return { subject: "Your app cost estimate: " + f.range, text, html };
+  return { subject: "Your app estimate: " + f.range, text, html };
 }
 function visitorNote(name, subject, body) {
   const text = "Hi " + name.split(/\s+/)[0] + ",\n\n" + body + "\n\nDeyar Zakir\nCo-founder, Wizard Dynamics\nhttps://www.wizarddynamics.com";
@@ -138,38 +153,39 @@ module.exports = async function handler(req, res) {
   if (!b || typeof b !== "object") return res.status(400).json({ ok: false });
   if (b.botcheck) return res.status(200).json({ ok: true });
 
-  const name = clip(b.name, 80), email = clip(b.email, 160), source = sourceText(b.source);
-  if (!name || !EMAIL.test(email)) return res.status(400).json({ ok: false, error: "name or email" });
+  const email = clip(b.email, 160), source = sourceText(b.source);
+  if (!EMAIL.test(email)) return res.status(400).json({ ok: false, error: "email" });
 
-  let lead, visitor;
-  if (b.type === "estimate" || b.type === "call") {
+  let lead, sends;
+  if (b.type === "estimate") {
+    const first = clip(b.first, 40), last = clip(b.last, 40), phone = clip(b.phone, 30), message = clip(b.message, 1000);
+    if (!first || !last) return res.status(400).json({ ok: false, error: "name" });
+    if (!core.isPhone(phone)) return res.status(400).json({ ok: false, error: "phone" });
+    if (b.consent !== true) return res.status(400).json({ ok: false, error: "consent" });
     const a = core.cleanAnswers(b.answers);
     if (!a) return res.status(400).json({ ok: false, error: "answers" });
-    const range = estimateFacts(a).range;
-    const body = summaryText(name, email, a, "Source: " + source);
-    if (b.type === "estimate") {
-      lead = { subject: "New cost estimate: " + name + " (" + range + ", start: " + core.labelOf("start", a.start) + ")", text: body };
-      visitor = visitorEstimate(name, a);
-    } else {
-      lead = { subject: "Call request: " + name + " (estimate " + range + ")", text: "Wants the free 30-minute project call and got the calendar (Cal.com). No booking in Cal.com within a day? Reply with times.\n\n" + body };
-      visitor = visitorNote(name, "Your project call",
-        "thanks, your request for a free 30-minute project call is in (your estimate: " + range + "). If you picked a slot, the calendar invite is on its way. If not, pick a time here: " + BOOKING + " or reply with two times that work for you.");
-    }
+    const name = first + " " + last, sendAt = new Date(Date.now() + ESTIMATE_DELAY_MIN * 60000);
+    lead = estimateLead(name, email, phone, message, a, source, sendAt);
+    sends = [
+      visitorNote(name, "We're preparing your app estimate",
+        "thanks for your answers. We're preparing your estimate and will call you shortly on " + phone + ", or first thing in the morning if it's night here in Munich. You'll also get the estimate by email within a few hours.\n\nBusy? Pick a time: " + BOOKING + "\nOr just reply to this email."),
+      { ...visitorEstimate(name, a), scheduled_at: sendAt.toISOString() }
+    ];
   } else if (b.type === "audit") {
-    const revenue = REVENUE.indexOf(b.revenue) > -1 ? b.revenue : "-";
-    const app = clip(b.app, 300);
+    const name = clip(b.name, 80), revenue = REVENUE.indexOf(b.revenue) > -1 ? b.revenue : "-", app = clip(b.app, 300);
+    if (!name) return res.status(400).json({ ok: false, error: "name" });
     if (!app) return res.status(400).json({ ok: false, error: "app" });
     lead = {
       subject: "New Revenue Audit request: " + name + " (" + revenue + " a month)",
       text: "Name: " + name + "\nEmail: " + email + "\nStage: Live app (Revenue Audit)\nMonthly revenue: " + revenue + "\nApp: " + app + "\nSource: " + source
     };
-    visitor = visitorNote(name, "Your Revenue Audit request",
-      "thanks, your request for the free Revenue Audit is in. We'll look at your app (" + app + ") before the call. If you picked a slot, the calendar invite is on its way. If not, pick a time here: " + BOOKING + " or reply with two times that work for you.");
+    sends = [visitorNote(name, "Your Revenue Audit request",
+      "thanks, your request for the free Revenue Audit is in. We'll look at your app (" + app + ") before the call. If you picked a slot, the calendar invite is on its way. If not, pick a time here: " + BOOKING + " or reply with two times that work for you.")];
   } else {
     return res.status(400).json({ ok: false, error: "type" });
   }
 
-  const [leadId, copyId] = await Promise.all([toUs({ ...lead, reply_to: email }), toVisitor(email, visitor)]);
-  if (!leadId) return res.status(502).json({ ok: false, copy: !!copyId });
-  return res.status(200).json({ ok: true, copy: !!copyId });
+  const [leadId] = await Promise.all([toUs({ ...lead, reply_to: email }), ...sends.map((m) => toVisitor(email, m))]);
+  if (!leadId) return res.status(502).json({ ok: false });
+  return res.status(200).json({ ok: true });
 };

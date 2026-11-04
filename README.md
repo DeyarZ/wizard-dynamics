@@ -24,7 +24,7 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 
 The hero chart card shows Grass Identifier's real monthly revenue from RevenueCat (launch to August 2026). Refresh it with `python3 tools/update-charts.py` (key comes from `~/.claude/.env.secrets`), then check the card title and the Grass case number still match.
 
-Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). `CONFIG.bookingUrl` (Cal.com) in `js/site.js` makes "Book my free project call" open a calendar; it's set to the consulting site's 30-minute Discovery Call.
+Leads run through `api/lead.js` + Resend (see CLAUDE.md → Config). `CONFIG.bookingUrl` (Cal.com) in `js/site.js` makes "Pick a time" on the thank-you screen open a calendar; it's set to the consulting site's 30-minute Discovery Call.
 
 **Sending domain:** wizarddynamics.com is verified in Resend (3 Nov 2026) through these four records at IONOS (DNS). They power the visitor's email copy and the lead mails from leads@wizarddynamics.com; the IONOS mailbox records (MX/SPF/DKIM on `@`) are separate and untouched.
 
@@ -49,5 +49,5 @@ Researched against 61 app-agency homepages and ~40 VSL/booked-call pages (Nov 20
 - Empty proof slots (testimonials, client logos, client case, dashboard screenshot, founder photo) are `.ph-only`: hidden on the live page, visible with `?ph`. An empty box reads as "no proof"; a missing section doesn't.
 - Our own App Store reviews are not usable as proof (some are from us and friends). Proof = our numbers and our apps.
 - Trust next to the CTA must survive a buyer checking it in ten seconds: the App Store rating is the real weighted average (4.5, not a cherry-picked app), revenue counts every store we sell in (RevenueCat, Play Console, Stripe). No avatar stacks.
-- No price list and no current revenue figures on the page (founder decision, 3 Nov 2026). The lead magnet is the free app cost estimate (Hormozi: sell the outcome, not the vehicle): the cost question gets the click, the payback point ("how many paying users to earn it back") makes the sale, because that is the part only we can prove. Prices appear only as the visitor's own estimate, behind name + email.
+- No price list and no current revenue figures on the page (founder decision, 3 Nov 2026). The lead magnet is the free app estimate (Hormozi: sell the outcome, not the vehicle), and the cost question is the hero headline. Flow since Nov 2026: quiz → contact details with phone and call consent → thank-you → a founder calls fast. A build of €20k+ closes on a call, so the price is no longer shown on the page: the founder gets the calculated range in the lead mail as the talk track, and the visitor gets the full estimate by email 3 hours later, so the promise holds even if we miss them. The payback point ("how many paying users to earn it back") stays in that mail for consumer apps. Prices appear only there, on the call and as the FAQ range.
 - No scroll-reveal animations, no count-ups, no marquees, no glows, no pills/badges. Hover only.

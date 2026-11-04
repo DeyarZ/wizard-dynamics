@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Free app cost estimate | Wizard Dynamics</title>
-  <meta name="description" content="Six quick questions, about two minutes: your app's price range, build time, how to launch for less and how many paying users it takes to earn it back. From the team behind 200+ apps." />
+  <title>Free app estimate | Wizard Dynamics</title>
+  <meta name="description" content="Six quick questions, about two minutes. A founder calls you with your free estimate: price, timeline and what your first version really needs. From the team behind 200+ apps." />
   <link rel="canonical" href="https://wizarddynamics.com/estimate" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -12,15 +12,15 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://wizarddynamics.com/estimate" />
-  <meta property="og:title" content="What will your app cost? Free estimate in two minutes" />
-  <meta property="og:description" content="Price range, build time, how to launch for less and your payback point. From the team behind 200+ apps." />
+  <meta property="og:title" content="What will your app really cost? Get your free estimate" />
+  <meta property="og:description" content="Price, timeline and what your first version really needs. From the team behind 200+ apps." />
   <meta property="og:image" content="https://wizarddynamics.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <!-- Absolute paths: this page is also served at /estimate/<step> (vercel.json rewrite) -->
   <link rel="preload" href="/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/css/site.css?v=13" />
+  <link rel="stylesheet" href="/css/site.css?v=14" />
   <!-- Vercel Web Analytics: cookieless page views, one per question (the funnel), served first-party (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -43,9 +43,9 @@
 
 <main class="fx-main">
   <div class="fx-wrap">
-    <h1 class="sr-only">Free app cost estimate</h1>
+    <h1 class="sr-only">Free app estimate</h1>
     <div class="fx-card">
-      <!-- The estimate: js/estimate.js renders the questions, the email step and the result; PRICES table at the top of that file -->
+      <!-- The estimate: js/estimate.js renders the questions, the contact step and the thank-you screen; PRICES table at the top of that file -->
       <div class="est" id="est" data-routed data-ph="pricing">
         <noscript><p class="est-text">The estimate needs JavaScript. Email <a href="mailto:hello@wizarddynamics.com">hello@wizarddynamics.com</a> with what you're building and we'll send you a range.</p></noscript>
       </div>
@@ -101,7 +101,7 @@
 
     <div class="fx-host">
       <span class="host-photo" data-ph="founder-photo" aria-hidden="true"><svg viewBox="0 0 69 27.5"><use href="#wd"/></svg></span>
-      <div><b>Deyar Zakir</b><span>Co-founder. Replies within 24&nbsp;hours.</span></div>
+      <div><b>Deyar Zakir</b><span>Co-founder. A founder makes every&nbsp;call.</span></div>
     </div>
   </div>
 </main>
@@ -113,7 +113,7 @@
   </div>
 </footer>
 
-<script src="/js/site.js?v=12" defer></script>
-<script src="/js/estimate.js?v=4" defer></script>
+<script src="/js/site.js?v=13" defer></script>
+<script src="/js/estimate.js?v=5" defer></script>
 </body>
 </html>

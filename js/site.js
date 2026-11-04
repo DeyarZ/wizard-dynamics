@@ -14,14 +14,14 @@
     vslPoster: "",     // optional poster image for the <video>
     // VSL, option B: YouTube/Vimeo embed URL (click to play). Needs a datenschutz update.
     vslEmbed: "",
-    // Leads (estimates, call requests, Revenue Audit requests) go to /api/lead, which emails them via Resend
+    // Leads (estimates, Revenue Audit requests) go to /api/lead, which emails them via Resend
     // (api/lead.js, key in the Vercel env). leadEmail is only the mailto fallback if that request fails.
     // Cal.com / Calendly booking link. When set, the calendar opens inline after "Book my free project call"
     // and after the audit form (name + email + notes prefilled), so the call really gets booked. Covered in datenschutz.html.
     // Shared with the consulting site (cal.com account wizard-dynamics-consulting). Keep BOOKING in api/lead.js the same.
     bookingUrl: "https://cal.com/wizard-dynamics-consulting/30min",
     leadEmail: "hello@wizarddynamics.com",
-    // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking, estimate result.
+    // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking.
     // spotsLeft: null -> "Only 5 founder calls a week" (always true while you cap at 5).
     // spotsLeft: 3    -> "3 of 5 founder calls left this week". Only set it if you update it as calls get booked:
     // a returning visitor who sees "3 left" on Monday and on Sunday knows the scarcity is fake.
@@ -246,7 +246,7 @@
     el.innerHTML = "";
     window.Cal("inline", { elementOrSelector: el, calLink: link, config: { name: name, email: email, notes: notes, layout: "month_view", theme: "light" } });
   }
-  window.WD = { config: CONFIG, spotsLong: spotsCopy.long, openBooking: openBooking };
+  window.WD = { config: CONFIG, openBooking: openBooking };
 
   /* Links to /estimate carry which button it was (from=hero) plus this visit's utm tags and outside referrer,
      so every lead email says where the lead came from. Nothing is stored on the device. */

@@ -1,11 +1,12 @@
-/* Wizard Dynamics: the free app cost estimate, the lead magnet on /estimate.
-   Six questions, then name + email, then the result: price range, build time, where the money goes,
-   how to launch for less and the payback point. Live apps go to the Revenue Audit form (#audit) instead.
-   Every view has its own URL (/estimate/platform, /estimate/result, ...) so Vercel Web Analytics shows the funnel
-   step by step, and the browser's back button goes back one question.
+/* Wizard Dynamics: the free app estimate, the lead magnet on /estimate.
+   Six questions, then the contact details (with call consent), then a thank-you screen: a founder calls with the
+   estimate, the visitor can pick a time instead. The price is not shown on the page: it goes into the lead email as the
+   founder's talk track and out to the visitor by email a few hours later (api/lead.js). Live apps go to the Revenue
+   Audit form (#audit) instead. Every view has its own URL (/estimate/stage, /estimate/thanks, ...) so Vercel Web
+   Analytics shows the funnel step by step, and the browser's back button goes back one question.
 
-   The first half (prices and math) also runs on the server: api/lead.js recomputes the estimate from the answers
-   for the lead email and the visitor's copy, so nothing the browser sends ends up in an email unchecked.
+   The first half (prices and math) also runs on the server: api/lead.js computes the estimate from the answers,
+   so nothing the browser sends ends up in an email unchecked.
 
    PRICES is a proposal and human-owned. Change the numbers there; nothing else needs to change.
    Money is in EUR thousands before VAT; low/high are for that part on iPhone with a clean design. */
@@ -33,44 +34,57 @@
   };
 
   var STEPS = [
-    { key: "stage", slug: "", q: "Where is your app today?", options: [
+    { key: "kind", slug: "", q: "What kind of app do you want to build?", options: [
+      ["consumer", "An app for consumers", "People download it and pay for it"],
+      ["business", "An app for my business", "For your customers or your team"],
+      ["marketplace", "A marketplace", "Two sides, like sellers and buyers"],
+      ["unsure", "Not sure yet"]] },
+    { key: "stage", slug: "stage", q: "Where are you now?", options: [
       ["idea", "Just an idea"],
-      ["designs", "Designs or a prototype"],
-      ["live", "Live in the App Store", "You get the free Revenue Audit instead"]] },
-    { key: "platform", slug: "platform", q: "Where should it run?", options: [
-      ["ios", "iPhone"],
-      ["mobile", "iPhone and Android"],
-      ["all", "iPhone, Android and web"]] },
-    { key: "features", slug: "features", q: "What does version one need?", hint: "Pick all that apply.", many: true, options: [
-      ["accounts", "Accounts and login", "Profiles, sync across devices"],
-      ["payments", "Subscriptions or in-app purchases", "Paywall, free trial, plans"],
-      ["ai", "AI features", "Photo recognition, chat, text or image generation"],
-      ["social", "Users post, share or chat", "Feeds, messages, communities"],
-      ["maps", "Maps or location", "Places, routes, what's nearby"],
-      ["admin", "Admin dashboard", "Manage content and users on the web"],
-      ["integrations", "Connections to other services", "Health data, bookings, payments, outside APIs"]] },
-    { key: "design", slug: "design", q: "How should it look?", options: [
-      ["clean", "Clean and proven", "Familiar iOS and Android patterns, fastest to build"],
-      ["custom", "Fully custom", "Your own visual style and custom animations"]] },
+      ["designs", "I have designs"],
+      ["prototype", "I have a prototype"],
+      ["stalled", "Started, but it stalled"],
+      ["live", "Already live in the stores", "You get the free Revenue Audit instead"]] },
+    { key: "blocker", slug: "blocker", q: "What has stopped you so far?", options: [
+      ["trust", "I don't know who to trust"],
+      ["prices", "The prices I've seen"],
+      ["prototype", "My prototype isn't ready"],
+      ["explain", "It's hard to explain what I need"],
+      ["time", "No time so far"]] },
+    { key: "features", slug: "features", q: "What must your first version have?", hint: "Pick all that apply.", many: true, options: [
+      ["accounts", "Login and accounts"],
+      ["payments", "Payments or subscriptions"],
+      ["integrations", "Bookings"],
+      ["social", "Chat or messages"],
+      ["ai", "AI features"],
+      ["unsure", "Not sure yet"]] },
+    { key: "launch", slug: "timeline", q: "When do you want to launch?", options: [
+      ["soon", "In under 3 months"],
+      ["mid", "In 3 to 6 months"],
+      ["later", "Later"],
+      ["exploring", "Just exploring"]] },
     { key: "budget", slug: "budget", q: "What budget do you have in mind?", options: [
-      ["15", "Under €15k"],
+      ["5", "Under €5k"],
+      ["15", "€5k to €15k"],
       ["30", "€15k to €30k"],
       ["60", "€30k to €60k"],
-      ["999", "€60k or more"],
-      ["0", "Not sure yet"]] },
-    { key: "start", slug: "timeline", q: "When do you want to start?", options: [
-      ["now", "Within a month"],
-      ["soon", "In 1 to 3 months"],
-      ["later", "Just exploring"]] }
+      ["999", "€60k or more"]] }
   ];
   var NAMES = {
-    accounts: "Accounts and login", payments: "Subscriptions and purchases", ai: "AI features",
-    social: "Posts, sharing and chat", maps: "Maps and location", admin: "Admin dashboard",
-    integrations: "Connections to other services"
+    accounts: "Login and accounts", payments: "Payments or subscriptions", ai: "AI features",
+    social: "Chat or messages", integrations: "Bookings", admin: "Admin dashboard", unsure: "Not sure yet"
   };
 
   /* ---------- math ---------- */
   function mid(x) { return (x.low + x.high) / 2; }
+  /* The quiz no longer asks for platform or design: price iPhone + Android with the clean design, the founder confirms
+     both on the call. "Bookings" uses the integrations price, "Chat" the social price, and a marketplace can't run
+     without an admin side. */
+  function priced(a) {
+    var features = a.features.filter(function (f) { return PRICES.features[f]; });
+    if (a.kind === "marketplace") features.push("admin");
+    return { stage: a.stage === "designs" || a.stage === "prototype" ? "designs" : "idea", platform: "mobile", design: "clean", features: features };
+  }
   function calc(a) {
     var p = PRICES.platform[a.platform || "ios"], d = PRICES.design[a.design || "clean"], s = PRICES.stage[a.stage] || 1;
     var low = PRICES.base.low, high = PRICES.base.high, weeks = PRICES.base.weeks;
@@ -85,32 +99,28 @@
     a.features.forEach(function (f) { var v = mid(PRICES.features[f]); sub += v; out.push([NAMES[f], v]); });
     if (p > 1) out.push([a.platform === "all" ? "Android and web versions" : "Android version", sub * (p - 1)]);
     if (d > 1) out.push(["Custom design and animation", sub * p * (d - 1)]);
-    if (s < 1) out.push(["Your existing designs", -sub * p * d * (1 - s)]);
+    if (s < 1) out.push(["Your existing designs or prototype", -sub * p * d * (1 - s)]);
     return out;
   }
   function has(f) { return function (a) { return a.features.indexOf(f) > -1; }; }
   function drop(f) { return function (a) { a.features = a.features.filter(function (x) { return x !== f; }); }; }
   var CUTS = [
     { when: function (a) { return a.platform !== "ios"; }, apply: function (a) { a.platform = "ios"; },
-      title: function (a) { return a.platform === "all" ? "Launch on iPhone first, add Android and web later." : "Launch on iPhone first, add Android later."; },
+      title: "Launch on iPhone first, add Android later.",
       text: "iPhone users spend the most on apps, so it's the cheapest place to prove people pay." },
-    { when: has("social"), apply: drop("social"), title: "Leave out posts and chat.",
-      text: "Prove people pay for the core first. Communities are expensive to build and to moderate." },
+    { when: has("social"), apply: drop("social"), title: "Leave out chat.",
+      text: "Prove people pay for the core first. Chat is expensive to build and to moderate." },
     { when: has("admin"), apply: drop("admin"), title: "Skip the admin dashboard for launch.",
       text: "Manage content straight in the database until there's enough of it to need a dashboard." },
-    { when: function (a) { return a.design === "custom"; }, apply: function (a) { a.design = "clean"; },
-      title: "Start with the clean design.", text: "Add the custom look once people pay for the app." },
-    { when: has("integrations"), apply: drop("integrations"), title: "Connect other services in version two.",
-      text: "Launch with the core, then add the connections your users ask for." },
-    { when: has("maps"), apply: drop("maps"), title: "Leave maps for version two.",
-      text: "Unless location is the point of the app, it can wait." }
+    { when: has("integrations"), apply: drop("integrations"), title: "Leave bookings for version two.",
+      text: "Launch with the core, then add what your users ask for." }
   ];
   function clone(a) { return { stage: a.stage, platform: a.platform, design: a.design, features: a.features.slice() }; }
   function bestCuts(a) {
     var base = calc(a).mid;
     var list = CUTS.filter(function (c) { return c.when(a); }).map(function (c) {
       var b = clone(a); c.apply(b);
-      return { cut: c, title: typeof c.title === "function" ? c.title(a) : c.title, text: c.text, saves: base - calc(b).mid };
+      return { cut: c, title: c.title, text: c.text, saves: base - calc(b).mid };
     }).filter(function (x) { return x.saves >= 1; });
     list.sort(function (x, y) { return y.saves - x.saves; });
     list = list.slice(0, 3);
@@ -159,18 +169,21 @@
   }
   function answerLines(a) {
     return [
+      ["App", labelOf("kind", a.kind)],
       ["Stage", labelOf("stage", a.stage)],
-      ["Platforms", labelOf("platform", a.platform)],
-      ["Features", a.features.map(function (f) { return NAMES[f]; }).join(", ") || "None"],
-      ["Design", labelOf("design", a.design)],
-      ["Budget", labelOf("budget", a.budget)],
-      ["Start", labelOf("start", a.start)]
+      ["Features", a.features.map(function (f) { return NAMES[f]; }).join(", ") || "None picked"],
+      ["Launch", labelOf("launch", a.launch)],
+      ["Budget", labelOf("budget", a.budget)]
     ];
+  }
+  function isPhone(v) {
+    var d = String(v).replace(/\D/g, "");
+    return /^\+?[\d\s()\/.-]+$/.test(String(v)) && d.length >= 7 && d.length <= 15;
   }
 
   var core = {
-    PRICES: PRICES, STEPS: STEPS, NAMES: NAMES, calc: calc, moneyLines: moneyLines, bestCuts: bestCuts,
-    paybackNums: paybackNums, kr: kr, kl: kl, num: num, labelOf: labelOf, cleanAnswers: cleanAnswers, answerLines: answerLines
+    PRICES: PRICES, STEPS: STEPS, NAMES: NAMES, priced: priced, calc: calc, moneyLines: moneyLines, bestCuts: bestCuts,
+    paybackNums: paybackNums, kr: kr, kl: kl, num: num, labelOf: labelOf, cleanAnswers: cleanAnswers, answerLines: answerLines, isPhone: isPhone
   };
   if (typeof module === "object" && module.exports) { module.exports = core; return; }
 
@@ -204,17 +217,10 @@
   })();
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function rangeText() { var r = calc(ans); return kr(r.low) + " to " + kr(r.high); }
   function summary() {
-    var r = calc(ans);
-    return "Name: " + lead.name + "\nEmail: " + lead.email + "\n\n" +
+    return "Name: " + lead.first + " " + lead.last + "\nEmail: " + lead.email + "\nPhone: " + lead.phone + "\n\n" +
       answerLines(ans).map(function (l) { return l[0] + ": " + l[1]; }).join("\n") +
-      "\n\nEstimate: " + kr(r.low) + " to " + kr(r.high) + " (best guess " + kr(r.mid) + "), " + r.wLow + " to " + r.wHigh + " weeks";
-  }
-  function payback(m, price) {
-    var p = paybackNums(m, price);
-    return "At <b>€" + price + " a year</b>, it takes about <b>" + num(p.subs) + " paying subscribers</b> to earn the build back in year one. " +
-      "With a typical " + p.paidPct + "% of downloads paying, that's about <b>" + num(p.downloads) + " downloads</b>.";
+      (lead.message ? "\n\n" + lead.message : "");
   }
 
   /* ---------- URLs per view (funnel steps in analytics, back button) ---------- */
@@ -260,63 +266,43 @@
     if (!fromHistory) go(s.slug);
     focusTop(root.querySelector(".est-q"));
   }
-  function renderGate(fromHistory) {
+  function field(id, label, type, auto, max, value) {
+    return '<div class="field"><label for="' + id + '">' + label + '</label><input id="' + id + '" type="' + type + '" autocomplete="' + auto +
+      '" maxlength="' + max + '" required value="' + esc(value || "") + '" /></div>';
+  }
+  function renderContact(fromHistory) {
+    var l = lead || {};
     root.innerHTML = head(true, "Last step", 100) +
       '<form class="form est-gate" novalidate>' +
-      '<div><p class="est-q" tabindex="-1">Your estimate is ready.</p><p class="est-hint">You see it on the next screen, and we email you a copy.</p></div>' +
-      '<div class="form-row"><div class="field"><label for="e-name">Name</label><input id="e-name" type="text" autocomplete="name" maxlength="80" required value="' + esc(lead ? lead.name : "") + '" /></div>' +
-      '<div class="field"><label for="e-email">Email</label><input id="e-email" type="email" autocomplete="email" maxlength="160" required value="' + esc(lead ? lead.email : "") + '" /></div></div>' +
+      '<div><p class="est-q" tabindex="-1">Where can we reach you?</p><p class="est-hint">A founder calls you with your estimate: price, timeline and what your first version really needs. You also get it by email.</p></div>' +
+      '<div class="form-row">' + field("e-first", "First name", "text", "given-name", 40, l.first) + field("e-last", "Last name", "text", "family-name", 40, l.last) + "</div>" +
+      '<div class="form-row">' + field("e-email", "Email", "email", "email", 160, l.email) + field("e-phone", "Phone", "tel", "tel", 30, l.phone) + "</div>" +
+      '<div class="field"><label for="e-msg">Anything we should know? <span class="est-optional">Optional</span></label><textarea id="e-msg" rows="3" maxlength="1000">' + esc(l.message || "") + "</textarea></div>" +
+      '<label class="est-consent"><input type="checkbox" id="e-consent" required' + (l.consent ? " checked" : "") + " /><span>Yes, you may call me on this number about my app estimate.</span></label>" +
       '<input type="checkbox" id="e-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />' +
-      '<button class="btn btn-lg btn-block" type="submit">Show my estimate</button>' +
-      '<p class="form-foot">No newsletter. We only email you about your app.</p>' +
+      '<button class="btn btn-lg btn-block" type="submit">Get my free estimate</button>' +
+      '<p class="form-foot">No newsletter. We only contact you about your app.</p>' +
       '<p class="form-status" role="status" aria-live="polite"></p></form>';
-    if (!fromHistory) go("email");
+    if (!fromHistory) go("contact");
     focusTop(root.querySelector(".est-q"));
   }
-  function renderResult(fromHistory) {
-    var r = calc(ans), cuts = bestCuts(ans), b = +ans.budget, note = "";
-    if (b && b < 100) {
-      if (r.high <= b) note = "That fits the budget you had in mind.";
-      else if (r.low <= b) note = "Your budget of up to €" + b + "k covers the lower end of this range.";
-      else note = "That's more than the €" + b + "k you had in mind." + (cuts.list.length ? " The cuts below bring it closer." : "");
-    }
-    var exploring = ans.start === "later";
-    var spots = WD.spotsLong || "Only 5 founder calls a week.";
-    var price = PRICES.defaultPrice;
-    var html = '<div class="est-result">' +
-      '<p class="est-label" tabindex="-1">Your estimate</p>' +
-      '<p class="est-price">' + kr(r.low) + " to " + kr(r.high) + "</p>" +
-      '<p class="est-sub">About ' + r.wLow + " to " + r.wHigh + " weeks from kickoff to the App Store. Our best single guess: " + kr(r.mid) + ".</p>" +
-      '<p class="est-copy" role="status" aria-live="polite"></p>' +
-      (note ? '<p class="est-note">' + note + "</p>" : "") +
-      '<h2 class="est-h">Where the money goes</h2><dl class="est-lines">' +
-      moneyLines(ans).map(function (l) { return "<div><dt>" + l[0] + "</dt><dd>" + kl(l[1]) + "</dd></div>"; }).join("") + "</dl>" +
-      '<h2 class="est-h">How to launch for less</h2>';
-    if (cuts.list.length) {
-      html += '<ul class="est-cuts">' + cuts.list.map(function (x) {
-        return "<li><b>" + x.title + "</b> " + x.text + '<span class="est-save">Saves about ' + kl(x.saves) + "</span></li>";
-      }).join("") + "</ul>" +
-        '<p class="est-cuts-total">' + (cuts.list.length > 1 ? "All together: " : "With that: ") + kr(cuts.after.low) + " to " + kr(cuts.after.high) + ".</p>";
-    } else {
-      html += '<p class="est-text">Your version one is already lean. Keep it that way until paying users ask for more.</p>';
-    }
-    html += '<h2 class="est-h">When does it pay for itself?</h2>' +
-      '<p class="est-text">Your price per year:</p>' +
-      '<div class="segmented est-prices">' + PRICES.yearPrices.map(function (p) {
-        return '<label><input type="radio" name="est-price" value="' + p + '"' + (p === price ? " checked" : "") + " /><span>€" + p + "</span></label>";
-      }).join("") + "</div>" +
-      '<p class="est-payback" id="est-payback">' + payback(r.mid, price) + "</p>" +
-      '<p class="est-reveal">Building the app is the predictable part. Getting those downloads is where most apps stall, and it\'s the part we\'ve done with our own: Grass Identifier went from $458 to $20.2k a month in 10&nbsp;months.</p>' +
-      '<div class="est-cta">' +
-      (exploring ? '<p class="est-text">No rush. When you\'re ready to build:</p>' : "") +
-      '<button class="btn btn-lg btn-block' + (exploring ? " btn-outline" : "") + '" type="button" id="est-call">Book my free project call</button>' +
-      '<p class="est-cta-note">30 minutes with a founder. We check your scope and cut what version one doesn\'t need. If you want us to build it, you get a fixed price. <b>' + spots + "</b></p>" +
-      '<div class="calendar" id="est-calendar" hidden></div>' +
-      '<p class="est-done" role="status" aria-live="polite"></p></div>' +
-      '<p class="est-restart"><button class="est-link est-restart-btn" type="button">Start over</button></p></div>';
-    root.innerHTML = html;
-    if (!fromHistory) go("result");
-    focusTop(root.querySelector(".est-label"));
+  function renderThanks(fromHistory) {
+    root.innerHTML = '<div class="est-thanks">' +
+      '<p class="est-q" tabindex="-1">Thanks, ' + esc(lead.first) + ". We're preparing your estimate.</p>" +
+      '<p class="est-text">We\'ll call you shortly on <b>' + esc(lead.phone) + "</b>, or first thing in the morning if it's night here in Munich. You'll also get the estimate by email within a few hours.</p>" +
+      (CONFIG.bookingUrl && WD.openBooking ? '<div class="est-cta"><p class="est-text"><b>Busy?</b> Pick a time that suits you: 30 minutes with a founder, free.</p>' +
+      '<button class="btn btn-lg btn-block" type="button" id="est-pick">Pick a time</button>' +
+      '<div class="calendar" id="est-calendar" hidden></div></div>' : "") + "</div>";
+    if (!fromHistory) go("thanks");
+    focusTop(root.querySelector(".est-q"));
+  }
+  function pickTime() {
+    var cal = document.getElementById("est-calendar");
+    document.getElementById("est-pick").hidden = true;
+    cal.hidden = false;
+    WD.openBooking(cal, lead.first + " " + lead.last, lead.email, "Phone: " + lead.phone + ". " + summary().split("\n\n").slice(1).join(". ").replace(/\n/g, ". "),
+      function () { go("booked"); });
+    go("pick-time");
   }
 
   /* ---------- lead delivery: POST /api/lead (api/lead.js emails it via Resend) ---------- */
@@ -325,45 +311,24 @@
     payload.source = SOURCE;
     return fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && !!j.ok, copy: !!j.copy }; });
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && !!j.ok }; });
       })
       .catch(function () { return { ok: false }; });
   }
   function mailto(subject, body) {
     return "mailto:" + CONFIG.leadEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
   }
-  function sendEstimate() {
+  function sendEstimate(st, btn) {
     var key = JSON.stringify([ans, lead]);
-    if (key === sentKey) return;   // back and forward again: no second email
-    sentKey = key;
-    var copy = root.querySelector(".est-copy");
-    post({ type: "estimate", name: lead.name, email: lead.email, answers: ans }).then(function (res) {
-      if (!res.ok) sentKey = "";
-      if (res.copy && copy && copy.isConnected) copy.textContent = "A copy is on its way to " + lead.email + ".";
-    });
-  }
-  function requestCall() {
-    var btn = document.getElementById("est-call"), done = root.querySelector(".est-done");
-    var mail = '<a href="mailto:' + CONFIG.leadEmail + '">' + CONFIG.leadEmail + "</a>";
+    if (key === sentKey) { renderThanks(); return; }   // back and forward again: no second email
     btn.disabled = true;
-    done.textContent = "Sending…";
-    post({ type: "call", name: lead.name, email: lead.email, answers: ans }).then(function (res) {
+    st.className = "form-status";
+    st.textContent = "Sending…";
+    post({ type: "estimate", first: lead.first, last: lead.last, email: lead.email, phone: lead.phone, consent: lead.consent, message: lead.message, answers: ans }).then(function (res) {
       btn.disabled = false;
-      if (CONFIG.bookingUrl && WD.openBooking) {
-        var cal = document.getElementById("est-calendar");
-        cal.hidden = false;
-        WD.openBooking(cal, lead.name, lead.email, "Cost estimate " + rangeText() + ". " + summary().split("\n\n")[1].replace(/\n/g, ". "),
-          function () { go("call-booked"); });
-        btn.hidden = true;
-        done.textContent = "";
-      } else if (res.ok) {
-        btn.hidden = true;
-        done.textContent = "Done. We'll email you within 24 hours with times for the call.";
-      } else {
-        done.innerHTML = 'That didn\'t go through. <a href="' + mailto("Project call: " + lead.name + " (estimate " + rangeText() + ")", "I'd like a 30-minute call about my app.\n\n" + summary()) + '">Email us your estimate</a> or write to ' + mail + ".";
-        return;
-      }
-      go("call-requested");
+      if (res.ok) { sentKey = key; renderThanks(); return; }
+      st.className = "form-status err";
+      st.innerHTML = 'That didn\'t go through. <a href="' + mailto("App estimate: " + lead.first + " " + lead.last, "Please call me about my app estimate.\n\n" + summary()) + '">Send it by email instead.</a>';
     });
   }
 
@@ -430,13 +395,7 @@
   function next() {
     busy = false;
     step += 1;
-    if (step >= STEPS.length) { reached = STEPS.length; renderGate(); } else renderStep();
-  }
-  function restart() {
-    ans = { features: [] };
-    step = 0;
-    reached = 0;
-    renderStep();
+    if (step >= STEPS.length) { reached = STEPS.length; renderContact(); } else renderStep();
   }
   function showAudit(focus, fromHistory) {
     if (!audit) return;
@@ -457,8 +416,8 @@
     for (var i = 0; i < STEPS.length; i++) {
       if (STEPS[i].slug === view && i <= reached) { step = i; renderStep(true); return; }
     }
-    if (view === "email" && complete()) { step = STEPS.length; renderGate(true); return; }
-    if ((view === "result" || view === "call-requested" || view === "call-booked") && lead && complete()) { renderResult(true); return; }
+    if (view === "contact" && complete()) { step = STEPS.length; renderContact(true); return; }
+    if ((view === "thanks" || view === "pick-time" || view === "booked") && lead && sentKey) { renderThanks(true); return; }
     step = 0;
     renderStep(true);
     if (fromHistory || view) go("", true);
@@ -486,41 +445,39 @@
       window.setTimeout(next, reducedMotion ? 0 : 180);
     } else if (t.classList.contains("est-next")) {
       next();
-    } else if (t.id === "est-call") {
-      requestCall();
-    } else if (t.classList.contains("est-restart-btn")) {
-      restart();
+    } else if (t.id === "est-pick") {
+      pickTime();
     }
   });
   root.addEventListener("change", function (e) {
-    var t = e.target;
-    if (t.type === "checkbox" && t.id !== "e-bot") {
-      ans.features = Array.prototype.map.call(root.querySelectorAll(".est-check input:checked"), function (i) { return i.value; });
-      t.closest("label").classList.toggle("is-on", t.checked);
-      var n = root.querySelector(".est-next");
-      if (n) n.textContent = ans.features.length ? "Next" : "None of these, next";
-    } else if (t.name === "est-price") {
-      document.getElementById("est-payback").innerHTML = payback(calc(ans).mid, +t.value);
-    }
+    var t = e.target, box = t.closest ? t.closest(".est-check") : null;
+    if (!box) return;
+    ans.features = Array.prototype.map.call(root.querySelectorAll(".est-check input:checked"), function (i) { return i.value; });
+    box.classList.toggle("is-on", t.checked);
+    var n = root.querySelector(".est-next");
+    if (n) n.textContent = ans.features.length ? "Next" : "None of these, next";
   });
   root.addEventListener("submit", function (e) {
     e.preventDefault();
     interacted = true;
-    var name = document.getElementById("e-name").value.trim();
-    var email = document.getElementById("e-email").value.trim();
-    var st = root.querySelector(".form-status");
     if (document.getElementById("e-bot").checked) return;
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!name || !emailOk) {
+    var val = function (id) { return document.getElementById(id).value.trim(); };
+    var l = { first: val("e-first"), last: val("e-last"), email: val("e-email"), phone: val("e-phone"), message: val("e-msg"), consent: document.getElementById("e-consent").checked };
+    var st = root.querySelector(".form-status");
+    var bad = !l.first ? ["e-first", "Add your first name so we know who we're talking to."]
+      : !l.last ? ["e-last", "Add your last name so we know who we're talking to."]
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(l.email) ? ["e-email", "Add an email address we can reach you at."]
+      : !isPhone(l.phone) ? ["e-phone", "Add a phone number with the country code, like +49 151 2345678."]
+      : !l.consent ? ["e-consent", "Tick the box so we may call you. Prefer email? Write to " + CONFIG.leadEmail + "."]
+      : null;
+    if (bad) {
       st.className = "form-status err";
-      st.textContent = !name ? "Add your name so we know who we're talking to." : "Add an email address we can reach you at.";
-      document.getElementById(!name ? "e-name" : "e-email").focus();
+      st.textContent = bad[1];
+      document.getElementById(bad[0]).focus();
       return;
     }
-    lead = { name: name, email: email };
-    // The visitor sees the result right away; the lead (and the visitor's copy) go out in the background.
-    renderResult();
-    sendEstimate();
+    lead = l;
+    sendEstimate(st, root.querySelector("button[type=submit]"));
   });
 
   var auditBack = document.getElementById("audit-back");
