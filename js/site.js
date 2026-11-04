@@ -7,14 +7,14 @@
      CONFIG: fill these in, nothing else needs to change.
      ------------------------------------------------------------------ */
   var CONFIG = {
-    // The video floater, bottom right over the page: self-hosted .mp4 (or a Bunny/other EU CDN mp4 URL), filmed 9:16.
-    // Small: loops its first seconds muted. Click: full video with sound, the button under it opens the short contact form.
-    // Empty: no floater on wizarddynamics.com; localhost and branch previews play the placeholder below.
-    vslSrc: "",
-    vslPoster: "",     // optional poster image for the <video>
-    vslCaptions: "",   // optional WebVTT file, e.g. "video/vsl-en.vtt"
-    vslPlaceholder: "/video/vsl-placeholder.mp4",
-    vslPlaceholderPoster: "/video/vsl-placeholder.jpg",
+    // The video floater, bottom right over the page: self-hosted .mp4, filmed 9:16, captions burned in.
+    // Small: vslPreview on a muted loop (8 s, 3:4, about 180 KB, so a visitor who never clicks doesn't load the big file).
+    // Click: vslSrc with sound, the button under it opens the short contact form. Empty vslSrc: no floater.
+    // New cut = new file name: /video/ is cached for a week.
+    vslSrc: "/video/wd-vsl-v2.mp4",
+    vslPreview: "/video/wd-vsl-preview.mp4",
+    vslPoster: "/video/wd-vsl-poster.jpg",
+    vslCaptions: "",   // optional WebVTT file, only for a video without burned-in captions
     // Short contact form: opens after this many seconds without any input while the hero is on screen, once per tab session. 0 = off.
     popupIdleSeconds: 15,
     // Leads (estimates, Revenue Audit requests) go to /api/lead, which emails them via Resend
@@ -278,8 +278,6 @@
   var vfVideo = $("#vf-video");
   var vfOpen = false;
   var vfStarted = false;
-  var draftsOn = document.documentElement.classList.contains("drafts-on");
-  var vslUrl = CONFIG.vslSrc || (draftsOn ? CONFIG.vslPlaceholder : "");
 
   function vfCollapse() {
     vfVideo.pause();
@@ -290,16 +288,16 @@
     onScroll();
   }
 
-  if (vf && vslUrl && !sessionFlag("wd-video")) {
-    vfVideo.poster = (CONFIG.vslSrc ? CONFIG.vslPoster : CONFIG.vslPlaceholderPoster) || "";
-    vfVideo.src = vslUrl;
-    if (CONFIG.vslSrc && CONFIG.vslCaptions) {
+  if (vf && CONFIG.vslSrc && !sessionFlag("wd-video")) {
+    vfVideo.poster = CONFIG.vslPoster || "";
+    vfVideo.src = CONFIG.vslPreview || CONFIG.vslSrc;
+    if (CONFIG.vslCaptions) {
       var track_ = document.createElement("track");
       track_.kind = "captions"; track_.srclang = "en"; track_.label = "English"; track_.src = CONFIG.vslCaptions; track_.default = true;
       vfVideo.appendChild(track_);
     }
 
-    /* Small: the first seconds on a muted loop, unless the visitor asked for less motion or less data */
+    /* Small: the preview on a muted loop, unless the visitor asked for less motion or less data */
     var previewOk = !reducedMotion && !(navigator.connection && navigator.connection.saveData);
     vfVideo.addEventListener("timeupdate", function () {
       if (!vfStarted && vfVideo.currentTime > 8) vfVideo.currentTime = 0;
@@ -320,7 +318,8 @@
       vfVideo.loop = false;
       if (!vfStarted) {
         vfStarted = true;
-        vfVideo.currentTime = 0;
+        if (CONFIG.vslPreview) vfVideo.src = CONFIG.vslSrc;
+        else vfVideo.currentTime = 0;
         track("/video/play");
       }
       vf.classList.add("open");

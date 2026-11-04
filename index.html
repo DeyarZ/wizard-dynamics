@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=20" />
+  <link rel="stylesheet" href="css/site.css?v=21" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var vaScript = document.createElement("script"); vaScript.defer = true; vaScript.src = "/_vercel/insights/script.js"; document.head.appendChild(vaScript); }</script>
 </head>
@@ -528,13 +528,13 @@
   <a class="btn" href="/estimate" data-cta="mobile-sticky">Get my estimate</a>
 </div>
 
-<!-- Video floater, bottom right over the page. Hidden until js/site.js has a video: CONFIG.vslSrc is the real one, the placeholder only plays on localhost and branch previews, never on wizarddynamics.com. -->
+<!-- Video floater, bottom right over the page. js/site.js shows it when CONFIG.vslSrc is set. -->
 <aside class="vf" id="vf" aria-label="Intro video" hidden>
-  <div class="vf-frame" data-ph="vsl-video">
+  <div class="vf-frame">
     <video id="vf-video" playsinline muted preload="metadata"></video>
     <button class="vf-play" id="vf-play" type="button">
       <span class="vf-play-icon"><svg width="22" height="22" aria-hidden="true"><use href="#i-play"/></svg></span>
-      <span class="vf-play-label">Watch how we did it</span>
+      <span class="vf-play-label"><span class="vf-more">From idea to launch, </span>5&nbsp;min</span>
     </button>
     <button class="vf-close" id="vf-close" type="button" aria-label="Close video"><svg width="14" height="14" aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
@@ -583,6 +583,6 @@
   </div>
 </dialog>
 
-<script src="js/site.js?v=19" defer></script>
+<script src="js/site.js?v=20" defer></script>
 </body>
 </html>
