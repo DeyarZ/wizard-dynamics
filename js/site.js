@@ -27,7 +27,13 @@
     // a returning visitor who sees "3 left" on Monday and on Sunday knows the scarcity is fake.
     // The countdown always runs to Sunday 23:59 (visitor's time), when the week's spots reset.
     spotsLeft: null,
-    spotsTotal: 5
+    spotsTotal: 5,
+    // New builds we still start before the deadline: a rule the founders set and hold (Deyar, 4 Nov 2026).
+    // Lower buildsLeft the day a build is signed. At 0 or after buildsDeadline every build-slots line disappears
+    // and the bar falls back to the weekly calls. Offer bar, mobile sticky bar, founders letter, FAQ, closing CTA.
+    buildsLeft: 2,
+    buildsBefore: "January",
+    buildsDeadline: "2027-01-01"
   };
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -44,15 +50,35 @@
   var total = CONFIG.spotsTotal, left = CONFIG.spotsLeft;
   var hasLeft = typeof left === "number";
   var spotsCopy = {
-    bar: hasLeft
-      ? "<b>" + left + " of " + total + " free founder calls left</b>"
-      : "<b>Only " + total + " free founder calls a week</b>",
+    timerLong: hasLeft ? left + " of " + total + " free founder calls left, closes in " : "This week's " + total + " free founder calls close in ",
+    timerShort: hasLeft ? left + " of " + total + " calls left: " : "Free calls close in ",
     long: hasLeft ? left + " of " + total + " founder calls left this week." : "Only " + total + " founder calls a week."
   };
   $$("[data-spots]").forEach(function (el) {
     var html = spotsCopy[el.getAttribute("data-spots")];
     if (html) el.innerHTML = html;
   });
+
+  /* Build slots left before the deadline. Off (0 left or deadline passed): the bar and the sticky bar fall back, the rest disappears */
+  var builds = CONFIG.buildsLeft, before = CONFIG.buildsBefore;
+  var buildsOn = builds > 0 && new Date() < new Date(CONFIG.buildsDeadline);
+  var one = builds === 1;
+  var buildsCopy = buildsOn ? {
+    bar: "Only " + builds + ' build<span class="hide-sm"> slot</span>' + (one ? "" : "s") + " left before " + before,
+    long: "Only " + builds + " build " + (one ? "slot" : "slots") + " left before " + before + ".",
+    short: "<b>Only " + builds + " build" + (one ? "" : "s") + " left</b><br>before " + before,
+    inline: ", and only " + builds + " more " + (one ? "starts" : "start") + " before " + before
+  } : {
+    bar: hasLeft ? left + " of " + total + " free founder calls left" : "Only " + total + " free founder calls a week",
+    short: "<b>Free,</b> about 2&nbsp;minutes"
+  };
+  $$("[data-builds]").forEach(function (el) {
+    var kind = el.getAttribute("data-builds");
+    if (kind === "block") { if (!buildsOn) el.style.display = "none"; return; }
+    if (buildsCopy[kind]) el.innerHTML = buildsCopy[kind];
+    else el.style.display = "none";
+  });
+
   var timers = $$("[data-countdown]");
   function weekEnd(now) {
     var end = new Date(now);
