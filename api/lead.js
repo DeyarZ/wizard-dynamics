@@ -1,4 +1,5 @@
-/* POST /api/lead: leads from /estimate (quiz + contact details) and the Revenue Audit form.
+/* POST /api/lead: leads from /estimate (quiz + contact details), the short contact form on the landing page
+   (pop-up and video button, no quiz answers) and the Revenue Audit form.
 
    Every lead is emailed to LEAD_TO (default hello@wizarddynamics.com) via Resend, with reply-to = the visitor,
    so answering the lead is one click. An estimate lead has the phone number in the subject and a tap-to-call button:
@@ -72,6 +73,12 @@ function estimateFacts(a) {
     pb: core.paybackNums(r.mid, core.PRICES.defaultPrice)
   };
 }
+function callHtml(phone, text) {
+  return '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#0a0a0f">' +
+    '<p style="margin:0 0 18px"><a href="tel:' + esc(phone.replace(/[^\d+]/g, "")) + '" style="display:inline-block;padding:13px 22px;border-radius:8px;background:#1e54f0;color:#ffffff;font-size:17px;font-weight:600;text-decoration:none">Call ' + esc(phone) + "</a></p>" +
+    esc(text).replace(/\n/g, "<br>") + "</div>";
+}
+function utcStamp() { return new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC"; }
 function munichTime(d) { return d.toLocaleTimeString("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit" }); }
 function estimateLead(name, email, phone, message, a, source, sendAt) {
   const f = estimateFacts(a);
@@ -82,13 +89,10 @@ function estimateLead(name, email, phone, message, a, source, sendAt) {
     "\n\nCalculated estimate: " + f.range + " (best guess " + core.kr(f.r.mid) + "), " + f.r.wLow + " to " + f.r.wHigh + " weeks. Assumes iPhone + Android, clean design.\n" +
     f.lines.map((l) => "- " + l[0] + ": " + l[1]).join("\n") +
     "\n\nCall first: this estimate mail goes to them on its own at " + munichTime(sendAt) + " (Munich).\n" +
-    "Call consent: ticked on /estimate, " + new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC\nSource: " + source;
-  const html = '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#0a0a0f">' +
-    '<p style="margin:0 0 18px"><a href="tel:' + esc(phone.replace(/[^\d+]/g, "")) + '" style="display:inline-block;padding:13px 22px;border-radius:8px;background:#1e54f0;color:#ffffff;font-size:17px;font-weight:600;text-decoration:none">Call ' + esc(phone) + "</a></p>" +
-    esc(text).replace(/\n/g, "<br>") + "</div>";
+    "Call consent: ticked on /estimate, " + utcStamp() + "\nSource: " + source;
   return {
     subject: "Call " + name + " " + phone + ": " + f.range + ", budget " + core.labelOf("budget", a.budget) + ", launch " + core.labelOf("launch", a.launch).toLowerCase(),
-    text, html
+    text, html: callHtml(phone, text)
   };
 }
 function visitorEstimate(name, a) {
@@ -171,6 +175,17 @@ module.exports = async function handler(req, res) {
         "thanks for your answers. We're preparing your estimate and will call you shortly on " + phone + ", or first thing in the morning if it's night here in Munich. You'll also get the estimate by email within a few hours.\n\nBusy? Pick a time: " + BOOKING + "\nOr just reply to this email."),
       { ...visitorEstimate(name, a), scheduled_at: sendAt.toISOString() }
     ];
+  } else if (b.type === "call") {
+    const name = clip(b.name, 80), phone = clip(b.phone, 30);
+    if (!name) return res.status(400).json({ ok: false, error: "name" });
+    if (!core.isPhone(phone)) return res.status(400).json({ ok: false, error: "phone" });
+    if (b.consent !== true) return res.status(400).json({ ok: false, error: "consent" });
+    const text = "Call: " + phone + "\nName: " + name + "\nEmail: " + email + "\n\n" +
+      "Short form, no quiz answers: ask what they're building, then give price and timeline on the call.\n" +
+      "Call consent: ticked in the short form, " + utcStamp() + "\nSource: " + source;
+    lead = { subject: "Call " + name + " " + phone + ": short form, no answers yet", text, html: callHtml(phone, text) };
+    sends = [visitorNote(name, "We'll call you shortly",
+      "thanks. We'll call you shortly on " + phone + ", or first thing in the morning if it's night here in Munich.\n\nBusy? Pick a time: " + BOOKING + "\nOr just reply to this email.")];
   } else if (b.type === "audit") {
     const name = clip(b.name, 80), revenue = REVENUE.indexOf(b.revenue) > -1 ? b.revenue : "-", app = clip(b.app, 300);
     if (!name) return res.status(400).json({ ok: false, error: "name" });

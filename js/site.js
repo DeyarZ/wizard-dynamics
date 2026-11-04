@@ -7,13 +7,16 @@
      CONFIG: fill these in, nothing else needs to change.
      ------------------------------------------------------------------ */
   var CONFIG = {
-    // VSL, option A (recommended): self-hosted .mp4 (or a Bunny/other EU CDN mp4 URL).
-    // Plays muted with captions on load, "Click for sound" restarts it with sound.
+    // The video floater, bottom right over the page: self-hosted .mp4 (or a Bunny/other EU CDN mp4 URL), filmed 9:16.
+    // Small: loops its first seconds muted. Click: full video with sound, the button under it opens the short contact form.
+    // Empty: no floater on wizarddynamics.com; localhost and branch previews play the placeholder below.
     vslSrc: "",
-    vslCaptions: "",   // optional WebVTT file, e.g. "video/vsl-en.vtt"
     vslPoster: "",     // optional poster image for the <video>
-    // VSL, option B: YouTube/Vimeo embed URL (click to play). Needs a datenschutz update.
-    vslEmbed: "",
+    vslCaptions: "",   // optional WebVTT file, e.g. "video/vsl-en.vtt"
+    vslPlaceholder: "/video/vsl-placeholder.mp4",
+    vslPlaceholderPoster: "/video/vsl-placeholder.jpg",
+    // Short contact form: opens after this many seconds without any input while the hero is on screen, once per tab session. 0 = off.
+    popupIdleSeconds: 15,
     // Leads (estimates, Revenue Audit requests) go to /api/lead, which emails them via Resend
     // (api/lead.js, key in the Vercel env). leadEmail is only the mailto fallback if that request fails.
     // Cal.com / Calendly booking link. When set, the calendar opens inline after "Book my free project call"
@@ -76,14 +79,18 @@
   var mobileCta = $("#mobile-cta");
   var heroCta = $(".hero-action .btn");
   var book = $("#book");
+  var vf = $("#vf");
   function onScroll() {
     if (!heroCta) return;
     var pastHeroCta = heroCta.getBoundingClientRect().bottom < 0;
     if (nav) nav.classList.toggle("show", pastHeroCta);
-    if (mobileCta && book) {
-      var b = book.getBoundingClientRect();
-      var atBook = b.top < window.innerHeight && b.bottom > 0;
-      mobileCta.classList.toggle("show", pastHeroCta && !atBook);
+    if (!book) return;
+    var b = book.getBoundingClientRect();
+    var atBook = b.top < window.innerHeight && b.bottom > 0;
+    if (mobileCta) mobileCta.classList.toggle("show", pastHeroCta && !atBook);
+    if (vf) {
+      vf.classList.toggle("lift", pastHeroCta && !atBook);        // sits above the mobile sticky bar
+      vf.classList.toggle("away", b.top < window.innerHeight);    // the closing CTA and the footer's legal links stay clear
     }
   }
   var ticking = false;
@@ -104,6 +111,7 @@
     burger.setAttribute("aria-expanded", open ? "true" : "false");
     burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     document.body.style.overflow = open ? "hidden" : "";
+    if (vf) vf.classList.toggle("menu-open", open);
   }
   if (burger) burger.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
   $$("#mobile-menu a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
@@ -115,104 +123,6 @@
       if (d.open) faqs.forEach(function (o) { if (o !== d) o.open = false; });
     });
   });
-
-  /* ------------------------------------------------------------------
-     VSL
-     ------------------------------------------------------------------ */
-  var frame = $("#vsl-frame");
-  var poster = $("#vsl-play");
-  var modal = $("#video-modal");
-  var lastFocus = null;
-
-  function openModal() {
-    if (!modal) return;
-    lastFocus = document.activeElement;
-    modal.hidden = false;
-    document.body.style.overflow = "hidden";
-    $("#modal-close").focus();
-  }
-  function closeModal() {
-    if (!modal || modal.hidden) return;
-    modal.hidden = true;
-    document.body.style.overflow = "";
-    if (lastFocus) lastFocus.focus();
-  }
-  if (modal) {
-    $("#modal-close").addEventListener("click", closeModal);
-    $("#modal-cta").addEventListener("click", closeModal);
-    modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
-  }
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { closeModal(); setMenu(false); }
-  });
-
-  function buildVideo(withSound) {
-    var v = document.createElement("video");
-    v.src = CONFIG.vslSrc;
-    v.playsInline = true;
-    v.setAttribute("playsinline", "");
-    v.preload = "metadata";
-    if (CONFIG.vslPoster) v.poster = CONFIG.vslPoster;
-    if (CONFIG.vslCaptions) {
-      var t = document.createElement("track");
-      t.kind = "captions"; t.srclang = "en"; t.label = "English"; t.src = CONFIG.vslCaptions; t.default = true;
-      v.appendChild(t);
-    }
-    v.muted = !withSound;
-    v.controls = !!withSound;
-    return v;
-  }
-
-  function mountSmartAutoplay() {
-    var v = buildVideo(false);
-    v.autoplay = true;
-    v.loop = true;
-    var sound = document.createElement("button");
-    sound.type = "button";
-    sound.className = "vsl-sound";
-    sound.innerHTML = '<svg width="22" height="22" aria-hidden="true"><use href="#i-muted"/></svg>Click for sound';
-    sound.addEventListener("click", function () {
-      v.loop = false;
-      v.muted = false;
-      v.currentTime = 0;
-      v.controls = true;
-      v.play();
-      sound.remove();
-    });
-    frame.innerHTML = "";
-    frame.appendChild(v);
-    frame.appendChild(sound);
-    var p = v.play();
-    if (p && p.catch) p.catch(function () { /* autoplay blocked: user can still click for sound */ });
-  }
-
-  if (frame && poster) {
-    // The play button only exists once there is a video to play; until then the poster is a static revenue chart.
-    if (CONFIG.vslSrc || CONFIG.vslEmbed) poster.hidden = false;
-    var saveData = navigator.connection && navigator.connection.saveData;
-    if (CONFIG.vslSrc && !reducedMotion && !saveData) {
-      mountSmartAutoplay();
-    } else {
-      poster.addEventListener("click", function () {
-        if (CONFIG.vslSrc) {
-          var v = buildVideo(true);
-          frame.innerHTML = "";
-          frame.appendChild(v);
-          v.play();
-        } else if (CONFIG.vslEmbed) {
-          var f = document.createElement("iframe");
-          f.src = CONFIG.vslEmbed + (CONFIG.vslEmbed.indexOf("?") > -1 ? "&" : "?") + "autoplay=1&rel=0";
-          f.allow = "autoplay; fullscreen; picture-in-picture";
-          f.allowFullscreen = true;
-          f.title = "Wizard Dynamics intro video";
-          frame.innerHTML = "";
-          frame.appendChild(f);
-        } else {
-          openModal();
-        }
-      });
-    }
-  }
 
   /* ------------------------------------------------------------------
      The estimate page (js/estimate.js) reads these
@@ -262,4 +172,201 @@
     if (from) q.unshift("from=" + encodeURIComponent(from));
     if (q.length) a.setAttribute("href", a.getAttribute("href") + "?" + q.join("&"));
   });
+
+  /* ------------------------------------------------------------------
+     Short contact form + video floater (landing page only)
+     ------------------------------------------------------------------ */
+  /* Vercel Analytics on Hobby counts page views only, so these steps are virtual pages in the Pages list */
+  function track(path) { if (window.va) window.va("pageview", { route: path, path: path }); }
+
+  /* Per tab, gone when the tab closes (datenschutz: Kurzformular und Video) */
+  var memo = {};
+  function sessionFlag(key, set) {
+    try {
+      if (set) sessionStorage.setItem(key, "1");
+      return !!sessionStorage.getItem(key);
+    } catch (e) {
+      if (set) memo[key] = true;
+      return !!memo[key];
+    }
+  }
+
+  var pop = $("#call-pop");
+  var popFrom = "idle";
+  function openCall(from) {
+    if (!pop || pop.open) return;
+    if (!pop.showModal) { location.href = "/estimate"; return; }
+    popFrom = from;
+    sessionFlag("wd-pop", true);
+    pop.showModal();
+    document.body.style.overflow = "hidden";
+    $("#pop-title").focus();   // not the first field: on phones that would throw the keyboard at someone who was just reading
+    track("/popup/" + from);
+  }
+
+  if (pop) {
+    var backdropDown = false;
+    $("#pop-close").addEventListener("click", function () { pop.close(); });
+    pop.addEventListener("pointerdown", function (e) { backdropDown = e.target === pop; });
+    pop.addEventListener("click", function (e) { if (e.target === pop && backdropDown) pop.close(); });
+    pop.addEventListener("close", function () { document.body.style.overflow = ""; });
+
+    var callForm = $("#call-form");
+    var callStatus = $("#call-status");
+    var callSubmit = $("#call-submit");
+    callForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if ($("#c-bot").checked) return;
+      var name = $("#c-name").value.trim(), phone = $("#c-phone").value.trim(), email = $("#c-email").value.trim();
+      var digits = phone.replace(/\D/g, "");
+      var bad = !name ? ["#c-name", "Add your name so we know who we're talking to."]
+        : !/^\+?[\d\s()\/.-]+$/.test(phone) || digits.length < 7 || digits.length > 15 ? ["#c-phone", "Add a phone number with the country code, like +49 151 2345678."]
+        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? ["#c-email", "Add an email address we can reach you at."]
+        : !$("#c-consent").checked ? ["#c-consent", "Tick the box so we may call you. Prefer email? Write to " + CONFIG.leadEmail + "."]
+        : null;
+      if (bad) {
+        callStatus.className = "form-status err";
+        callStatus.textContent = bad[1];
+        $(bad[0]).focus();
+        return;
+      }
+      callSubmit.disabled = true;
+      callStatus.className = "form-status";
+      callStatus.textContent = "Sending…";
+      var source = { from: "popup-" + popFrom };
+      carry.forEach(function (kv) {
+        var i = kv.indexOf("=");
+        try { source[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (err) { /* a broken tag is not worth a lost lead */ }
+      });
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "call", name: name, phone: phone, email: email, consent: true, source: source })
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && !!j.ok; });
+      }).catch(function () { return false; }).then(function (ok) {
+        callSubmit.disabled = false;
+        if (!ok) {
+          callStatus.className = "form-status err";
+          callStatus.innerHTML = 'That didn\'t go through. <a id="call-mail">Send it by email instead.</a>';
+          $("#call-mail").href = "mailto:" + CONFIG.leadEmail + "?subject=" + encodeURIComponent("Please call me: " + name) +
+            "&body=" + encodeURIComponent("Please call me about my app.\n\nName: " + name + "\nPhone: " + phone + "\nEmail: " + email);
+          return;
+        }
+        callForm.hidden = true;
+        $("#call-first").textContent = name.split(/\s+/)[0];
+        $("#call-phone").textContent = phone;
+        var done = $("#call-done");
+        done.hidden = false;
+        done.focus();
+        track("/popup/" + popFrom + "/sent");
+        if (!CONFIG.bookingUrl) return;
+        $("#call-busy").hidden = false;
+        $("#call-pick").addEventListener("click", function () {
+          var cal = $("#call-cal");
+          $("#call-pick").hidden = true;
+          cal.hidden = false;
+          pop.classList.add("wide");
+          openBooking(cal, name, email, "Phone: " + phone, function () { track("/popup/booked"); });
+          track("/popup/pick-time");
+        });
+      });
+    });
+  }
+
+  /* The video floater */
+  var vfVideo = $("#vf-video");
+  var vfOpen = false;
+  var vfStarted = false;
+  var draftsOn = document.documentElement.classList.contains("drafts-on");
+  var vslUrl = CONFIG.vslSrc || (draftsOn ? CONFIG.vslPlaceholder : "");
+
+  function vfCollapse() {
+    vfVideo.pause();
+    vfVideo.controls = false;
+    vf.classList.remove("open");
+    vfOpen = false;
+    $("#vf-play").focus();
+    onScroll();
+  }
+
+  if (vf && vslUrl && !sessionFlag("wd-video")) {
+    vfVideo.poster = (CONFIG.vslSrc ? CONFIG.vslPoster : CONFIG.vslPlaceholderPoster) || "";
+    vfVideo.src = vslUrl;
+    if (CONFIG.vslSrc && CONFIG.vslCaptions) {
+      var track_ = document.createElement("track");
+      track_.kind = "captions"; track_.srclang = "en"; track_.label = "English"; track_.src = CONFIG.vslCaptions; track_.default = true;
+      vfVideo.appendChild(track_);
+    }
+
+    /* Small: the first seconds on a muted loop, unless the visitor asked for less motion or less data */
+    var previewOk = !reducedMotion && !(navigator.connection && navigator.connection.saveData);
+    vfVideo.addEventListener("timeupdate", function () {
+      if (!vfStarted && vfVideo.currentTime > 8) vfVideo.currentTime = 0;
+    });
+    vfVideo.loop = true;
+    window.setTimeout(function () {
+      vf.hidden = false;
+      onScroll();
+      if (!previewOk) return;
+      var p = vfVideo.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked: the poster and the play button still work */ });
+    }, 1200);
+
+    /* Click: from the top with sound the first time, afterwards on from where it stopped */
+    $("#vf-play").addEventListener("click", function () {
+      vfVideo.muted = false;
+      vfVideo.controls = true;
+      vfVideo.loop = false;
+      if (!vfStarted) {
+        vfStarted = true;
+        vfVideo.currentTime = 0;
+        track("/video/play");
+      }
+      vf.classList.add("open");
+      vfOpen = true;
+      $("#vf-close").focus();
+      var p = vfVideo.play();
+      if (p && p.catch) p.catch(function () { /* the native controls stay */ });
+    });
+
+    /* X: big back to small, small gone for this tab session */
+    $("#vf-close").addEventListener("click", function () {
+      if (vfOpen) { vfCollapse(); return; }
+      vfVideo.pause();
+      vf.hidden = true;
+      sessionFlag("wd-video", true);
+    });
+    $("#vf-cta").addEventListener("click", function () {
+      if (vfOpen) vfVideo.pause();
+      openCall("video");
+    });
+    vfVideo.addEventListener("ended", function () { if (vfOpen) openCall("video-end"); });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    setMenu(false);
+    if (vfOpen && !(pop && pop.open)) vfCollapse();
+  });
+
+  /* The pop-up: seconds without any input while the hero is on screen */
+  var hero = $(".hero");
+  var idleMs = (CONFIG.popupIdleSeconds || 0) * 1000;
+  if (pop && hero && idleMs && !sessionFlag("wd-pop")) {
+    var idleTimer = 0;
+    var armIdle = function () {
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(function () {
+        var busy = pop.open || vfOpen || document.hidden || (menu && menu.classList.contains("open"));
+        var inHero = hero.getBoundingClientRect().bottom > window.innerHeight / 2;
+        if (!busy && inHero && !sessionFlag("wd-pop")) openCall("idle");   // otherwise the next input starts the clock again
+      }, idleMs);
+    };
+    ["pointermove", "pointerdown", "keydown", "wheel", "scroll", "touchstart"].forEach(function (ev) {
+      window.addEventListener(ev, armIdle, { passive: true });
+    });
+    document.addEventListener("visibilitychange", armIdle);
+    armIdle();
+  }
 })();

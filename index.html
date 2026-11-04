@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=19" />
+  <link rel="stylesheet" href="css/site.css?v=20" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -32,7 +32,6 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.2v13.6c0 .8.86 1.28 1.53.86l10.7-6.8a1 1 0 0 0 0-1.72L9.53 4.34A1 1 0 0 0 8 5.2z"/></symbol>
   <symbol id="i-close" viewBox="0 0 16 16"><path d="m4 4 8 8m0-8-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="i-muted" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="m16 9.5 5 5m0-5-5 5"/></g></symbol>
   <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.2 8.4 3 3 6.6-6.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.6l2.47 5.3 5.8.68-4.29 3.96 1.15 5.73L10 14.4l-5.13 2.87 1.15-5.73L1.73 7.58l5.8-.68z"/></symbol>
   <symbol id="i-star-half" viewBox="0 0 20 20"><path fill="#cbcbd3" d="M10 1.6l2.47 5.3 5.8.68-4.29 3.96 1.15 5.73L10 14.4l-5.13 2.87 1.15-5.73L1.73 7.58l5.8-.68z"/><path fill="currentColor" d="M10 1.6 7.53 6.9l-5.8.68 4.29 3.96-1.15 5.73L10 14.4z"/></symbol>
@@ -110,16 +109,12 @@
       <a class="stage-tile phone" href="https://apps.apple.com/us/app/grass-identifier-ai-scan/id6748553668" target="_blank" rel="noopener"><img src="img/apps/ui/grass-result.jpg" alt="Grass Identifier result: Perennial Ryegrass" width="660" height="1431" loading="lazy" /></a>
 
       <figure class="stage-vsl vsl">
-        <div class="vsl-frame" id="vsl-frame" data-ph="vsl-video">
+        <div class="vsl-frame">
           <div class="vsl-poster">
             <div class="vsl-text">
               <p class="vsl-kicker">Just one of our 200+ apps</p>
               <p class="vsl-title" data-ph="verify">From $458 to $20.2k a month in 10&nbsp;months</p>
               <p class="vsl-note">Grass Identifier, monthly revenue in RevenueCat, July 2025 to August&nbsp;2026.</p>
-              <button class="vsl-play-row" id="vsl-play" type="button" hidden>
-                <span class="vsl-play"><svg width="24" height="24" aria-hidden="true"><use href="#i-play"/></svg></span>
-                <span class="vsl-play-label">Watch how we did it<small>4 minutes, with Deyar and Manuel</small></span>
-              </button>
             </div>
             <div class="vsl-chart"><svg class="chart" viewBox="0 0 700 370" role="img" aria-labelledby="grass-t"><title id="grass-t">Grass Identifier monthly revenue from Jul 2025 to Aug 2026, best month May 2026 at $20.2k</title><line x1="380" x2="700" y1="255.3" y2="255.3" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="248.3" fill="#85858f" font-size="12" text-anchor="end">$5k</text><line x1="380" x2="700" y1="184.6" y2="184.6" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="177.6" fill="#85858f" font-size="12" text-anchor="end">$10k</text><line x1="380" x2="700" y1="113.9" y2="113.9" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="106.9" fill="#85858f" font-size="12" text-anchor="end">$15k</text><line x1="380" x2="700" y1="43.2" y2="43.2" stroke="rgba(255,255,255,.13)" stroke-width="1"/><text x="700" y="36.2" fill="#85858f" font-size="12" text-anchor="end">$20k</text><line x1="0" x2="700" y1="326" y2="326" stroke="rgba(255,255,255,.13)" stroke-width="1"/><path class="bar" style="--i:0" d="M7.8,326 V322.8 Q7.8,319.5 11.0,319.5 H34.7 Q37.9,319.5 37.9,322.8 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:1" d="M53.5,326 V310.5 Q53.5,306.5 57.5,306.5 H79.7 Q83.7,306.5 83.7,310.5 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:2" d="M99.2,326 V308.9 Q99.2,304.9 103.2,304.9 H125.4 Q129.4,304.9 129.4,308.9 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:3" d="M144.9,326 V308.1 Q144.9,304.1 148.9,304.1 H171.1 Q175.1,304.1 175.1,308.1 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:4" d="M190.6,326 V312.3 Q190.6,308.3 194.6,308.3 H216.8 Q220.8,308.3 220.8,312.3 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:5" d="M236.3,326 V310.2 Q236.3,306.2 240.3,306.2 H262.5 Q266.5,306.2 266.5,310.2 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:6" d="M282.1,326 V311.4 Q282.1,307.4 286.1,307.4 H308.2 Q312.2,307.4 312.2,311.4 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:7" d="M327.8,326 V312.5 Q327.8,308.5 331.8,308.5 H353.9 Q357.9,308.5 357.9,312.5 V326 Z" fill="rgba(255,255,255,.3)"/><path class="bar" style="--i:8" d="M373.5,326 V283.7 Q373.5,279.7 377.5,279.7 H399.7 Q403.7,279.7 403.7,283.7 V326 Z" fill="#ffffff"/><path class="bar" style="--i:9" d="M419.2,326 V198.6 Q419.2,194.6 423.2,194.6 H445.4 Q449.4,194.6 449.4,198.6 V326 Z" fill="#ffffff"/><path class="bar" style="--i:10" d="M464.9,326 V44.4 Q464.9,40.4 468.9,40.4 H491.1 Q495.1,40.4 495.1,44.4 V326 Z" fill="#ffffff"/><text class="chart-end bar-label" x="480.0" y="30.4" fill="#ffffff" font-size="20" font-weight="650" text-anchor="middle">$20.2k</text><path class="bar" style="--i:11" d="M510.6,326 V97.5 Q510.6,93.5 514.6,93.5 H536.8 Q540.8,93.5 540.8,97.5 V326 Z" fill="#ffffff"/><path class="bar" style="--i:12" d="M556.3,326 V91.0 Q556.3,87.0 560.3,87.0 H582.5 Q586.5,87.0 586.5,91.0 V326 Z" fill="#ffffff"/><path class="bar" style="--i:13" d="M602.1,326 V109.1 Q602.1,105.1 606.1,105.1 H628.2 Q632.2,105.1 632.2,109.1 V326 Z" fill="#ffffff"/><text x="7.8" y="358" fill="#85858f" font-size="12">Launch, Jul 2025</text><text x="632.2" y="358" fill="#85858f" font-size="12" text-anchor="end">Aug 2026</text></svg></div>
           </div>
@@ -533,15 +528,61 @@
   <a class="btn" href="/estimate" data-cta="mobile-sticky">Get my estimate</a>
 </div>
 
-<div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-  <div class="modal-box">
-    <button class="modal-close" id="modal-close" type="button" aria-label="Close"><svg width="16" height="16"><use href="#i-close"/></svg></button>
-    <h3 class="h3" id="modal-title">The intro video is being recorded.</h3>
-    <p>Until it's live, find out what your app would cost to build and to earn back. It takes two minutes.</p>
-    <a class="btn" href="/estimate" id="modal-cta" data-cta="modal">Get my free app estimate</a>
+<!-- Video floater, bottom right over the page. Hidden until js/site.js has a video: CONFIG.vslSrc is the real one, the placeholder only plays on localhost and branch previews, never on wizarddynamics.com. -->
+<aside class="vf" id="vf" aria-label="Intro video" hidden>
+  <div class="vf-frame" data-ph="vsl-video">
+    <video id="vf-video" playsinline muted preload="metadata"></video>
+    <button class="vf-play" id="vf-play" type="button">
+      <span class="vf-play-icon"><svg width="22" height="22" aria-hidden="true"><use href="#i-play"/></svg></span>
+      <span class="vf-play-label">Watch how we did it</span>
+    </button>
+    <button class="vf-close" id="vf-close" type="button" aria-label="Close video"><svg width="14" height="14" aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
-</div>
+  <button class="btn vf-cta" id="vf-cta" type="button"><span class="vf-long">Claim my free call</span><span class="vf-short">Free call</span></button>
+</aside>
 
-<script src="js/site.js?v=17" defer></script>
+<!-- Short contact form: opens after CONFIG.popupIdleSeconds without input in the hero (once per tab session) and from the video's button. Sends type "call" to /api/lead. -->
+<dialog class="pop" id="call-pop" aria-labelledby="pop-title">
+  <div class="pop-box">
+    <button class="pop-close" id="pop-close" type="button" aria-label="Close"><svg width="16" height="16" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <form class="form" id="call-form" novalidate>
+      <div>
+        <h2 class="pop-title" id="pop-title" tabindex="-1" autofocus>What will your app really&nbsp;cost?</h2>
+        <p class="pop-lead">Skip the questions. Leave your number and a founder calls you with price and&nbsp;timeline.</p>
+      </div>
+      <div class="field">
+        <label for="c-name">Name</label>
+        <input id="c-name" type="text" autocomplete="name" maxlength="80" required />
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="c-phone">Phone</label>
+          <input id="c-phone" type="tel" autocomplete="tel" maxlength="30" placeholder="+49 151 2345678" required />
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" type="email" autocomplete="email" maxlength="160" required />
+        </div>
+      </div>
+      <label class="est-consent"><input type="checkbox" id="c-consent" required /><span>Yes, you may call me on this number about my app.</span></label>
+      <input type="checkbox" id="c-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+      <button class="btn btn-lg btn-block" type="submit" id="call-submit">Claim my free call</button>
+      <p class="form-status" id="call-status" role="status" aria-live="polite"></p>
+      <p class="form-foot"><span data-spots="long">Only 5 founder calls a week.</span> Free, no commitment. <a href="/datenschutz">Privacy</a></p>
+      <p class="pop-alt">Not ready for a call? <a href="/estimate" data-cta="popup-quiz">Answer 6 quick questions instead</a></p>
+    </form>
+    <div class="pop-done" id="call-done" tabindex="-1" hidden>
+      <h2 class="pop-title">Thanks, <span id="call-first"></span>. A founder calls&nbsp;you.</h2>
+      <p class="pop-lead">We'll call you shortly on <b id="call-phone"></b>, or first thing in the morning if it's night here in Munich.</p>
+      <div id="call-busy" hidden>
+        <p class="pop-lead"><b>Busy?</b> Pick a time that suits you: 30 minutes with a founder,&nbsp;free.</p>
+        <button class="btn btn-lg btn-block pop-pick" type="button" id="call-pick">Pick a time</button>
+        <div class="calendar" id="call-cal" hidden></div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/site.js?v=18" defer></script>
 </body>
 </html>

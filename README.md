@@ -10,7 +10,7 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 
 | Placeholder (`data-ph`) | Where | What's needed |
 |---|---|---|
-| `vsl-video` | Hero | Record the VSL (6–9 min, founder on camera, real RevenueCat/ASC screens by minute 2). Export mp4 + captions (.vtt), host it yourself or on an EU CDN, set `CONFIG.vslSrc` / `vslCaptions` in `js/site.js`. Then it autoplays muted with captions and a "Click for sound" button. |
+| `vsl-video` | Video floater, bottom right | Record the VSL vertical (9:16, founder on camera, real RevenueCat/ASC screens by minute 2, the first 8 seconds loop muted as the thumbnail). Export mp4 + captions (.vtt), put it in `video/` or on an EU CDN, set `CONFIG.vslSrc` / `vslCaptions` / `vslPoster` in `js/site.js`. That turns the floater on at wizarddynamics.com; until then only localhost and branch previews show it, with the placeholder. |
 | `founder-photo` | Founders section, booking card | One real natural-light photo of Deyar + Manuel (16:9, hidden until it exists) and a square headshot of Deyar (replaces the logo in the form card) |
 | `testimonial` | "What founders say" (`#reviews`) | The three quotes are **invented layout drafts** (founder's request) in `js/draft-reviews.js`, loaded only on localhost, Vercel branch previews (not main) or with `?drafts`; on wizarddynamics.com and production deployment URLs the section stays hidden and the names are not in the HTML. Replace with real quotes (full name, app, photo, one number) directly in `index.html`, remove `draft-only`, delete `js/draft-reviews.js` |
 | `client-logos` | Under the testimonials (hidden) | 4–6 real client logos, or delete the row |
