@@ -159,23 +159,22 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .topbar-inner > * { white-space: nowrap; }
 .topbar-brand { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
 .topbar-mark { width: 40px; height: auto; flex: none; }
-.topbar-offer b { font-weight: 650; }
-.topbar-spots { color: var(--on-gold-2); }
-.topbar-spots b { color: var(--ink); font-weight: 650; }
+.topbar-spots b { font-weight: 700; }
+.topbar-first { color: var(--on-gold-2); }
 .topbar-timer { color: var(--on-gold-2); }
 .topbar-timer [data-countdown] { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
 .topbar-sep { width: 1px; height: 14px; background: rgba(9, 8, 13, .24); flex: none; }
 .show-sm { display: none; }
 .topbar-cta {
   margin-left: auto;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #fff;
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--blue);
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 4px;
-  transition: text-decoration-color .15s ease;
+  transition: background .15s ease;
 }
-.topbar:hover .topbar-cta { text-decoration-color: var(--ink); }
+.topbar:hover .topbar-cta { background: var(--blue-hover); }
 
 /* ---------- Nav. On the landing page (#nav) it stays hidden until the hero CTA is off screen, then it's fixed at the top (js/site.js) ---------- */
 .nav {
@@ -759,7 +758,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 @media (max-width: 1180px) {
-  .topbar-name { display: none; }
+  .topbar-name, .topbar-first { display: none; }
   .shelf-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-tags { display: grid; gap: 4px; }
   .service-tags li + li::before { display: none; }
@@ -779,11 +778,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 @media (max-width: 900px) {
-  .topbar-inner { position: relative; flex-wrap: wrap; justify-content: flex-start; gap: 1px 10px; min-height: 0; padding: 7px 0 8px 46px; }
+  .topbar-inner { position: relative; flex-wrap: wrap; justify-content: flex-start; gap: 1px 10px; min-height: 0; padding: 7px 124px 8px 46px; }
   .topbar-brand { position: absolute; left: 0; top: 50%; margin: 0; transform: translateY(-50%); }
   .topbar-mark { width: 34px; }
-  .topbar-sep { height: 12px; }
-  .topbar-sep-2, .topbar-cta { display: none; }
+  .topbar-sep, .topbar-first { display: none; }
+  .topbar-cta { position: absolute; right: 0; top: 50%; margin: 0; padding: 6px 10px; transform: translateY(-50%); font-size: 12.5px; }
   .topbar-timer { flex-basis: 100%; }
 }
 
@@ -891,7 +890,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   :root { --gutter: 20px; --section-y: 76px; }
   body { font-size: 17px; }
   .hide-sm { display: none !important; }
+  .show-sm { display: inline; }
   .topbar { font-size: 13px; }
+  .topbar-inner { padding-right: 66px; }
   .brand { font-size: 17px; gap: 10px; }
   .brand-mark { width: 40px; }
   .hero-title { font-size: 44px; line-height: .98; }

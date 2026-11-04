@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=15" />
+  <link rel="stylesheet" href="css/site.css?v=16" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
 </head>
@@ -39,16 +39,16 @@
   <symbol id="wd" viewBox="0 0 69 27.5"><path class="wd-w" d="M0 0H7.2L16 17.6 20.3 9 23.9 16.2 18.25 27.5H13.75ZM19 0H26.2L32.75 13.1 39.3 0H46.5L32.75 27.5Z"/><path class="wd-d" d="M49.7 0H58A11 11 0 0 1 69 11V16.5A11 11 0 0 1 58 27.5H35.95L38.7 22H57.5A5.5 5.5 0 0 0 63 16.5V11A5.5 5.5 0 0 0 57.5 5.5H46.95Z"/></symbol>
 </svg>
 
-<!-- Offer bar: logo, the free app estimate, weekly founder calls, live countdown to Sunday night. Scrolls away; the nav below only slides in once the hero CTA is off screen (js/site.js) -->
+<!-- Offer bar: logo, the weekly cap on free founder calls, live countdown to Sunday night, button. The whole bar links to /estimate. Scrolls away; the nav below only slides in once the hero CTA is off screen (js/site.js) -->
 <a class="topbar" href="/estimate" data-cta="topbar" data-ph="offer">
   <span class="container topbar-inner">
     <span class="topbar-brand"><svg class="topbar-mark" viewBox="0 0 69 27.5" aria-hidden="true"><use href="#wd"/></svg><span class="topbar-name">Wizard Dynamics</span></span>
-    <span class="topbar-offer"><b>Free app estimate</b></span>
+    <span class="topbar-spots" data-spots="bar"><b>Only 5 free founder calls a week</b></span>
+    <span class="topbar-sep topbar-first" aria-hidden="true"></span>
+    <span class="topbar-first">First come, first served</span>
     <span class="topbar-sep" aria-hidden="true"></span>
-    <span class="topbar-spots" data-spots="bar">Only <b>5</b> <span class="hide-sm">founder </span>calls a week</span>
-    <span class="topbar-sep topbar-sep-2" aria-hidden="true"></span>
-    <span class="topbar-timer">This week's calls close in <span data-countdown>Sunday</span></span>
-    <span class="topbar-cta hide-sm">Get my estimate</span>
+    <span class="topbar-timer"><span class="hide-sm">This week's close in </span><span class="show-sm">Closes in </span><span data-countdown>Sunday</span></span>
+    <span class="topbar-cta"><span class="hide-sm">Claim my call</span><span class="show-sm">Claim</span></span>
   </span>
 </a>
 
@@ -542,6 +542,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=14" defer></script>
+<script src="js/site.js?v=15" defer></script>
 </body>
 </html>

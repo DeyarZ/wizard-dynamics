@@ -22,8 +22,8 @@
     bookingUrl: "https://cal.com/wizard-dynamics-consulting/30min",
     leadEmail: "hello@wizarddynamics.com",
     // Founder calls per week (after the free cost estimate, or for the Revenue Audit): offer bar, offer, booking.
-    // spotsLeft: null -> "Only 5 founder calls a week" (always true while you cap at 5).
-    // spotsLeft: 3    -> "3 of 5 founder calls left this week". Only set it if you update it as calls get booked:
+    // spotsLeft: null -> "Only 5 free founder calls a week" (true only while a 6th lead in the same week really waits; if you call more, raise spotsTotal first).
+    // spotsLeft: 3    -> "3 of 5 free founder calls left". Only set it if you update it as calls get booked:
     // a returning visitor who sees "3 left" on Monday and on Sunday knows the scarcity is fake.
     // The countdown always runs to Sunday 23:59 (visitor's time), when the week's spots reset.
     spotsLeft: null,
@@ -45,8 +45,8 @@
   var hasLeft = typeof left === "number";
   var spotsCopy = {
     bar: hasLeft
-      ? "<b>" + left + "</b> of " + total + ' <span class="hide-sm">founder </span>calls left'
-      : "Only <b>" + total + '</b> <span class="hide-sm">founder </span>calls a week',
+      ? "<b>" + left + " of " + total + " free founder calls left</b>"
+      : "<b>Only " + total + " free founder calls a week</b>",
     long: hasLeft ? left + " of " + total + " founder calls left this week." : "Only " + total + " founder calls a week."
   };
   $$("[data-spots]").forEach(function (el) {
