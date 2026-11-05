@@ -152,7 +152,7 @@
     }
     if (onBooked) {
       if (openBooking.booked) window.Cal("off", { action: "bookingSuccessfulV2", callback: openBooking.booked });
-      openBooking.booked = function () { onBooked(); };
+      openBooking.booked = function () { if (window.WDT) window.WDT.ev("booked"); onBooked(); };
       window.Cal("on", { action: "bookingSuccessfulV2", callback: openBooking.booked });
     }
     el.innerHTML = "";
@@ -171,13 +171,21 @@
     var q = carry.slice(), from = a.getAttribute("data-cta");
     if (from) q.unshift("from=" + encodeURIComponent(from));
     if (q.length) a.setAttribute("href", a.getAttribute("href") + "?" + q.join("&"));
+    /* At the click: how long they stayed and what they watched, for the lead mail (js/track.js) */
+    var base = a.getAttribute("href");
+    a.addEventListener("click", function () {
+      if (window.WDT) a.setAttribute("href", base + (base.indexOf("?") > -1 ? "&" : "?") + window.WDT.tail());
+    });
   });
 
   /* ------------------------------------------------------------------
      Short contact form + video floater (landing page only)
      ------------------------------------------------------------------ */
-  /* Vercel Analytics on Hobby counts page views only, so these steps are virtual pages in the Pages list */
-  function track(path) { if (typeof window.va === "function") window.va("pageview", { route: path, path: path }); }
+  /* Vercel Analytics on Hobby counts page views only, so these steps are virtual pages in the Pages list. Our own counters get them per ad. */
+  function track(path) {
+    if (typeof window.va === "function") window.va("pageview", { route: path, path: path });
+    if (window.WDT) window.WDT.ev(path);
+  }
 
   /* Per tab, gone when the tab closes (datenschutz: Kurzformular und Video) */
   var memo = {};
@@ -241,7 +249,10 @@
       fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "call", name: name, phone: phone, email: email, consent: true, source: source })
+        body: JSON.stringify({
+          type: "call", name: name, phone: phone, email: email, consent: true, source: source,
+          fbc: window.WDT ? window.WDT.fbc : "", eng: window.WDT ? window.WDT.snapshot() : null, url: window.WDT ? window.WDT.url() : ""
+        })
       }).then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && !!j.ok; });
       }).catch(function () { return false; }).then(function (ok) {
@@ -260,6 +271,7 @@
         done.hidden = false;
         done.focus();
         track("/popup/" + popFrom + "/sent");
+        if (window.WDT) window.WDT.ev("lead_call");
         if (!CONFIG.bookingUrl) return;
         $("#call-busy").hidden = false;
         $("#call-pick").addEventListener("click", function () {
@@ -299,8 +311,19 @@
 
     /* Small: the preview on a muted loop, unless the visitor asked for less motion or less data */
     var previewOk = !reducedMotion && !(navigator.connection && navigator.connection.saveData);
+    var vfLast = 0, vfWatched = 0;
     vfVideo.addEventListener("timeupdate", function () {
-      if (!vfStarted && vfVideo.currentTime > 8) vfVideo.currentTime = 0;
+      if (!vfStarted) {
+        if (vfVideo.currentTime > 8) vfVideo.currentTime = 0;
+        return;
+      }
+      /* Seconds really watched: small steps only, dragging the slider ahead doesn't count */
+      var played = vfVideo.currentTime - vfLast;
+      vfLast = vfVideo.currentTime;
+      if (played > 0 && played < 2 && window.WDT) {
+        vfWatched += played;
+        window.WDT.video(vfWatched, vfVideo.duration);
+      }
     });
     vfVideo.loop = true;
     window.setTimeout(function () {
@@ -340,7 +363,10 @@
       if (vfOpen) vfVideo.pause();
       openCall("video");
     });
-    vfVideo.addEventListener("ended", function () { if (vfOpen) openCall("video-end"); });
+    vfVideo.addEventListener("ended", function () {
+      if (window.WDT) window.WDT.ev("v_end");
+      if (vfOpen) openCall("video-end");
+    });
   }
 
   document.addEventListener("keydown", function (e) {

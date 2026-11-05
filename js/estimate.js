@@ -228,7 +228,9 @@
     if (!routed) return;
     var url = BASE + (view ? "/" + view : "");
     if (location.pathname === url) return;
-    try { history[replace ? "replaceState" : "pushState"]({ est: view }, "", url); } catch (e) { /* file:// or sandboxed */ }
+    /* The query stays in the address: an in-app browser that reloads mid-quiz keeps the ad's click id and utm tags */
+    try { history[replace ? "replaceState" : "pushState"]({ est: view }, "", url + location.search); } catch (e) { /* file:// or sandboxed */ }
+    if (view && window.WDT) window.WDT.ev("est_" + view);
   }
 
   /* ---------- views ---------- */
@@ -282,6 +284,7 @@
       '<input type="checkbox" id="e-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />' +
       '<button class="btn btn-lg btn-block" type="submit">Get my free estimate</button>' +
       '<p class="form-foot">No newsletter. We only contact you about your app.</p>' +
+      '<p class="form-foot form-legal">If an ad on Facebook or Instagram brought you here, we let Meta know you signed up (hashed), so we can measure the ad. <a href="/datenschutz">Privacy</a></p>' +
       '<p class="form-status" role="status" aria-live="polite"></p></form>';
     if (!fromHistory) go("contact");
     focusTop(root.querySelector(".est-q"));
@@ -309,6 +312,7 @@
   function post(payload) {
     if (!window.fetch) return Promise.resolve({ ok: false });
     payload.source = SOURCE;
+    if (window.WDT) { payload.fbc = window.WDT.fbc; payload.eng = window.WDT.snapshot(); payload.url = window.WDT.url(); }
     return fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && !!j.ok }; });
@@ -326,7 +330,12 @@
     st.textContent = "Sending…";
     post({ type: "estimate", first: lead.first, last: lead.last, email: lead.email, phone: lead.phone, consent: lead.consent, message: lead.message, answers: ans }).then(function (res) {
       btn.disabled = false;
-      if (res.ok) { sentKey = key; renderThanks(); return; }
+      if (res.ok) {
+        sentKey = key;
+        if (window.WDT) window.WDT.ev("lead_estimate");
+        renderThanks();
+        return;
+      }
       st.className = "form-status err";
       st.innerHTML = 'That didn\'t go through. <a href="' + mailto("App estimate: " + lead.first + " " + lead.last, "Please call me about my app estimate.\n\n" + summary()) + '">Send it by email instead.</a>';
     });
@@ -363,6 +372,7 @@
           '">Send it by email instead.</a>';
         return;
       }
+      if (window.WDT) window.WDT.ev("lead_audit");
       status.textContent = "";
       form.style.display = "none";
       var success = document.getElementById("form-success");
@@ -435,6 +445,7 @@
       if (busy) return;
       var s = STEPS[step], v = t.getAttribute("data-v");
       ans[s.key] = v;
+      if (step === 0 && window.WDT) window.WDT.ev("quiz_start");
       if (s.key === "stage" && v === "live") { ans.stage = undefined; showAudit(true); return; }
       Array.prototype.forEach.call(root.querySelectorAll(".est-opt"), function (o) {
         var on = o === t;

@@ -616,6 +616,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .segmented input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: -2px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .form-foot { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); text-align: center; text-wrap: balance; }
+.form-legal { font-size: 12px; }
 .form-status { font-size: 14.5px; }
 .form-status:empty { display: none; }
 .form-status.err { color: #b42318; font-weight: 600; }

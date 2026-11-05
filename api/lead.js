@@ -10,9 +10,12 @@
    The estimate is computed here from the answers (js/estimate.js runs on both sides), so the only free text that
    reaches an email is the name, the contact details, the message and the app link, all trimmed and escaped.
 
+   A lead from a Meta ad is also reported to Meta as Lead, hashed (api/_meta.js).
+
    Env: RESEND_API_KEY (required, Vercel project env), LEAD_TO (optional, comma-separated). */
 "use strict";
 const core = require("../js/estimate.js");
+const meta = require("./_meta.js");
 
 const VISITOR_FROM = "Deyar Zakir <hello@wizarddynamics.com>";
 const BOOKING = "https://cal.com/wizard-dynamics-consulting/30min";   // same as CONFIG.bookingUrl in js/site.js
@@ -59,6 +62,14 @@ function sourceText(src) {
   if (!src || typeof src !== "object") return "direct";
   const keys = ["from", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "gclid", "fbclid"];
   return keys.filter((k) => src[k]).map((k) => k + "=" + clip(src[k], 200)).join(", ") || "direct";
+}
+/* What the lead did before writing (js/track.js), so the founder knows how warm the call is */
+function mmss(s) { return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function engagementText(e) {
+  if (!e || typeof e !== "object") return "";
+  const n = (v) => Math.min(Math.max(Math.round(Number(v)) || 0, 0), 86400);
+  const page = n(e.pageSec), video = n(e.videoSec), total = n(e.videoTotal);
+  return "\nBefore this: " + mmss(page) + " on the site, video " + (video ? mmss(video) + (total ? " of " + mmss(total) : "") + " watched" : "not played");
 }
 
 /* ---------- the estimate, as text (for us) and as the visitor's copy ---------- */
@@ -157,7 +168,7 @@ module.exports = async function handler(req, res) {
   if (!b || typeof b !== "object") return res.status(400).json({ ok: false });
   if (b.botcheck) return res.status(200).json({ ok: true });
 
-  const email = clip(b.email, 160), source = sourceText(b.source);
+  const email = clip(b.email, 160), source = sourceText(b.source) + engagementText(b.eng);
   if (!EMAIL.test(email)) return res.status(400).json({ ok: false, error: "email" });
 
   let lead, sends;
@@ -200,7 +211,13 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ ok: false, error: "type" });
   }
 
-  const [leadId] = await Promise.all([toUs({ ...lead, reply_to: email }), ...sends.map((m) => toVisitor(email, m))]);
+  /* Same mail twice (a retry after an error): same event id, Meta counts one */
+  const who = b.type === "estimate"
+    ? { first: clip(b.first, 40), last: clip(b.last, 40) }
+    : { first: clip(b.name, 80).split(/\s+/)[0], last: clip(b.name, 80).split(/\s+/).slice(1).join(" ") };
+  const report = meta.send(req, "Lead", { fbc: b.fbc, url: clip(b.url, 300), dedupe: email.toLowerCase(), email, phone: clip(b.phone, 30), ...who, custom: { lead_type: b.type } });
+
+  const [leadId] = await Promise.all([toUs({ ...lead, reply_to: email }), ...sends.map((m) => toVisitor(email, m)), report]);
   if (!leadId) return res.status(502).json({ ok: false });
   return res.status(200).json({ ok: true });
 };

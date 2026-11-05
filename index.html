@@ -23,7 +23,7 @@
   <!-- Draft content (class "draft-only", js/draft-reviews.js) renders only on localhost, Vercel branch previews (not main) or with ?drafts.
        Never on wizarddynamics.com or a production deployment URL. -->
   <script>(function () { var h = location.hostname; var drafts = /^(localhost|127\.0\.0\.1)$/.test(h) || /-git-(?!main-)/.test(h) || /[?&]drafts\b/.test(location.search); if (/(^|\.)wizarddynamics\.com$/.test(h)) drafts = false; document.documentElement.classList.add(drafts ? "drafts-on" : "is-live"); if (drafts) { var s = document.createElement("script"); s.src = "js/draft-reviews.js?v=1"; document.head.appendChild(s); } })();</script>
-  <link rel="stylesheet" href="css/site.css?v=23" />
+  <link rel="stylesheet" href="css/site.css?v=24" />
   <!-- Vercel Web Analytics: cookieless page views, served first-party from /_vercel/insights (not on localhost) -->
   <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { var vaScript = document.createElement("script"); vaScript.defer = true; vaScript.src = "/_vercel/insights/script.js"; document.head.appendChild(vaScript); }</script>
 </head>
@@ -575,7 +575,8 @@
       <input type="checkbox" id="c-bot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
       <button class="btn btn-lg btn-block" type="submit" id="call-submit">Claim my free call</button>
       <p class="form-status" id="call-status" role="status" aria-live="polite"></p>
-      <p class="form-foot"><span data-spots="long">Only 5 founder calls a week.</span> Free, no commitment. <a href="/datenschutz">Privacy</a></p>
+      <p class="form-foot"><span data-spots="long">Only 5 founder calls a week.</span> Free, no commitment.</p>
+      <p class="form-foot form-legal">If an ad on Facebook or Instagram brought you here, we let Meta know you signed up (hashed), so we can measure the ad. <a href="/datenschutz">Privacy</a></p>
       <p class="pop-alt">Not ready for a call? <a href="/estimate" data-cta="popup-quiz">Answer 6 quick questions instead</a></p>
     </form>
     <div class="pop-done" id="call-done" tabindex="-1" hidden>
@@ -590,6 +591,7 @@
   </div>
 </dialog>
 
-<script src="js/site.js?v=21" defer></script>
+<script src="js/track.js?v=1" defer></script>
+<script src="js/site.js?v=22" defer></script>
 </body>
 </html>
