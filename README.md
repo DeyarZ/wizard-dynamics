@@ -10,7 +10,7 @@ python3 -m http.server 8765   # → http://localhost:8765  (add ?ph to see place
 
 | Placeholder (`data-ph`) | Where | What's needed |
 |---|---|---|
-| `founder-photo` | Founders section, booking card | A square headshot of Deyar (replaces the logo in the form card; `img/team/deyar.jpg` is the source to crop from). The team row under the letter is live, titles for Andreas, Ayse and Jenny are still missing |
+| `founder-photo` | Founders section, booking card | A square headshot of Deyar (replaces the logo in the form card; `img/team/deyar.jpg` is the source to crop from). The team row under the letter is live, first names only |
 | `testimonial` | "What founders say" (`#reviews`) | The three quotes are **invented layout drafts** (founder's request) in `js/draft-reviews.js`, loaded only on localhost, Vercel branch previews (not main) or with `?drafts`; on wizarddynamics.com and production deployment URLs the section stays hidden and the names are not in the HTML. Replace with real quotes (full name, app, photo, one number) directly in `index.html`, remove `draft-only`, delete `js/draft-reviews.js` |
 | `client-logos` | Under the testimonials (hidden) | 4–6 real client logos, or delete the row |
 | `dashboard-screenshot` | Proof band (hidden) | Cropped, real RevenueCat or App Store Connect screenshot |
